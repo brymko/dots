@@ -24,6 +24,24 @@ restore_file() {
     fi
 }
 
+check_if_installed() {
+    if [ ! -f $(which $1) ]; then
+        echo "$1 not installed"
+        exit 1
+    fi
+}
+# check install 
+
+check_if_installed "i3"
+check_if_installed "i3status"
+check_if_installed "zsh"
+check_if_installed "vim"
+if [ ! -f "$ZSH/oh-my-zsh.sh" ]; then
+    echo "oh-my-zsh not installed"
+    exit 1
+fi
+
+
 # Directories
 
 mkdir -p "$HOME/.vim/autoload"
