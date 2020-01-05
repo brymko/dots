@@ -2,9 +2,9 @@
 
 
 update_packages() {
-    if $(which pacman); then
+    if command -v pacman; then
         pacman -Syyuu
-    elif $(which apt); then
+    elif command -v apt; then
         apt update 
     else
         echo "no known package manager"
@@ -12,17 +12,17 @@ update_packages() {
     fi
 }
 install_package() {
-    if which pacman; then
+    if command -v pacman; then
         pacman -S "$1"
-    elif $(which apt); then
-        apt install $1
+    elif command -v apt; then
+        apt install "$1"
     else
         echo "no known package manager"
         exit 1
     fi
 }
 install_shell() {
-    sh -c "$(curl -fsSL $1)"
+    sh -c "$(curl -fsSL "$1")"
 }
 
 update_packages
