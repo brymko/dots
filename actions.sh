@@ -1,4 +1,5 @@
 #!/bin/bash
+shopt -s dotglob
 
 # Functions
 
@@ -7,13 +8,18 @@ create_symlink() {
 }
 backup_if_exists() {
     if [[ -f $1 ]]; then
+        if [[ -L "$1" ]]; then
+            echo "$1 already is a symlink"
+            return 1
+        fi
         mv "$1" "$1.bak"
     fi
+    return 0
 }
 
 drop_file() {
-    backup_if_exists "$2";
-    create_symlink "$1" "$2";
+    backup_if_exists "$2" || return 1
+    create_symlink "$1" "$2"
 }
 
 restore_file() {
@@ -25,18 +31,19 @@ restore_file() {
 }
 
 check_if_installed() {
-    if [ ! -f $(which $1) ]; then
+    if [ ! -f "$(command -v "$1")" ]; then
         echo "$1 not installed"
         exit 1
     fi
 }
+
 # check install 
 
 check_if_installed "i3"
 check_if_installed "i3status"
 check_if_installed "zsh"
 check_if_installed "vim"
-if [ ! -f "$ZSH/oh-my-zsh.sh" ]; then
+if [ ! -f "$HOME/.config/oh-my-zsh.sh" ]; then
     echo "oh-my-zsh not installed"
     exit 1
 fi

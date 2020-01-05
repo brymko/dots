@@ -12,7 +12,7 @@ if [ -f "$ZDOTDIR/.last_dir" ]; then
     cd "$(cat $ZDOTDIR/.last_dir)"
 fi
 
-export ZSH="/home/brymko/.config/oh-my-zsh"
+export ZSH="$HOME/.config/oh-my-zsh"
 
 ZSH_THEME="alanpeabody"
 
