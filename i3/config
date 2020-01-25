@@ -1,7 +1,7 @@
 
 # Border
-default_border pixel 1
-default_floating_border pixel 1
+default_border pixel 3
+default_floating_border pixel 3
 hide_edge_borders smart
 
 #client.focused		#3cff00		#2c2c2c		#c1c1c1		#3cff00		#3cff00
@@ -37,6 +37,11 @@ floating_modifier $mod
 # screen brightness controls
 bindsym XF86MonBrightnessUp exec brightnessctl -d intel_backlight set 10%+ > /dev/null
 bindsym XF86MonBrightnessDown exec brightnessctl -d intel_backlight set 10%- > /dev/null
+
+# audio control 
+bindsym XF86AudioRaiseVolume exec amixer set Master 10%+
+bindsym XF86AudioLowerVolume exec amixer set Master 10%-
+bindsym XF86AudioMute exec amixer set Master toggle
 
 # start a terminal
 bindsym $mod+Return exec kitty

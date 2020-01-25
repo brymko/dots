@@ -57,6 +57,7 @@ mkdir -p "$HOME/.config/i3"
 mkdir -p "$HOME/.config/i3status"
 mkdir -p "$HOME/.config/i3lock"
 mkdir -p "$HOME/.config/shell"
+mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.config/terminal"
 mkdir -p "$HOME/.config/tmux"
 

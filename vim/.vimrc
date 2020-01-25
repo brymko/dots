@@ -55,7 +55,7 @@ set noruler
 set number
 set showmatch
 set diffopt=filler,horizontal
-set cursorline
+"set cursorline
 set autoindent
 
 " scrolling
@@ -72,15 +72,6 @@ set softtabstop=4
 set smarttab
 set expandtab
 
-" text handling
-set autoread
-set formatoptions-=tc
-set textwidth=0 " disable auto enter after end of editor
-set backspace=2
-filetype indent on
-syntax on
-let skip_defaults_vim=1
-
 " misc
 filetype plugin on
 filetype plugin indent on
@@ -88,6 +79,15 @@ set noerrorbells
 set history=10000
 set t_BE=
 set ttyfast
+
+" text handling
+set autoread
+set formatoptions-=tcro
+set textwidth=0 " disable auto enter after end of editor
+set backspace=2
+filetype indent on
+syntax on
+let skip_defaults_vim=1
 
 " folding
 set foldenable
@@ -144,7 +144,7 @@ nnoremap Q :call CloseWindowOrKillBuffer()<CR>
 nnoremap <leader>q :q!<CR>
 nnoremap <leader>u :nohl<CR>
 nnoremap <leader>lv :so $MYVIMRC<CR>
-nnoremap <leader>ev :vsp $MRVIMRC<CR>
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader><space> :call Preserve(":%s/\\s\\+$//e")<CR>
 nnoremap <leader>o :setlocal spell! spelllang=en_us<CR>
 
@@ -168,7 +168,7 @@ vnoremap > >gv
 vnoremap <C-c> :'<,'> w ! xclip -i -selection clipboard<CR><CR>
 
 " misc
-cnoremap sudow w !sudo tee % > /dev/null
+cnoremap sudow w !sudo tee % > /dev/null<CR><S-l><CR>
 
 " }}}
 
@@ -232,18 +232,21 @@ if !has('nvim')
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
 endif
+if !has('nvim')
+
+endif
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
-" Plug 'cohama/lexima.vim' " could be greate with enough configuration
 Plug 'rstacruz/vim-closer'
+" Plug 'cohama/lexima.vim' " could be great with enough configuration
+" Plug 'thirtythreeforty/lessspace.vim " Strip trailing ws version control friendly
 Plug 'tmux-plugins/vim-tmux'
 Plug 'mihaifm/bufstop'
-Plug 'sheerun/vim-polyglot'
-Plug 'ryanoasis/vim-devicons'
-Plug 'junegunn/goyo.vim'
+"Plug 'sheerun/vim-polyglot'
+" Plug 'junegunn/goyo.vim'
 Plug 'dense-analysis/ale'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/deoplete-clangx'

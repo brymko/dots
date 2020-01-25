@@ -1,6 +1,6 @@
 # shared history in all zsh
-setopt inc_append_history
-setopt share_history
+# setopt inc_append_history
+# setopt share_history
 
 # new terminal in the same directory
 function cd {
@@ -23,3 +23,6 @@ DISABLE_MAGIC_FUNCTIONS=true
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting extract sudo colored-man-pages)
 source $ZSH/oh-my-zsh.sh
 
+alias vi="vim"
+alias work="ssh -Y work"
+bindkey '^l' autosuggest-accept
