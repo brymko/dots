@@ -18,21 +18,6 @@ function! EnsureExists(path) " {{{
         call mkdir(expand(a:path))
     endif
 endfunction "}}}
-function! CloseWindowOrKillBuffer() " {{{
-    let no_of_windows_in_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
-
-    " never bdelete a nerd tree
-    if matchstr(expand("%"), 'NERD') == 'NERD'
-        wincmd c
-        return
-    endif
-
-    if no_of_windows_in_buffer > 1
-        wincmd c
-    else
-        bdelete
-    endif
-endfunction "}}}
 function! EnsureVimPlug() " {{{
     if empty(glob("~/.vim/autoload/plug.vim"))
         silent! execute '!curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
@@ -132,6 +117,7 @@ set viminfo=%,<800,'10,/50,:100,h,f0,n~/.config/vim/.viminfo
 "           + save/restore buffer list
 
 " views
+" au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
 " }}}
@@ -140,12 +126,11 @@ autocmd BufWinEnter *.* silent loadview
 
 " Leader
 let mapleader=" "
-nnoremap Q :call CloseWindowOrKillBuffer()<CR>
 nnoremap <leader>q :q!<CR>
 nnoremap <leader>u :nohl<CR>
 nnoremap <leader>lv :so $MYVIMRC<CR>
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader><space> :call Preserve(":%s/\\s\\+$//e")<CR>
+nnoremap <leader>w :call Preserve(":%s/\\s\\+$//e")<CR>
 nnoremap <leader>o :setlocal spell! spelllang=en_us<CR>
 
 
@@ -168,7 +153,7 @@ vnoremap > >gv
 vnoremap <C-c> :'<,'> w ! xclip -i -selection clipboard<CR><CR>
 
 " misc
-cnoremap sudow w !sudo tee % > /dev/null<CR><S-l><CR>
+cnoremap sudow w !sudo tee % > /dev/null<CR>
 
 " }}}
 
@@ -244,15 +229,18 @@ Plug 'rstacruz/vim-closer'
 " Plug 'cohama/lexima.vim' " could be great with enough configuration
 " Plug 'thirtythreeforty/lessspace.vim " Strip trailing ws version control friendly
 Plug 'tmux-plugins/vim-tmux'
-Plug 'mihaifm/bufstop'
+Plug 'mihaifm/bufstop' " needs configuration / stop using :bn :bp
 "Plug 'sheerun/vim-polyglot'
-" Plug 'junegunn/goyo.vim'
 Plug 'dense-analysis/ale'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/deoplete-clangx'
 Plug 'deoplete-plugins/deoplete-jedi'
 
+Plug 'jaredgorski/spacecamp'
+
 call plug#end()
+
+colorscheme spacecamp
 
 " Plugin conf
 
@@ -262,7 +250,6 @@ highlight Pmenu ctermbg=8 guibg=#606060
 highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
 highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
 
-nnoremap <leader>f :Goyo \| set linebreak<CR>
 
 " }}}
 
@@ -292,11 +279,16 @@ au FileType make setlocal noexpandtab "dont expandtab on Makefile
 " }}}
 " Vim {{{
 au BufEnter .vimrc :setlocal commentstring=\"\ %s
+
 " }}}
 " Shell {{{
-au BufEnter :setlocal commentstring=#\ %s
+au BufEnter *.sh :setlocal commentstring=#\ %s
+au BufEnter *.bash :setlocal commentstring=#\ %s
 
 " }}}
+" asm {{{
+au FileType asm :setlocal commentstring=;\ %s
 
+" }}}
 " }}}
 
