@@ -8,8 +8,8 @@ hide_edge_borders smart
 # Colors		    border		background	text		indicator	child_border
 #client.focused		#ff3d00		#2c2c2c		#c1c1c1		#ffb400		#ffb400
 client.focused      #00ff00     #2c2c2c     #c1c1c1     #00ff00     #00ff00
-client.unfocused	#1e1e1e     #2c2c2c		#c1c1c1		#1e1e1e     #1e1e1e
-client.focused_inactive	#1e1e1e		#2c2c2c		#c1c1c1		#1e1e1e		#1e1e1e
+client.unfocused	#1e1e1e     #2c2c2c		#c1c1c1		#1e1e1e     #0e0e0e
+client.focused_inactive	#1e1e1e		#2c2c2c		#c1c1c1		#0e0e0e		#0e0e0e
 client.urgent		#3c3c3c		#3c3c3c		#c1c1c1		#ffffff		#ffffff
 
 # Auto back and forth

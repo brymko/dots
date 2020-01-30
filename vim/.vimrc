@@ -18,12 +18,69 @@ function! EnsureExists(path) " {{{
         call mkdir(expand(a:path))
     endif
 endfunction "}}}
-function! EnsureVimPlug() " {{{
+function! IsVimPlugInstalled() " {{{
     if empty(glob("~/.vim/autoload/plug.vim"))
-        silent! execute '!curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
-        autocmd VimEnter * silent! PlugInstall
+        " silent! execute '!curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+        " autocmd VimEnter * silent! PlugInstall
+        return v:false
     endif
+    return v:true
 endfunction "}}}
+function! IsFileCPP() " {{{
+    let ex = expand("%:e")
+    return ex == "cc" || 
+            \ ex == "c" || 
+            \ ex == "C" ||
+            \ ex == "c++" ||
+            \ ex == "cxx" ||
+            \ ex == "cpp" || 
+            \ ex == "cp" ||
+            \ ex == "h" || 
+            \ ex == "hpp" 
+
+endfunction " }}}
+
+" }}}
+
+" Plugins {{{
+
+if IsVimPlugInstalled()
+    call plug#begin('~/.config/vim/plugged')
+
+    if !has('nvim')
+        Plug 'roxma/nvim-yarp'
+        Plug 'roxma/vim-hug-neovim-rpc'
+    endif
+
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-endwise'
+    Plug 'rstacruz/vim-closer'
+    " Plug 'cohama/lexima.vim' " could be great with enough configuration
+    " Plug 'thirtythreeforty/lessspace.vim " Strip trailing ws version control friendly
+    Plug 'tmux-plugins/vim-tmux'
+    Plug 'mihaifm/bufstop' " needs configuration / stop using :bn :bp
+    "Plug 'sheerun/vim-polyglot'
+    Plug 'dense-analysis/ale'
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'Shougo/deoplete-clangx'
+    Plug 'deoplete-plugins/deoplete-jedi'
+
+    Plug 'jaredgorski/spacecamp'
+
+    call plug#end()
+
+    colorscheme spacecamp
+
+    " Plugin conf
+
+    let g:deoplete#enable_at_startup=1
+    let g:deoplete#enable_at_startup = 1
+    highlight Pmenu ctermbg=8 guibg=#606060
+    highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
+    highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
+endif
 
 " }}}
 
@@ -191,7 +248,7 @@ let g:currentmode={
 set laststatus=2
 set noshowmode
 set statusline=
-"set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\  " The current mode
+set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\  " The current mode
 set statusline+=%1*\ %n\                                 " Buffer number
 set statusline+=%1*\ %<%f%m%r%h%w\                       " File path, modified, readonly, helpfile, preview
 set statusline+=%3*                                      " Separator
@@ -203,69 +260,16 @@ set statusline+=%=                                       " Right Side
 set statusline+=%2*\ col:\ %02v\                         " Colomn number
 set statusline+=%3*                                      " Separator
 set statusline+=%1*\ ln:\ %02l/%L\ (%p%%)\               " Line number / total lines, percentage of document
-set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\  " The current mode
-
-" }}}
-
-" Plugins {{{
-
-call EnsureVimPlug()
-call plug#begin('~/.config/vim/plugged')
-
-"
-if !has('nvim')
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-endif
-if !has('nvim')
-
-endif
-
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-endwise'
-Plug 'rstacruz/vim-closer'
-" Plug 'cohama/lexima.vim' " could be great with enough configuration
-" Plug 'thirtythreeforty/lessspace.vim " Strip trailing ws version control friendly
-Plug 'tmux-plugins/vim-tmux'
-Plug 'mihaifm/bufstop' " needs configuration / stop using :bn :bp
-"Plug 'sheerun/vim-polyglot'
-Plug 'dense-analysis/ale'
-Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/deoplete-clangx'
-Plug 'deoplete-plugins/deoplete-jedi'
-
-Plug 'jaredgorski/spacecamp'
-
-call plug#end()
-
-colorscheme spacecamp
-
-" Plugin conf
-
-let g:deoplete#enable_at_startup=1
-let g:deoplete#enable_at_startup = 1
-highlight Pmenu ctermbg=8 guibg=#606060
-highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
-highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
-
 
 " }}}
 
 " Languages {{{
 " C/C++ {{{
-au BufEnter *.c :setlocal commentstring=/*\ %s\ */
-au BufEnter *.cpp :setlocal commentstring=/*\ %s\ */
-au BufEnter *.cc :setlocal commentstring=/*\ %s\ */
-au BufEnter *.h :setlocal commentstring=/*\ %s\ */
-au BufEnter *.hpp :setlocal commentstring=/*\ %s\ */
+au FileType c :setlocal commentstring=/*\ %s\ */
+au FileType cpp :setlocal commentstring=/*\ %s\ */
 
-au BufEnter *.c :set foldmethod=syntax
-au BufEnter *.cpp :set foldmethod=syntax
-au BufEnter *.cc :set foldmethod=syntax
-au BufEnter *.h :set foldmethod=syntax
-au BufEnter *.hpp :set foldmethod=syntax
+au FileType c :set foldmethod=syntax
+au FileType cpp :set foldmethod=syntax
 " }}}
 " Rasi {{{
 au BufEnter *.rasi :setlocal commentstring=/*\ %s\ */
@@ -276,6 +280,7 @@ au BufEnter *.py :set foldmethod=indent
 " }}}
 " Make {{{
 au FileType make setlocal noexpandtab "dont expandtab on Makefile
+
 " }}}
 " Vim {{{
 au BufEnter .vimrc :setlocal commentstring=\"\ %s
