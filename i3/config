@@ -44,7 +44,7 @@ bindsym XF86AudioLowerVolume exec amixer set Master 10%-
 bindsym XF86AudioMute exec amixer set Master toggle
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec termite
 
 # kill focused window
 bindsym $mod+Shift+q kill

@@ -1,5 +1,6 @@
 #!/bin/bash
 shopt -s dotglob
+set -euf -o pipefail
 
 # Functions
 
@@ -43,7 +44,8 @@ check_if_installed "i3"
 check_if_installed "i3status"
 check_if_installed "zsh"
 check_if_installed "vim"
-if [ ! -f "$HOME/.config/oh-my-zsh.sh" ]; then
+check_if_installed "termite"
+if [ ! -d "$HOME/.config/oh-my-zsh" ]; then
     echo "oh-my-zsh not installed"
     exit 1
 fi
@@ -60,6 +62,7 @@ mkdir -p "$HOME/.config/shell"
 mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.config/terminal"
 mkdir -p "$HOME/.config/tmux"
+mkdir -p "$HOME/.config/termite"
 
 # Files
 
@@ -72,6 +75,7 @@ files=( \
     "i3/config" "$HOME/.config/i3/config" \
     "i3/i3status" "$HOME/.config/i3status/config" \
     "i3/i3lock.sh" "$HOME/.config/i3/i3lock.sh" \
+    "terminal/config" "$HOME/.config/termite/config" \
 )
 
 

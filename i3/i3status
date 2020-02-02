@@ -55,7 +55,7 @@ load {
 
 cpu_temperature 0 {
         format = "T: %degrees °C"
-	max_threshold = 65
+        max_threshold = 65
         path = "/sys/class/thermal/thermal_zone0/temp"
 }
 
