@@ -33,7 +33,26 @@ function! RunFile() " {{{
         :!zathura %:r.pdf >/dev/null 2>&1 &<cr><cr>
     endif
 endfunction " }}}
-
+function! ModeCurrent() abort " {{{
+    let l:modecurrent = mode()
+    let l:modelist = toupper(get(g:currentmode, l:modecurrent, 'V·Block '))
+    let l:current_status_mode = l:modelist
+    return l:current_status_mode
+endfunction " }}}
+function! GitBranch() " {{{
+  if fugitive#head() == ""
+    return '-'
+  else
+    return fugitive#head()
+  endif
+endfunction " }}}
+function! GetFT() " {{{
+  if &filetype == ''
+    return '-'
+  else
+    return toupper(&filetype)
+  endif
+endfunction " }}}
 " }}}
 
 " Plugins {{{
@@ -47,8 +66,9 @@ if IsVimPlugInstalled()
 
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-endwise'
-    " Plug 'rstacruz/vim-closer'
+    Plug 'tpope/vim-fugitive'
+    " Plug 'tpope/vim-endwise'
+    Plug 'rstacruz/vim-closer'
     " Plug 'cohama/lexima.vim' " could be great with enough configuration
     " Plug 'thirtythreeforty/lessspace.vim " Strip trailing ws version control friendly
     " Plug 'tmux-plugins/vim-tmux'
@@ -79,21 +99,12 @@ if IsVimPlugInstalled()
 
     let g:ale_sign_column_always = 1
     let g:ale_set_balloons = 1
-    let g:ale_rust_cargo_use_clippy = 1
     let g:ale_completion_enabled = 1
-    let g:ale_cpp_clang_options = '-std=c++17 -Wall -Wextra -Wconversion -Wunreachable-code 
-                                \ -Wuninitialized -pedantic '
-    " let g:ale_cpp_clangcheck_executable = ""
-    " let g:ale_cpp_clangtidy_executable = ""
-    " These linters have a problem with header files, trying to compile them,
-    " they won't be resolving includes, permantly recording an error saying
-    " file not found when in fact the code compiles just fine.
-    let g:ale_cpp_clangtidy_checks = ['*']
-    let g:ale_cpp_ccls_init_options = {
-                                    \   'cache': {
-                                    \       'directory': '/tmp/ccls/cache'
-                                    \   }
-                                    \ }
+    let g:ale_lint_on_insert_leave = 1
+    let g:ale_lint_on_enter = 1
+    let g:ale_linters_explicit = 1
+    let g:ale_completion_delay = 50
+
 
     " let g:deoplete#enable_at_startup=1
     " highlight Pmenu ctermbg=8 guibg=#606060
@@ -290,46 +301,66 @@ au InsertLeave * hi statusline guifg=black guibg=#c5ff00 ctermfg=black ctermbg=c
 
 hi statusline guifg=black guibg=#c5ff00 ctermfg=black ctermbg=cyan
 hi User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
+hi Base guibg=#212333 guifg=#212333
 
 let g:currentmode={
-    \ 'n'  : 'Normal',
-    \ 'no' : 'Normal·Operator Pending',
-    \ 'v'  : 'Visual',
-    \ 'V'  : 'Visual',
-    \ '^v' : 'V·Block',
-    \ '^V' : 'V·Block',
-    \ ' ^V': 'V·Block',
-    \ 's'  : 'Select',
-    \ 'S'  : 'S·Line',
-    \ '^S' : 'S·Block',
-    \ 'i'  : 'Insert',
-    \ 'R'  : 'Replace',
-    \ 'Rv' : 'V·Replace',
-    \ 'c'  : 'Command',
-    \ 'cv' : 'Vim Ex',
-    \ 'ce' : 'Ex',
-    \ 'r'  : 'Prompt',
-    \ 'rm' : 'More',
-    \ 'r?' : 'Confirm',
-    \ '!'  : 'Shell',
-    \ 't'  : 'Terminal'
-    \}
+  \'n' : 'Normal ',
+  \'no' : 'N·Operator Pending ',
+  \'v' : 'Visual ',
+  \'V' : 'V·Line ',
+  \'^V' : 'V·Block ',
+  \'s' : 'Select ',
+  \'S': 'S·Line ',
+  \'^S' : 'S·Block ',
+  \'i' : 'Insert ',
+  \'R' : 'Replace ',
+  \'Rv' : 'V·Replace ',
+  \'c' : 'Command ',
+  \'cv' : 'Vim Ex ',
+  \'ce' : 'Ex ',
+  \'r' : 'Prompt ',
+  \'rm' : 'More ',
+  \'r?' : 'Confirm ',
+  \'!' : 'Shell ',
+  \'t' : 'Terminal '
+  \}
+
+" These function are only used in statusline generation hence they are here
+" and not in the script section
+
+function! LineActive()
+    " Set empty statusline and colors
+    let statusline = ""
+    let statusline .= "%#Base#"
+    let statusline .= "%0* %{ModeCurrent()}"                " Mode
+    let statusline .= "%2* %{GitBranch()} %)"               " Current Branch
+    let statusline .= "%2* %Y "                             " FileType
+    let statusline .= "%2* %{''.(&fenc!=''?&fenc:&enc).''}" " Encoding
+    let statusline .= "%2* %{&ff} "                         " File format
+    let statusline .= "%#Base#"                             " Seperator
+    let statusline .= "%="                                  " Right Side
+    let statusline .= "%#Base#"                             " Seperator
+    let statusline .= "%2* %<%f%m%r%h%w "                   " File paht, modified, readonly, helpfile, preview
+    let statusline .= "%0* col: %02v "                      " Column number
+    let statusline .= "%0* ln: %02l/%L (%p%%) "             " Line number
+    return statusline
+endfunction
+
+function! LineInactive()
+  let statusline = ""
+  let statusline .= "%#Base#"
+
+  return statusline
+endfunction
 
 set laststatus=2
 set noshowmode
-set statusline=
-set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\  " The current mode
-set statusline+=%1*\ %n\                                 " Buffer number
-set statusline+=%1*\ %<%f%m%r%h%w\                       " File path, modified, readonly, helpfile, preview
-set statusline+=%3*                                      " Separator
-set statusline+=%2*\ %Y                                  " FileType
-set statusline+=%3*                                      " Separator
-set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
-set statusline+=\ %{&ff}                                 " FileFormat
-set statusline+=%=                                       " Right Side
-set statusline+=%2*\ col:\ %02v\                         " Colomn number
-set statusline+=%3*                                      " Separator
-set statusline+=%1*\ ln:\ %02l/%L\ (%p%%)\               " Line number / total lines, percentage of document
+
+augroup Statusline
+    autocmd!
+    autocmd WinEnter,BufEnter * setlocal statusline=%!LineActive()
+    autocmd WinLeave,BufLeave * setlocal statusline=%!LineInactive()
+augroup END
 
 " }}}
 
@@ -342,12 +373,38 @@ au FileType cpp :setlocal commentstring=/*\ %s\ */
 au FileType c :set foldmethod=syntax
 au FileType cpp :set foldmethod=syntax
 
+" bindings
+nnoremap gd :ALEGoToDefinition<cr>
+nnoremap gtd :ALEGoToTypeDefinition<cr>
+nnoremap gr :ALEFindReferences<cr>
+nnoremap gh :ALEHover<cr>
+nnoremap ga :ALESymbolSearch 
+
 " if 'octol/vim-cpp-enhanced-highlight' is installed 
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 let g:cpp_posix_standart = 1
 let c_no_curly_error = 1
+
+let g:ale_linters = { 'cpp': ['clangtidy', 'ccls'], 'c': ['clangtidy', 'ccls'] }
+let g:ale_cpp_clang_options = '-std=c++17 -Wall -Wextra -Wconversion -Wunreachable-code 
+                            \ -Wuninitialized -pedantic '
+" These linters have a problem with header files aka it's trying to compile them
+" they won't be resolving includes, permantly recording an error saying
+" file not found when in fact the code compiles just fine.
+let g:ale_cpp_clangtidy_checks = ['*', '-llvm*', '-modernize-use-trailing-return-type']
+let g:ale_cpp_ccls_init_options = {
+                                \   'cache': {
+                                \       'directory': '/tmp/ccls/cache'
+                                \   }
+                                \ }
+let g:ale_c_ccls_init_options = {
+                                \   'cache': {
+                                \       'directory': '/tmp/ccls/cache'
+                                \   }
+                                \ }
+
 " }}}
 " Rasi {{{
 au BufEnter *.rasi :setlocal commentstring=/*\ %s\ */
