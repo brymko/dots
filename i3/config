@@ -2,7 +2,7 @@
 # Border
 default_border pixel 3
 default_floating_border pixel 3
-hide_edge_borders smart
+# hide_edge_borders smart
 
 #client.focused		#3cff00		#2c2c2c		#c1c1c1		#3cff00		#3cff00
 # Colors		    border		background	text		indicator	child_border
@@ -44,7 +44,7 @@ bindsym XF86AudioLowerVolume exec amixer set Master 10%-
 bindsym XF86AudioMute exec amixer set Master toggle
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec termite -d "$(xcwd)"
 
 # kill focused window
 bindsym $mod+Shift+q kill

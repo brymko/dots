@@ -3,14 +3,14 @@
 # setopt share_history
 
 # new terminal in the same directory
-function cd {
-    builtin cd $@
-    pwd > "$ZDOTDIR/.last_dir"
-}
+# function cd {
+#     builtin cd $@
+#     pwd > "$ZDOTDIR/.last_dir"
+# }
 
-if [ -f "$ZDOTDIR/.last_dir" ]; then
-    cd "$(cat $ZDOTDIR/.last_dir)"
-fi
+# if [ -f "$ZDOTDIR/.last_dir" ]; then
+#     cd "$(cat $ZDOTDIR/.last_dir)"
+# fi
 
 export ZSH="$HOME/.config/oh-my-zsh"
 

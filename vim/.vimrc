@@ -26,24 +26,17 @@ function! IsVimPlugInstalled() " {{{
     endif
     return v:true
 endfunction "}}}
-function! IsFileCPP() " {{{
-    let ex = expand("%:e")
-    return ex == "cc" || 
-            \ ex == "c" || 
-            \ ex == "C" ||
-            \ ex == "c++" ||
-            \ ex == "cxx" ||
-            \ ex == "cpp" || 
-            \ ex == "cp" ||
-            \ ex == "h" || 
-            \ ex == "hpp" 
-
+function! RunFile() " {{{
+    if(&ft == 'c' || &ft == 'cpp')
+        :!make
+    elseif (&tf == 'tex')
+        :!zathura %:r.pdf >/dev/null 2>&1 &<cr><cr>
+    endif
 endfunction " }}}
 
 " }}}
 
 " Plugins {{{
-
 if IsVimPlugInstalled()
     call plug#begin('~/.config/vim/plugged')
 
@@ -52,34 +45,60 @@ if IsVimPlugInstalled()
         Plug 'roxma/vim-hug-neovim-rpc'
     endif
 
-    Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-endwise'
-    Plug 'rstacruz/vim-closer'
+    " Plug 'rstacruz/vim-closer'
     " Plug 'cohama/lexima.vim' " could be great with enough configuration
     " Plug 'thirtythreeforty/lessspace.vim " Strip trailing ws version control friendly
-    Plug 'tmux-plugins/vim-tmux'
-    Plug 'mihaifm/bufstop' " needs configuration / stop using :bn :bp
-    "Plug 'sheerun/vim-polyglot'
+    " Plug 'tmux-plugins/vim-tmux'
+    " Plug 'mihaifm/bufstop' " needs configuration / stop using :bn :bp
+    
+    " Language stuff
+    " Plug 'sheerun/vim-polyglot' " get colors from repo for superiore experience
     Plug 'dense-analysis/ale'
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'Shougo/deoplete-clangx'
-    Plug 'deoplete-plugins/deoplete-jedi'
+    " Plug 'Shougo/deoplete.nvim'
+    " Plug 'Shougo/deoplete-clangx'
+    " Plug 'deoplete-plugins/deoplete-jedi'
+    Plug 'octol/vim-cpp-enhanced-highlight'
 
-    Plug 'jaredgorski/spacecamp'
+    " Plug 'junegunn/fzf', { 'do': './install --bin' }
+    " Plug 'junegunn/fzf.vim'
+
+    " colors
+    Plug 'ajmwagar/vim-deus'
+    Plug 'dracula/vim'
+    Plug 'joshdick/onedark.vim'
+    Plug 'dikiaap/minimalist'
 
     call plug#end()
 
-    colorscheme spacecamp
+    colorscheme minimalist 
 
     " Plugin conf
 
-    let g:deoplete#enable_at_startup=1
-    let g:deoplete#enable_at_startup = 1
-    highlight Pmenu ctermbg=8 guibg=#606060
-    highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
-    highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
+    let g:ale_sign_column_always = 1
+    let g:ale_set_balloons = 1
+    let g:ale_rust_cargo_use_clippy = 1
+    let g:ale_completion_enabled = 1
+    let g:ale_cpp_clang_options = '-std=c++17 -Wall -Wextra -Wconversion -Wunreachable-code 
+                                \ -Wuninitialized -pedantic '
+    " let g:ale_cpp_clangcheck_executable = ""
+    " let g:ale_cpp_clangtidy_executable = ""
+    " These linters have a problem with header files, trying to compile them,
+    " they won't be resolving includes, permantly recording an error saying
+    " file not found when in fact the code compiles just fine.
+    let g:ale_cpp_clangtidy_checks = ['*']
+    let g:ale_cpp_ccls_init_options = {
+                                    \   'cache': {
+                                    \       'directory': '/tmp/ccls/cache'
+                                    \   }
+                                    \ }
+
+    " let g:deoplete#enable_at_startup=1
+    " highlight Pmenu ctermbg=8 guibg=#606060
+    " highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
+    " highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
 endif
 
 " }}}
@@ -87,34 +106,37 @@ endif
 " Vim Core {{{
 
 
-" encodings
+"" encodings
 set nocompatible
-set t_Co=256
+" set t_Co=256
+set tgc
 set encoding=utf-8
 
-" graphicals
-set noruler
+"" graphicals
+set background=dark
+"set noruler
 set number
 set showmatch
-set diffopt=filler,horizontal
-"set cursorline
-set autoindent
+set diffopt=filler,vertical
+set lazyredraw
+""set cursorline
 
 " scrolling
-" set wrap
+"" set wrap
 set nowrap
 " set wrapmargin=1
 set scrolloff=5
 set sidescroll=5
 
-" spaces & tabs
+"" spaces & tabs
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 set smarttab
 set expandtab
+set autoindent
 
-" misc
+"" misc
 filetype plugin on
 filetype plugin indent on
 set noerrorbells
@@ -122,32 +144,63 @@ set history=10000
 set t_BE=
 set ttyfast
 
-" text handling
-set autoread
-set formatoptions-=tcro
-set textwidth=0 " disable auto enter after end of editor
-set backspace=2
+" wildmenu
+set wildmenu
+set wildignorecase
+
+"" text handling
 filetype indent on
 syntax on
 let skip_defaults_vim=1
+set formatoptions-=tcro
+set autoread
+set textwidth=0 " disable auto enter after end of editor
+set backspace=2
+set modeline
 
-" folding
+"" folding
 set foldenable
-set foldlevelstart=-1
+set foldlevelstart=10
 set foldnestmax=10
-set foldmethod=marker
+set foldmethod=syntax
 
-" searching
+"" searching
 set ignorecase
 set smartcase
 set incsearch
 set hlsearch
 set path+=**
+" * [word], g* [partial word], 
+" crtl-o - ctrl-i [go thorugh jump locations]
+" [I show lines with matching word under cursor
 
-" Buffers
+" marks
+" m[a-zA-Z]
+" '[a-zA-Z] move to mark, uppercase between files
+" backtick for columns in addition to line
+
+" Ctags
+" command! MakeTags !ctags -R .
+" :tag TAB            - list the known tags
+" :tag function_name  - jump to that function
+" ctrl-t              - goes to previous spot where you called :tag
+" ctrl-]              - calls :tag on the word under the cursor        
+" :ptag               - open tag in preview window (also ctrl-w })
+" :pclose             - close preview window
+
+" recording macros
+" q[a-z]
+" @[a-z] play once
+" @@ play last
+" 5@@ play 5 times
+" "[a-z]p print macro
+
+
+"" Buffers
 set splitbelow splitright
+" set hidden
 
-" files
+"" files
 call EnsureExists("~/.config/vim/.backup//")
 call EnsureExists("~/.config/vim/.swap//")
 call EnsureExists("~/.config/vim/.undo//")
@@ -175,8 +228,24 @@ set viminfo=%,<800,'10,/50,:100,h,f0,n~/.config/vim/.viminfo
 
 " views
 " au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
+augroup AutoSaveFolds
+  autocmd!
+  " view files are about 500 bytes
+  " bufleave but not bufwinleave captures closing 2nd tab
+  " nested is needed by bufwrite* (if triggered via other autocmd)
+  autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
+  autocmd BufWinEnter ?* silent! loadview
+augroup end
+
+set viewoptions=folds,cursor
+set sessionoptions=folds
+
+" au FileType ?* setlocal formatoptions-=c formatoptions-=r formatoptions-=o "
+" This breaks folds :(
+" not only does this breake folds, it also corrupts your view of the file...
+" nice, however without vim thinks its appropriate to insert comments when
+" pressing enter or o/O. It also auto writes stuff written in comments into
+" new lines, which is kinda nice but also totally unexpected
 " }}}
 
 " Bindings {{{
@@ -189,6 +258,7 @@ nnoremap <leader>lv :so $MYVIMRC<CR>
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>w :call Preserve(":%s/\\s\\+$//e")<CR>
 nnoremap <leader>o :setlocal spell! spelllang=en_us<CR>
+nnoremap <leader>r :call RunFile()<cr>
 
 
 " movement
@@ -264,18 +334,26 @@ set statusline+=%1*\ ln:\ %02l/%L\ (%p%%)\               " Line number / total l
 " }}}
 
 " Languages {{{
+" view all filetypes via :setfiletype [CRTL-d]
 " C/C++ {{{
 au FileType c :setlocal commentstring=/*\ %s\ */
 au FileType cpp :setlocal commentstring=/*\ %s\ */
 
 au FileType c :set foldmethod=syntax
 au FileType cpp :set foldmethod=syntax
+
+" if 'octol/vim-cpp-enhanced-highlight' is installed 
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_posix_standart = 1
+let c_no_curly_error = 1
 " }}}
 " Rasi {{{
 au BufEnter *.rasi :setlocal commentstring=/*\ %s\ */
 "}}}
 " Python {{{
-au BufEnter *.py :set foldmethod=indent
+au FileType python :set foldmethod=indent
 
 " }}}
 " Make {{{
@@ -283,17 +361,23 @@ au FileType make setlocal noexpandtab "dont expandtab on Makefile
 
 " }}}
 " Vim {{{
-au BufEnter .vimrc :setlocal commentstring=\"\ %s
+au FileType vim :setlocal commentstring=\"\ %s
+au FileType vim :set foldmethod=marker
 
 " }}}
 " Shell {{{
-au BufEnter *.sh :setlocal commentstring=#\ %s
-au BufEnter *.bash :setlocal commentstring=#\ %s
+au FileType sh :setlocal commentstring=#\ %s
+au FileType bash :setlocal commentstring=#\ %s
 
 " }}}
 " asm {{{
 au FileType asm :setlocal commentstring=;\ %s
 
 " }}}
+" }}}
+
+" Credit {{{
+" https://www.cs.oberlin.edu/~kuperman/help/vim/makefiles.html
+" https://github.com/Riatre/dotfilez/blob/master/.vimrc
 " }}}
 
