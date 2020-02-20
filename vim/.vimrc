@@ -53,6 +53,11 @@ function! GetFT() " {{{
     return toupper(&filetype)
   endif
 endfunction " }}}
+function! IsCHeader() " {{{
+    let ex = expand("%:e")
+    let exp = ['h', 'hpp', 'H']
+    return index(exp, ex) >= 0
+endfunction " }}}
 " }}}
 "
 " Vim Core {{{
@@ -248,10 +253,12 @@ if IsVimPlugInstalled()
     let g:ale_sign_column_always = 1
     let g:ale_set_balloons = 1
     let g:ale_completion_enabled = 1
+    let g:ale_lint_on_text_changed = 0
     let g:ale_lint_on_insert_leave = 1
     let g:ale_lint_on_enter = 1
     let g:ale_linters_explicit = 1
     let g:ale_completion_delay = 50
+    let g:ale_pattern_options_enabled = 1
 
 
     " let g:deoplete#enable_at_startup=1
@@ -407,23 +414,24 @@ let g:cpp_class_decl_highlight = 1
 let g:cpp_posix_standart = 1
 let c_no_curly_error = 1
 
-let g:ale_linters = { 'cpp': ['clangtidy', 'ccls'], 'c': ['clangtidy', 'ccls'] }
-let g:ale_cpp_clang_options = '-std=c++17 -Wall -Wextra -Wconversion -Wunreachable-code 
+let compile_options = '-std=c++2a -Wall -Wextra -Wconversion -Wunreachable-code 
                             \ -Wuninitialized -pedantic '
-" These linters have a problem with header files aka it's trying to compile them
-" they won't be resolving includes, permantly recording an error saying
-" file not found when in fact the code compiles just fine.
+let ccls_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
+let g:ale_pattern_options = {
+            \ '\.\(h\|hpp\|H\|HPP\)$': { 'ale_linters': { 'cpp': ['clang', 'ccls'], 'c': ['clang', 'ccls'] } },
+            \ '\.\(c\|cc\|cpp\|C\|CC\|CPP\)$': { 'ale_linters': { 'cpp': ['clangtidy', 'ccls'], 'c': ['clangtidy', 'ccls'] } },
+            \ }
+" if IsCHeader() 
+"     let b:ale_linters = { 'cpp': ['clang', 'ccls'], 'c': ['clangtidy', 'ccls'] }
+" else
+"     let b:ale_linters = { 'cpp': ['clangtidy', 'ccls'], 'c': ['clangtidy', 'ccls'] }
+" endif
+
+let g:ale_cpp_clang_options = compile_options
+let g:ale_cpp_gcc_options = compile_options
 let g:ale_cpp_clangtidy_checks = ['*', '-llvm*', '-modernize-use-trailing-return-type']
-let g:ale_cpp_ccls_init_options = {
-                                \   'cache': {
-                                \       'directory': '/tmp/ccls/cache'
-                                \   }
-                                \ }
-let g:ale_c_ccls_init_options = {
-                                \   'cache': {
-                                \       'directory': '/tmp/ccls/cache'
-                                \   }
-                                \ }
+let g:ale_cpp_ccls_init_options = ccls_options
+let g:ale_c_ccls_init_options = ccls_options
 
 " }}}
 " Rasi {{{
