@@ -54,66 +54,7 @@ function! GetFT() " {{{
   endif
 endfunction " }}}
 " }}}
-
-" Plugins {{{
-if IsVimPlugInstalled()
-    call plug#begin('~/.config/vim/plugged')
-
-    if !has('nvim')
-        Plug 'roxma/nvim-yarp'
-        Plug 'roxma/vim-hug-neovim-rpc'
-    endif
-
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-fugitive'
-    " Plug 'tpope/vim-endwise'
-    Plug 'rstacruz/vim-closer'
-    " Plug 'cohama/lexima.vim' " could be great with enough configuration
-    " Plug 'thirtythreeforty/lessspace.vim " Strip trailing ws version control friendly
-    " Plug 'tmux-plugins/vim-tmux'
-    " Plug 'mihaifm/bufstop' " needs configuration / stop using :bn :bp
-    
-    " Language stuff
-    " Plug 'sheerun/vim-polyglot' " get colors from repo for superiore experience
-    Plug 'dense-analysis/ale'
-    " Plug 'Shougo/deoplete.nvim'
-    " Plug 'Shougo/deoplete-clangx'
-    " Plug 'deoplete-plugins/deoplete-jedi'
-    Plug 'octol/vim-cpp-enhanced-highlight'
-
-    " Plug 'junegunn/fzf', { 'do': './install --bin' }
-    " Plug 'junegunn/fzf.vim'
-
-    " colors
-    Plug 'ajmwagar/vim-deus'
-    Plug 'dracula/vim'
-    Plug 'joshdick/onedark.vim'
-    Plug 'dikiaap/minimalist'
-
-    call plug#end()
-
-    colorscheme minimalist 
-
-    " Plugin conf
-
-    let g:ale_sign_column_always = 1
-    let g:ale_set_balloons = 1
-    let g:ale_completion_enabled = 1
-    let g:ale_lint_on_insert_leave = 1
-    let g:ale_lint_on_enter = 1
-    let g:ale_linters_explicit = 1
-    let g:ale_completion_delay = 50
-
-
-    " let g:deoplete#enable_at_startup=1
-    " highlight Pmenu ctermbg=8 guibg=#606060
-    " highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
-    " highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
-endif
-
-" }}}
-
+"
 " Vim Core {{{
 
 
@@ -209,7 +150,7 @@ set path+=**
 
 "" Buffers
 set splitbelow splitright
-" set hidden
+set hidden
 
 "" files
 call EnsureExists("~/.config/vim/.backup//")
@@ -222,6 +163,7 @@ set directory=~/.config/vim/.swap//
 set undodir=~/.config/vim/.undo//
 set viewdir=~/.config/vim/.views//
 
+set noswapfile
 set writebackup
 set undofile
 
@@ -259,6 +201,80 @@ set sessionoptions=folds
 " new lines, which is kinda nice but also totally unexpected
 " }}}
 
+" Plugins {{{
+if IsVimPlugInstalled()
+    call plug#begin('~/.config/vim/plugged')
+
+    if !has('nvim')
+        Plug 'roxma/nvim-yarp'
+        Plug 'roxma/vim-hug-neovim-rpc'
+    endif
+
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-fugitive'
+    " Plug 'tpope/vim-endwise'
+    Plug 'rstacruz/vim-closer'
+    " Plug 'cohama/lexima.vim' " could be great with enough configuration
+    " Plug 'thirtythreeforty/lessspace.vim " Strip trailing ws version control friendly
+    " Plug 'tmux-plugins/vim-tmux'
+    " Plug 'mihaifm/bufstop' " needs configuration / stop using :bn :bp
+    Plug 'pacha/vem-tabline' 
+    
+    " Language stuff
+    " Plug 'sheerun/vim-polyglot' " get colors from repo for superiore experience
+    Plug 'dense-analysis/ale'
+    " Plug 'Shougo/deoplete.nvim'
+    " Plug 'Shougo/deoplete-clangx'
+    " Plug 'deoplete-plugins/deoplete-jedi'
+    Plug 'octol/vim-cpp-enhanced-highlight'
+
+    " Plug 'junegunn/fzf', { 'do': './install --bin' }
+    " Plug 'junegunn/fzf.vim'
+
+    " colors
+    Plug 'ajmwagar/vim-deus'
+    Plug 'dracula/vim'
+    Plug 'joshdick/onedark.vim'
+    Plug 'dikiaap/minimalist'
+    Plug 'pacha/vem-dark'
+
+    call plug#end()
+
+    colorscheme minimalist 
+
+    " Plugin conf
+
+    let g:ale_sign_column_always = 1
+    let g:ale_set_balloons = 1
+    let g:ale_completion_enabled = 1
+    let g:ale_lint_on_insert_leave = 1
+    let g:ale_lint_on_enter = 1
+    let g:ale_linters_explicit = 1
+    let g:ale_completion_delay = 50
+
+
+    " let g:deoplete#enable_at_startup=1
+    " highlight Pmenu ctermbg=8 guibg=#606060
+    " highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
+    " highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
+    highlight VemTablineNormal           term=reverse cterm=none ctermfg=1 ctermbg=251 guifg=#ffffff guibg=#212333 gui=none
+    highlight VemTablineLocation         term=reverse cterm=none ctermfg=239 ctermbg=251 guifg=#666666 guibg=#cdcdcd gui=none
+    highlight VemTablineNumber           term=reverse cterm=none ctermfg=239 ctermbg=251 guifg=#666666 guibg=#cdcdcd gui=none
+    highlight VemTablineSelected         term=bold    cterm=bold ctermfg=0   ctermbg=255 guifg=#242424 guibg=#ffffff gui=bold
+    highlight VemTablineLocationSelected term=bold    cterm=none ctermfg=239 ctermbg=255 guifg=#666666 guibg=#ffffff gui=bold
+    highlight VemTablineNumberSelected   term=bold    cterm=none ctermfg=239 ctermbg=255 guifg=#666666 guibg=#ffffff gui=bold
+    highlight VemTablineShown            term=reverse cterm=none ctermfg=0   ctermbg=251 guifg=#242424 guibg=#cdcdcd gui=none
+    highlight VemTablineLocationShown    term=reverse cterm=none ctermfg=0   ctermbg=251 guifg=#666666 guibg=#cdcdcd gui=none
+    highlight VemTablineNumberShown      term=reverse cterm=none ctermfg=0   ctermbg=251 guifg=#666666 guibg=#cdcdcd gui=none
+    highlight VemTablineSeparator        term=reverse cterm=none ctermfg=246 ctermbg=251 guifg=#888888 guibg=#cdcdcd gui=none
+    highlight VemTablinePartialName      term=reverse cterm=none ctermfg=246 ctermbg=251 guifg=#888888 guibg=#cdcdcd gui=none
+    highlight VemTablineTabNormal        term=reverse cterm=none ctermfg=0   ctermbg=251 guifg=#242424 guibg=#4a4a4a gui=none
+    highlight VemTablineTabSelected      term=bold    cterm=bold ctermfg=0   ctermbg=255 guifg=#242424 guibg=#ffffff gui=bold
+endif
+
+" }}}
+
 " Bindings {{{
 
 " Leader
@@ -284,6 +300,10 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+nnoremap <C-n> :bn<cr>
+nnoremap <C-p> :bp<cr>
+
 
 " visual mode
 vnoremap < <gv
