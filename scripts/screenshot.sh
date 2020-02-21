@@ -8,4 +8,5 @@ if [ ! -f "$(command -v "import")" ]; then
     exit 1
 fi
 
-import "$FILE"
+import "$FILE" 2>&1 1>"$HOME/pics/wtf"
+

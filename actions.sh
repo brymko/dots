@@ -63,6 +63,7 @@ mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.config/terminal"
 mkdir -p "$HOME/.config/tmux"
 mkdir -p "$HOME/.config/termite"
+mkdir -p "$HOME/.config/scripts"
 
 # Files
 
@@ -76,6 +77,7 @@ files=( \
     "i3/i3status" "$HOME/.config/i3status/config" \
     "i3/i3lock.sh" "$HOME/.config/i3/i3lock.sh" \
     "terminal/config" "$HOME/.config/termite/config" \
+    "scripts/screenshot.sh" "$HOME/.config/scripts/screenshot.sh" \
 )
 
 

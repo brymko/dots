@@ -46,6 +46,9 @@ bindsym XF86AudioMute exec amixer set Master toggle
 # start a terminal
 bindsym $mod+Return exec termite -d "$(xcwd)"
 
+# screenshot 
+bindsym --release $mod+o exec --no-startup-id "~/.config/scripts/screenshot.sh"
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
