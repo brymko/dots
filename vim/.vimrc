@@ -13,6 +13,14 @@ endfunction "}}}
 function! StripTrailingWhiteSpace() " {{{
     call Preserve("%s/\\s\\+$//e")
 endfunction " }}}
+function! Close() " {{{
+    let no_buffers = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+    if no_buffers > 1
+        bdelete
+    else
+        quit
+    endif
+endfunction " }}}
 function! EnsureExists(path) " {{{
     if !isdirectory(expand(a:path))
         call mkdir(expand(a:path))
@@ -250,6 +258,9 @@ if IsVimPlugInstalled()
 
     " Plugin conf
 
+    let g:vem_tabline_multiwindow_mode = 1
+
+
     let g:ale_sign_column_always = 1
     let g:ale_set_balloons = 1
     let g:ale_completion_enabled = 1
@@ -319,6 +330,7 @@ vnoremap <C-c> :'<,'> w ! xclip -i -selection clipboard<CR><CR>
 
 " misc
 cnoremap sudow w !sudo tee % > /dev/null<CR>
+cnoremap k call Close()<cr>
 
 " }}}
 
