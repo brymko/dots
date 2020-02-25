@@ -36,9 +36,11 @@ function! IsVimPlugInstalled() " {{{
 endfunction "}}}
 function! RunFile() " {{{
     if(&ft == 'c' || &ft == 'cpp')
-        :!make
-    elseif (&tf == 'tex')
-        :!zathura %:r.pdf >/dev/null 2>&1 &<cr><cr>
+        :!clear; make
+    elseif (&ft == 'tex')
+        :!clear; zathura %:r.pdf >/dev/null 2>&1 &<cr><cr>
+    elseif (&ft == 'rust')
+        :!clear; cargo build
     endif
 endfunction " }}}
 function! ModeCurrent() abort " {{{
@@ -67,7 +69,7 @@ function! IsCHeader() " {{{
     return index(exp, ex) >= 0
 endfunction " }}}
 " }}}
-"
+
 " Vim Core {{{
 
 
@@ -83,7 +85,7 @@ set background=dark
 set number
 set showmatch
 set diffopt=filler,vertical
-set lazyredraw
+" set lazyredraw
 ""set cursorline
 
 " scrolling
@@ -182,15 +184,15 @@ set undofile
 
 " viminfo
 let &runtimepath.=',$HOME/.confg/vim'
-set viminfo=%,<800,'10,/50,:100,h,f0,n~/.config/vim/.viminfo
-"           | |    |   |   |    | |  + viminfo file path
-"           | |    |   |   |    | + file marks 0-9,A-Z 0=NOT stored
-"           | |    |   |   |    + disable 'hlsearch' loading viminfo
-"           | |    |   |   + command-line history saved
-"           | |    |   + search history saved
-"           | |    + files marks saved
-"           | + lines saved each register (old name for <, vi6.2)
-"           + save/restore buffer list
+set viminfo=<800,'10,/50,:100,h,f0,n~/.config/vim/.viminfo
+"         | |    |   |   |    | |  + viminfo file path
+"         | |    |   |   |    | + file marks 0-9,A-Z 0=NOT stored
+"         | |    |   |   |    + disable 'hlsearch' loading viminfo
+"         | |    |   |   + command-line history saved
+"         | |    |   + search history saved
+"         | |    + files marks saved
+"         | + lines saved each register (old name for <, vi6.2)
+"         + save/restore buffer list
 
 " views
 " au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -226,13 +228,14 @@ if IsVimPlugInstalled()
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-fugitive'
-    " Plug 'tpope/vim-endwise'
+    Plug 'tpope/vim-endwise'
     Plug 'rstacruz/vim-closer'
     " Plug 'cohama/lexima.vim' " could be great with enough configuration
     " Plug 'thirtythreeforty/lessspace.vim " Strip trailing ws version control friendly
     " Plug 'tmux-plugins/vim-tmux'
     " Plug 'mihaifm/bufstop' " needs configuration / stop using :bn :bp
-    Plug 'pacha/vem-tabline' 
+    " Plug 'pacha/vem-tabline' 
+    Plug 'bagrat/vim-buffet'
     
     " Language stuff
     " Plug 'sheerun/vim-polyglot' " get colors from repo for superiore experience
@@ -240,6 +243,7 @@ if IsVimPlugInstalled()
     " Plug 'Shougo/deoplete.nvim'
     " Plug 'Shougo/deoplete-clangx'
     " Plug 'deoplete-plugins/deoplete-jedi'
+    Plug 'rust-lang/rust.vim'
     Plug 'octol/vim-cpp-enhanced-highlight'
 
     " Plug 'junegunn/fzf', { 'do': './install --bin' }
@@ -251,16 +255,16 @@ if IsVimPlugInstalled()
     Plug 'joshdick/onedark.vim'
     Plug 'dikiaap/minimalist'
     Plug 'pacha/vem-dark'
+    Plug 'tomasiser/vim-code-dark'
 
     call plug#end()
 
-    colorscheme minimalist 
+    " colorscheme minimalist 
+    colorscheme codedark
 
     " Plugin conf
 
-    let g:vem_tabline_multiwindow_mode = 1
-
-
+    " 'dense-analysis/ale'
     let g:ale_sign_column_always = 1
     let g:ale_set_balloons = 1
     let g:ale_completion_enabled = 1
@@ -268,14 +272,26 @@ if IsVimPlugInstalled()
     let g:ale_lint_on_insert_leave = 1
     let g:ale_lint_on_enter = 1
     let g:ale_linters_explicit = 1
+    let g:ale_fix_on_save = 1
     let g:ale_completion_delay = 50
     let g:ale_pattern_options_enabled = 1
 
+    nnoremap gd :ALEGoToDefinition<cr>
+    nnoremap gtd :ALEGoToTypeDefinition<cr>
+    nnoremap gr :ALEFindReferences<cr>
+    nnoremap gh :ALEHover<cr>
+    nnoremap ga :ALESymbolSearch 
+    nnoremap gw :ALEDetail<cr>
 
+    " deoplete 
     " let g:deoplete#enable_at_startup=1
     " highlight Pmenu ctermbg=8 guibg=#606060
     " highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
     " highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
+
+
+    " 'pacha/vem-tabline' 
+    let g:vem_tabline_multiwindow_mode = 1
     highlight VemTablineNormal           term=reverse cterm=none ctermfg=1 ctermbg=251 guifg=#ffffff guibg=#212333 gui=none
     highlight VemTablineLocation         term=reverse cterm=none ctermfg=239 ctermbg=251 guifg=#666666 guibg=#cdcdcd gui=none
     highlight VemTablineNumber           term=reverse cterm=none ctermfg=239 ctermbg=251 guifg=#666666 guibg=#cdcdcd gui=none
@@ -329,8 +345,8 @@ vnoremap > >gv
 vnoremap <C-c> :'<,'> w ! xclip -i -selection clipboard<CR><CR>
 
 " misc
+nnoremap q: <nop>
 cnoremap sudow w !sudo tee % > /dev/null<CR>
-cnoremap k call Close()<cr>
 
 " }}}
 
@@ -412,14 +428,7 @@ au FileType cpp :setlocal commentstring=/*\ %s\ */
 au FileType c :set foldmethod=syntax
 au FileType cpp :set foldmethod=syntax
 
-" bindings
-nnoremap gd :ALEGoToDefinition<cr>
-nnoremap gtd :ALEGoToTypeDefinition<cr>
-nnoremap gr :ALEFindReferences<cr>
-nnoremap gh :ALEHover<cr>
-nnoremap ga :ALESymbolSearch 
-
-" if 'octol/vim-cpp-enhanced-highlight' is installed 
+" 'octol/vim-cpp-enhanced-highlight' 
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
@@ -431,19 +440,29 @@ let compile_options = '-std=c++2a -Wall -Wextra -Wconversion -Wunreachable-code
 let ccls_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
 let g:ale_pattern_options = {
             \ '\.\(h\|hpp\|H\|HPP\)$': { 'ale_linters': { 'cpp': ['clang', 'ccls'], 'c': ['clang', 'ccls'] } },
-            \ '\.\(c\|cc\|cpp\|C\|CC\|CPP\)$': { 'ale_linters': { 'cpp': ['clangtidy', 'ccls'], 'c': ['clangtidy', 'ccls'] } },
+            \ '\.\(c\|cc\|cpp\|cppm\|cxx\|C\|CC\|CPP\|CPPM\|CXX\)$': { 'ale_linters': { 'cpp': ['clangtidy', 'ccls'], 'c': ['clangtidy', 'ccls'] } },
             \ }
-" if IsCHeader() 
-"     let b:ale_linters = { 'cpp': ['clang', 'ccls'], 'c': ['clangtidy', 'ccls'] }
-" else
-"     let b:ale_linters = { 'cpp': ['clangtidy', 'ccls'], 'c': ['clangtidy', 'ccls'] }
-" endif
 
 let g:ale_cpp_clang_options = compile_options
 let g:ale_cpp_gcc_options = compile_options
-let g:ale_cpp_clangtidy_checks = ['*', '-llvm*', '-modernize-use-trailing-return-type']
+let g:ale_cpp_clangtidy_checks = ['*', '-llvm*', '-modernize-use-trailing-return-type', '-fuchsia-default*']
 let g:ale_cpp_ccls_init_options = ccls_options
 let g:ale_c_ccls_init_options = ccls_options
+
+" }}}
+" Rust {{{
+au FileType rust :setlocal commentstring=//\ %s
+
+let g:ale_linters = {
+            \ 'rust': ['cargo', 'rls'],
+            \}
+let g:ale_fixers = {
+            \ 'rust': ['rustfmt'],
+            \}
+let g:ale_rust_cargo_use_check = 1
+let g:ale_rust_cargo_check_all_targets = 1
+let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+
 
 " }}}
 " Rasi {{{
