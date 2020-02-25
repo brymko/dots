@@ -235,7 +235,8 @@ if IsVimPlugInstalled()
     " Plug 'tmux-plugins/vim-tmux'
     " Plug 'mihaifm/bufstop' " needs configuration / stop using :bn :bp
     " Plug 'pacha/vem-tabline' 
-    Plug 'bagrat/vim-buffet'
+    " Plug 'bagrat/vim-buffet'
+    Plug 'ap/vim-buftabline'
     
     " Language stuff
     " Plug 'sheerun/vim-polyglot' " get colors from repo for superiore experience
