@@ -1,6 +1,8 @@
 # shared history in all zsh
 # setopt inc_append_history
 # setopt share_history
+setopt no_share_history
+unsetopt share_history
 
 # new terminal in the same directory
 # function cd {

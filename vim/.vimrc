@@ -40,7 +40,7 @@ function! RunFile() " {{{
     elseif (&ft == 'tex')
         :!clear; zathura %:r.pdf >/dev/null 2>&1 &<cr><cr>
     elseif (&ft == 'rust')
-        :!clear; cargo build
+        :!clear; cargo run
     endif
 endfunction " }}}
 function! ModeCurrent() abort " {{{
@@ -86,7 +86,7 @@ set number
 set showmatch
 set diffopt=filler,vertical
 " set lazyredraw
-""set cursorline
+set cursorline
 
 " scrolling
 "" set wrap
@@ -108,6 +108,7 @@ filetype plugin on
 filetype plugin indent on
 set noerrorbells
 set history=10000
+set timeoutlen=400
 set t_BE=
 set ttyfast
 
@@ -140,6 +141,21 @@ set path+=**
 " * [word], g* [partial word], 
 " crtl-o - ctrl-i [go thorugh jump locations]
 " [I show lines with matching word under cursor
+" Jump to next empty line: }
+" Jump to prev empty line: {
+" Jump to begin of block: [{
+" Jump to end of block: ]}
+" Jump to end of sentence: )
+" Jump to beg of sentence: (
+" Jump to end of section: ]]
+" Jump to beg of section: [[
+" Jump to top of window: H
+" Jump to middle: M
+" Jump to bottom: L
+" Jump to matching delim: %
+" Jump to specified tag: :tag...
+" Jump to older tag: <C-t>
+" Jump to tag definition: <C-]>
 
 " marks
 " m[a-zA-Z]
@@ -245,6 +261,7 @@ if IsVimPlugInstalled()
     " Plug 'Shougo/deoplete-clangx'
     " Plug 'deoplete-plugins/deoplete-jedi'
     Plug 'rust-lang/rust.vim'
+    Plug 'arzg/vim-rust-syntax-ext'
     Plug 'octol/vim-cpp-enhanced-highlight'
 
     " Plug 'junegunn/fzf', { 'do': './install --bin' }
@@ -257,11 +274,13 @@ if IsVimPlugInstalled()
     Plug 'dikiaap/minimalist'
     Plug 'pacha/vem-dark'
     Plug 'tomasiser/vim-code-dark'
+    Plug 'arzg/vim-colors-xcode'
 
     call plug#end()
 
-    " colorscheme minimalist 
-    colorscheme codedark
+    " colorscheme codedark
+    colorscheme xcodedarkhc
+    
 
     " Plugin conf
 
@@ -437,7 +456,7 @@ let g:cpp_posix_standart = 1
 let c_no_curly_error = 1
 
 let compile_options = '-std=c++2a -Wall -Wextra -Wconversion -Wunreachable-code 
-                            \ -Wuninitialized -pedantic '
+                            \ -Wuninitialized -pedantic -Wvla -Wextra-semi'
 let ccls_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
 let g:ale_pattern_options = {
             \ '\.\(h\|hpp\|H\|HPP\)$': { 'ale_linters': { 'cpp': ['clang', 'ccls'], 'c': ['clang', 'ccls'] } },
