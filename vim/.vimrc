@@ -363,6 +363,7 @@ nnoremap <C-p> :bp<cr>
 vnoremap < <gv
 vnoremap > >gv
 vnoremap <C-c> :'<,'> w ! xclip -i -selection clipboard<CR><CR>
+inoremap <C-v> <C-o>:set paste<CR><c-r>=substitute(system('xclip -o -selection clipboard'),'[\r\n]*$','','')<cr><C-o>:set nopaste<cr>
 
 " misc
 nnoremap q: <nop>
