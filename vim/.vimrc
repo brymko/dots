@@ -41,6 +41,8 @@ function! RunFile() " {{{
         :!clear; zathura %:r.pdf >/dev/null 2>&1 &<cr><cr>
     elseif (&ft == 'rust')
         :!clear; cargo run
+    elseif (&ft == 'python')
+        :% w ! python
     endif
 endfunction " }}}
 function! ModeCurrent() abort " {{{

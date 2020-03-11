@@ -62,7 +62,7 @@ files=( \
     "shell/.zshenv" "$HOME/.zshenv" \
     "i3/i3" "$HOME/.config/i3/config" \
     "i3/i3status" "$HOME/.config/i3status/config" \
-    "i3/i3blocks" "$HOME/.config/i3blocks/config" \
+    "i3/i3blocks" "$HOME/.config/i3blocks" \
     "i3/i3lock.sh" "$HOME/.config/i3/i3lock.sh" \
     "terminal/config" "$HOME/.config/termite/config" \
     "scripts/screenshot.sh" "$HOME/.config/scripts/screenshot.sh" \
