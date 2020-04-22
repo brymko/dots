@@ -253,7 +253,7 @@ if IsVimPlugInstalled()
     
     " Language stuff
     " Plug 'sheerun/vim-polyglot' " get colors from repo for superiore experience
-    " Plug 'dense-analysis/ale'
+    Plug 'dense-analysis/ale'
     " Plug 'Shougo/deoplete.nvim'
     " Plug 'Shougo/deoplete-clangx'
     " Plug 'deoplete-plugins/deoplete-jedi'
@@ -285,14 +285,16 @@ if IsVimPlugInstalled()
     let g:ale_sign_column_always = 1
     let g:ale_set_balloons = 1
     let g:ale_completion_enabled = 1
-    let g:ale_lint_on_text_changed = 1
+    let g:ale_lint_on_text_changed = 'never'
     let g:ale_lint_on_insert_leave = 0
     let g:ale_lint_on_enter = 0
-    let g:ale_linters_explicit = 0
+    let g:ale_lint_on_save = 1
+    let g:ale_echo_cursor = 0
+    let g:ale_linters_explicit = 1
     let g:ale_fix_on_save = 1
     let g:ale_completion_delay = 50
     let g:ale_pattern_options_enabled = 1
-    let g:ale_fixers = ['rustfmt']
+    let g:ale_set_highlights = 0
 
     nnoremap gd :ALEGoToDefinition<cr>
     nnoremap gtd :ALEGoToTypeDefinition<cr>
@@ -477,12 +479,17 @@ au FileType rust :setlocal commentstring=//\ %s
 let g:ale_linters = {
             \ 'rust': ['cargo', 'rls'],
             \}
-" let g:ale_fixers = {
-"             \ 'rust': ['rustfmt'],
-"             \}
-let g:ale_rust_cargo_use_check = 1
-let g:ale_rust_cargo_check_all_targets = 1
+let g:ale_fixers = {
+            \ 'rust': ['rustfmt'],
+            \}
+
+let g:ale_rust_cargo_avoid_whole_workspace = 1
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+let g:ale_rust_rls_config = {
+                    \ 'rust': {
+                    \       'clippy_preference': 'on'
+                    \   }
+                    \ }
 
 
 
