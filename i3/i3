@@ -26,6 +26,7 @@ popup_during_fullscreen smart
 
 # Modifier
 set $mod Mod1
+set $sup Mod4
 
 # titel font
 font pango:DejaVu Sans Mono 8
@@ -59,18 +60,29 @@ bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 # move workspaces on multimonitor
 bindsym $mod+t move workspace to left
 bindsym $mod+y move workspace to right
+bindsym $sub+t move workspace to left
+bindsym $sub+y move workspace to right
 
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+bindsym $sup+h focus left
+bindsym $sup+j focus down
+bindsym $sup+k focus up
+bindsym $sup+l focus right
 
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
+bindsym $sup+Shift+h move left
+bindsym $sup+Shift+j move down
+bindsym $sup+Shift+k move up
+bindsym $sup+Shift+l move right
+
 
 # split binds h = horizontal v = vertical
 bindsym $mod+b split h
@@ -122,6 +134,17 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
+bindsym $sup+1 workspace $ws11
+bindsym $sup+2 workspace $ws12
+bindsym $sup+3 workspace $ws13
+bindsym $sup+4 workspace $ws14
+bindsym $sup+5 workspace $ws15
+bindsym $sup+6 workspace $ws16
+bindsym $sup+7 workspace $ws17
+bindsym $sup+8 workspace $ws18
+bindsym $sup+9 workspace $ws19
+bindsym $sup+0 workspace $ws20
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
@@ -133,6 +156,17 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
+
+bindsym $sup+Shift+1 move container to workspace $ws11
+bindsym $sup+Shift+2 move container to workspace $ws12
+bindsym $sup+Shift+3 move container to workspace $ws13
+bindsym $sup+Shift+4 move container to workspace $ws14
+bindsym $sup+Shift+5 move container to workspace $ws15
+bindsym $sup+Shift+6 move container to workspace $ws16
+bindsym $sup+Shift+7 move container to workspace $ws17
+bindsym $sup+Shift+8 move container to workspace $ws18
+bindsym $sup+Shift+9 move container to workspace $ws19
+bindsym $sup+Shift+0 move container to workspace $ws20
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
@@ -176,4 +210,6 @@ bar {
     	}
 }
 
+exec --no-startup-id i3-msg 'workspace 1k
+for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws3
 	

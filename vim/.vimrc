@@ -40,9 +40,11 @@ function! RunFile() " {{{
     elseif (&ft == 'tex')
         :!clear; zathura %:r.pdf >/dev/null 2>&1 &<cr><cr>
     elseif (&ft == 'rust')
-        :!clear; cargo run
+        :!clear; cargo run 
     elseif (&ft == 'python')
         :% w ! python
+    elseif (&ft == 'sh')
+        :% w ! sh
     endif
 endfunction " }}}
 function! ModeCurrent() abort " {{{
@@ -50,13 +52,6 @@ function! ModeCurrent() abort " {{{
     let l:modelist = toupper(get(g:currentmode, l:modecurrent, 'V·Block '))
     let l:current_status_mode = l:modelist
     return l:current_status_mode
-endfunction " }}}
-function! GitBranch() " {{{
-  if fugitive#head() == ""
-    return '-'
-  else
-    return fugitive#head()
-  endif
 endfunction " }}}
 function! GetFT() " {{{
   if &filetype == ''
@@ -85,7 +80,7 @@ set encoding=utf-8
 set background=dark
 "set noruler
 set number
-set showmatch
+" set showmatch
 set diffopt=filler,vertical
 " set lazyredraw
 set cursorline
@@ -245,7 +240,7 @@ if IsVimPlugInstalled()
 
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-fugitive'
+    " Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-endwise'
     Plug 'rstacruz/vim-closer'
     " Plug 'cohama/lexima.vim' " could be great with enough configuration
@@ -258,7 +253,7 @@ if IsVimPlugInstalled()
     
     " Language stuff
     " Plug 'sheerun/vim-polyglot' " get colors from repo for superiore experience
-    Plug 'dense-analysis/ale'
+    " Plug 'dense-analysis/ale'
     " Plug 'Shougo/deoplete.nvim'
     " Plug 'Shougo/deoplete-clangx'
     " Plug 'deoplete-plugins/deoplete-jedi'
@@ -290,13 +285,14 @@ if IsVimPlugInstalled()
     let g:ale_sign_column_always = 1
     let g:ale_set_balloons = 1
     let g:ale_completion_enabled = 1
-    let g:ale_lint_on_text_changed = 0
-    let g:ale_lint_on_insert_leave = 1
-    let g:ale_lint_on_enter = 1
-    let g:ale_linters_explicit = 1
+    let g:ale_lint_on_text_changed = 1
+    let g:ale_lint_on_insert_leave = 0
+    let g:ale_lint_on_enter = 0
+    let g:ale_linters_explicit = 0
     let g:ale_fix_on_save = 1
     let g:ale_completion_delay = 50
     let g:ale_pattern_options_enabled = 1
+    let g:ale_fixers = ['rustfmt']
 
     nnoremap gd :ALEGoToDefinition<cr>
     nnoremap gtd :ALEGoToTypeDefinition<cr>
@@ -342,6 +338,7 @@ nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>w :call Preserve(":%s/\\s\\+$//e")<CR>
 nnoremap <leader>o :setlocal spell! spelllang=en_us<CR>
 nnoremap <leader>r :call RunFile()<cr>
+nnoremap <leader>t :!clear; cargo run --release<cr>
 
 
 " movement
@@ -411,7 +408,7 @@ function! LineActive()
     let statusline = ""
     let statusline .= "%#Base#"
     let statusline .= "%0* %{ModeCurrent()}"                " Mode
-    let statusline .= "%2* %{GitBranch()} %)"               " Current Branch
+    " let statusline .= "%2* %{GitBranch()} %)"               " Current Branch
     let statusline .= "%2* %Y "                             " FileType
     let statusline .= "%2* %{''.(&fenc!=''?&fenc:&enc).''}" " Encoding
     let statusline .= "%2* %{&ff} "                         " File format
@@ -432,6 +429,7 @@ function! LineInactive()
 endfunction
 
 set laststatus=2
+set showcmd
 set noshowmode
 
 augroup Statusline
@@ -479,12 +477,13 @@ au FileType rust :setlocal commentstring=//\ %s
 let g:ale_linters = {
             \ 'rust': ['cargo', 'rls'],
             \}
-let g:ale_fixers = {
-            \ 'rust': ['rustfmt'],
-            \}
+" let g:ale_fixers = {
+"             \ 'rust': ['rustfmt'],
+"             \}
 let g:ale_rust_cargo_use_check = 1
 let g:ale_rust_cargo_check_all_targets = 1
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+
 
 
 " }}}
