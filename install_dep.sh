@@ -41,7 +41,7 @@ install_package "curl"
 
 # zsh stuff
 install_shell "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
-mv "$HOME/.oh-my-zsh" "$HOME/.config/oh-my-zsh"
+mv "$HOME/.oh-my-zsh/*" "$HOME/.config/oh-my-zsh"
 git clone "https://github.com/zsh-users/zsh-autosuggestions" "$HOME/.config/oh-my-zsh/custom/plugins/zsh-autosuggestions"
 git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$HOME/.config/oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 #
