@@ -25,9 +25,16 @@ DISABLE_MAGIC_FUNCTIONS=true
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting extract sudo colored-man-pages)
 source $ZSH/oh-my-zsh.sh
 
+alias l="exa -lamg --color=automatic"
+alias ls="exa --color=automatic"
+alias rg="rg -i"
 alias ida64="wine /home/brymko/ctf/IDA/ida/ida64.exe &; disown; exit"
 alias ida="wine /home/brymko/ctf/IDA/ida/ida.exe &; disown; exit"
-alias pdf="zathura"
 alias vi="vim"
 alias work="ssh -Y work"
+
+pdf () { 
+    zathura $* &; disown;
+}
+
 bindkey '^l' autosuggest-accept
