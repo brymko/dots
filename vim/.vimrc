@@ -127,7 +127,7 @@ set modeline
 set foldenable
 set foldlevelstart=10
 set foldnestmax=10
-set foldmethod=syntax
+set foldmethod=manual
 
 "" searching
 set ignorecase
@@ -475,6 +475,7 @@ let g:ale_c_ccls_init_options = ccls_options
 " }}}
 " Rust {{{
 au FileType rust :setlocal commentstring=//\ %s
+au FileType rust :set foldmethod=manual
 
 let g:ale_linters = {
             \ 'rust': ['cargo', 'rls'],

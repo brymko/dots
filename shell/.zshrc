@@ -28,6 +28,7 @@ source $ZSH/oh-my-zsh.sh
 alias l="exa -lamg --color=automatic"
 alias ls="exa --color=automatic"
 alias rg="rg -i"
+alias ip="ip -c"
 alias ida64="wine /home/brymko/ctf/IDA/ida/ida64.exe &; disown; exit"
 alias ida="wine /home/brymko/ctf/IDA/ida/ida.exe &; disown; exit"
 alias vi="vim"
