@@ -6,3 +6,6 @@ export ZSH="$HOME/.config/oh-my-zsh"
 # change vim config path
 export VIMINIT="source $HOME/.config/vim/.vimrc"
 export MYVIMRC="$HOME/.config/vim/.vimrc"
+
+# rust binaries 
+export PATH="$PATH:$HOME/.cargo/bin"

@@ -123,12 +123,12 @@ if [ "$2" = "install_deps"]; then
 
     install_if_needed "i3"
     install_if_needed "i3status"
-    install_if_needed "zsh"
-    install_if_needed "vim"
+    install_if_needed "zsh" install_if_needed "vim"
     install_if_needed "termite"
     install_if_needed "exa"
     install_if_needed "cargo"
     install_if_needed_cargo "exa"
+    install_if_needed_cargo "bat"
     if uname -a | grep debian; then
         install_package "vim-nox"
     else
