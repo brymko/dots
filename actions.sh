@@ -104,6 +104,9 @@ install_if_need_omzsh() {
     fi
 }
 
+install_if_needed_cargo() {
+    cargo install "$1"
+}
 update_packages() {
     if command -v pacman; then
         sudo pacman -Syy
@@ -123,6 +126,9 @@ if [ "$2" = "install_deps"]; then
     install_if_needed "zsh"
     install_if_needed "vim"
     install_if_needed "termite"
+    install_if_needed "exa"
+    install_if_needed "cargo"
+    install_if_needed_cargo "exa"
     if uname -a | grep debian; then
         install_package "vim-nox"
     else
