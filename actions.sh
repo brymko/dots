@@ -79,20 +79,58 @@ elif [ "$1" = "uninstall" ]; then
     done
 fi
 
+# done dropping 
 
-check_if_installed() {
+install_if_needed() {
     if [ ! -f "$(command -v "$1")" ]; then
-        log "$1 not installed"
+        if command -v pacman; then
+            sudo pacman -S "$1" --noconfirm
+        elif command -v apt; then
+            yes | sudo apt install "$1"
+        else
+            echo "no known package manager"
+            exit 1
+        fi
     fi
 }
 
-# check install 
+install_if_need_omzsh() {
+    if [ ! -d "$HOME/.config/oh-my-zsh" ]; then 
+        # big brain time at oh-my-zsh LLC to autoprompt
+        echo "n" | sh -c "$(curl -fsSL "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh")"
+        mv "$HOME/.oh-my-zsh/*" "$HOME/.config/oh-my-zsh"
+        git clone "https://github.com/zsh-users/zsh-autosuggestions" "$HOME/.config/oh-my-zsh/custom/plugins/zsh-autosuggestions"
+        git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$HOME/.config/oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    fi
+}
 
-check_if_installed "i3"
-check_if_installed "i3status"
-check_if_installed "zsh"
-check_if_installed "vim"
-check_if_installed "termite"
-if [ ! -d "$HOME/.config/oh-my-zsh" ]; then
-    log "oh-my-zsh not installed"
+update_packages() {
+    if command -v pacman; then
+        sudo pacman -Syy
+    elif command -v apt; then
+        sudo apt update && yes | sudo apt upgrade
+    else
+        echo "no known package manager"
+        exit 1
+    fi
+}
+
+if [ "$2" = "install_deps"]; then 
+    update_packages
+
+    install_if_needed "i3"
+    install_if_needed "i3status"
+    install_if_needed "zsh"
+    install_if_needed "vim"
+    install_if_needed "termite"
+    if uname -a | grep debian; then
+        install_package "vim-nox"
+    else
+        install_package "vim"
+    fi
+    install_package "nvim"
+    install_if_needed "curl"
+
+    install_if_need_omzsh
 fi
+
