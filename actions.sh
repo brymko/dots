@@ -98,7 +98,6 @@ install_if_need_omzsh() {
     if [ ! -d "$HOME/.config/oh-my-zsh" ]; then 
         # big brain time at oh-my-zsh LLC to autoprompt
         echo "n" | sh -c "$(curl -fsSL "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh")"
-        mv "$HOME/.oh-my-zsh/*" "$HOME/.config/oh-my-zsh"
         git clone "https://github.com/zsh-users/zsh-autosuggestions" "$HOME/.config/oh-my-zsh/custom/plugins/zsh-autosuggestions"
         git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$HOME/.config/oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
     fi
