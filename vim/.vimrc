@@ -1,3 +1,48 @@
+" * [word], g* [partial word], 
+"
+" [I show lines with matching word under cursor
+" Jump to next empty line: }
+" Jump to prev empty line: {
+"
+" Jump to begin of block: [{
+" Jump to end of block: ]}
+"
+" Jump to end of sentence: )
+" Jump to beg of sentence: (
+"
+" Jump to end of section: ]]
+" Jump to beg of section: [[
+"
+" Jump to top of window: H
+" Jump to middle: M
+" Jump to bottom: L
+"
+" Jump to matching delim: %
+"
+" Jump to specified tag: :tag...
+" Jump to older tag: <C-t>
+" Jump to tag definition: <C-]>
+
+" marks
+" m[a-zA-Z]
+" '[a-zA-Z] move to mark, uppercase between files
+" backtick for columns in addition to line
+
+" Ctags
+" command! MakeTags !ctags -R .
+" :tag TAB            - list the known tags
+" :tag function_name  - jump to that function
+" ctrl-t              - goes to previous spot where you called :tag
+" ctrl-]              - calls :tag on the word under the cursor        
+" :ptag               - open tag in preview window (also ctrl-w })
+" :pclose             - close preview window
+
+" recording macros
+" q[a-z]
+" @[a-z] play once
+" @@ play last
+" 5@@ play 5 times
+" "[a-z]p print macro
 
 " Scripts {{{
 function! Preserve(cmd)  "{{{
@@ -10,17 +55,6 @@ function! Preserve(cmd)  "{{{
     let @/=_s
     call cursor(l, c)
 endfunction "}}}
-function! StripTrailingWhiteSpace() " {{{
-    call Preserve("%s/\\s\\+$//e")
-endfunction " }}}
-function! Close() " {{{
-    let no_buffers = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
-    if no_buffers > 1
-        bdelete
-    else
-        quit
-    endif
-endfunction " }}}
 function! EnsureExists(path) " {{{
     if !isdirectory(expand(a:path))
         call mkdir(expand(a:path))
@@ -53,22 +87,9 @@ function! ModeCurrent() abort " {{{
     let l:current_status_mode = l:modelist
     return l:current_status_mode
 endfunction " }}}
-function! GetFT() " {{{
-  if &filetype == ''
-    return '-'
-  else
-    return toupper(&filetype)
-  endif
-endfunction " }}}
-function! IsCHeader() " {{{
-    let ex = expand("%:e")
-    let exp = ['h', 'hpp', 'H']
-    return index(exp, ex) >= 0
-endfunction " }}}
 " }}}
 
 " Vim Core {{{
-
 
 "" encodings
 set nocompatible
@@ -135,49 +156,10 @@ set smartcase
 set incsearch
 set hlsearch
 set path+=**
-" * [word], g* [partial word], 
-" crtl-o - ctrl-i [go thorugh jump locations]
-" [I show lines with matching word under cursor
-" Jump to next empty line: }
-" Jump to prev empty line: {
-" Jump to begin of block: [{
-" Jump to end of block: ]}
-" Jump to end of sentence: )
-" Jump to beg of sentence: (
-" Jump to end of section: ]]
-" Jump to beg of section: [[
-" Jump to top of window: H
-" Jump to middle: M
-" Jump to bottom: L
-" Jump to matching delim: %
-" Jump to specified tag: :tag...
-" Jump to older tag: <C-t>
-" Jump to tag definition: <C-]>
-
-" marks
-" m[a-zA-Z]
-" '[a-zA-Z] move to mark, uppercase between files
-" backtick for columns in addition to line
-
-" Ctags
-" command! MakeTags !ctags -R .
-" :tag TAB            - list the known tags
-" :tag function_name  - jump to that function
-" ctrl-t              - goes to previous spot where you called :tag
-" ctrl-]              - calls :tag on the word under the cursor        
-" :ptag               - open tag in preview window (also ctrl-w })
-" :pclose             - close preview window
-
-" recording macros
-" q[a-z]
-" @[a-z] play once
-" @@ play last
-" 5@@ play 5 times
-" "[a-z]p print macro
-
 
 "" Buffers
-set splitbelow splitright
+" :sp -> split, :vs -> vsplit
+set splitright splitbelow
 set hidden
 
 "" files
@@ -195,7 +177,7 @@ set noswapfile
 set writebackup
 set undofile
 
-" viminfo
+"" viminfo
 let &runtimepath.=',$HOME/.confg/vim'
 set viminfo=<800,'10,/50,:100,h,f0,n~/.config/vim/.viminfo
 "         | |    |   |   |    | |  + viminfo file path
@@ -207,7 +189,7 @@ set viminfo=<800,'10,/50,:100,h,f0,n~/.config/vim/.viminfo
 "         | + lines saved each register (old name for <, vi6.2)
 "         + save/restore buffer list
 
-" views
+"" views
 " au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 augroup AutoSaveFolds
   autocmd!
@@ -238,93 +220,90 @@ if IsVimPlugInstalled()
         Plug 'roxma/vim-hug-neovim-rpc'
     endif
 
-    Plug 'tpope/vim-commentary'
+    " comment lines with gc and gcc
+    Plug 'tpope/vim-commentary' 
+    " yiw / cs]) ... etc
     Plug 'tpope/vim-surround'
-    " Plug 'tpope/vim-fugitive'
+    " shellscript if to fi complete
     Plug 'tpope/vim-endwise'
+    " auto close brakets on enter 
     Plug 'rstacruz/vim-closer'
-    " Plug 'cohama/lexima.vim' " could be great with enough configuration
-    " Plug 'thirtythreeforty/lessspace.vim " Strip trailing ws version control friendly
-    " Plug 'tmux-plugins/vim-tmux'
-    " Plug 'mihaifm/bufstop' " needs configuration / stop using :bn :bp
-    " Plug 'pacha/vem-tabline' 
-    " Plug 'bagrat/vim-buffet'
+    " Plug 'cohama/lexima.vim' " vim-endwise && vim-closer already do this could be great with enough configuration
     Plug 'ap/vim-buftabline'
     
     " Language stuff
-    " Plug 'sheerun/vim-polyglot' " get colors from repo for superiore experience
-    Plug 'dense-analysis/ale'
-    " Plug 'Shougo/deoplete.nvim'
-    " Plug 'Shougo/deoplete-clangx'
-    " Plug 'deoplete-plugins/deoplete-jedi'
+    " Plug 'dense-analysis/ale' loaded after settings :/
     Plug 'rust-lang/rust.vim'
+
+
+    " language colors
+    " Plug 'sheerun/vim-polyglot' " get colors from here 
     Plug 'arzg/vim-rust-syntax-ext'
     Plug 'octol/vim-cpp-enhanced-highlight'
 
     " Plug 'junegunn/fzf', { 'do': './install --bin' }
     " Plug 'junegunn/fzf.vim'
 
-    " colors
-    Plug 'ajmwagar/vim-deus'
-    Plug 'dracula/vim'
-    Plug 'joshdick/onedark.vim'
-    Plug 'dikiaap/minimalist'
-    Plug 'pacha/vem-dark'
-    Plug 'tomasiser/vim-code-dark'
+    " colortheme
     Plug 'arzg/vim-colors-xcode'
 
-    call plug#end()
-
-    " colorscheme codedark
-    colorscheme xcodedarkhc
-    
-
-    " Plugin conf
-
+    "" Plugin conf
     " 'dense-analysis/ale'
-    let g:ale_sign_column_always = 1
-    let g:ale_set_balloons = 1
-    let g:ale_completion_enabled = 1
-    let g:ale_lint_on_text_changed = 'never'
-    let g:ale_lint_on_insert_leave = 0
-    let g:ale_lint_on_enter = 0
-    let g:ale_lint_on_save = 1
-    let g:ale_echo_cursor = 0
-    let g:ale_linters_explicit = 1
-    let g:ale_fix_on_save = 1
+    let g:ale_cache_executable_check_failures = 1
     let g:ale_completion_delay = 50
-    let g:ale_pattern_options_enabled = 1
-    let g:ale_set_highlights = 0
+    let g:ale_completion_enabled = 1
+    let g:ale_completion_max_suggestions = 10
+    let g:ale_echo_cursor = 0
+    let g:ale_echo_delay = 9999999999999999999999999999
+    let g:ale_fix_on_save = 1
+    let g:ale_history_enabled = 0
+    let g:ale_lint_delay = 9999999999999999999999999999
+    let g:ale_lint_on_enter = 1
+    let g:ale_lint_on_save = 1
+    let g:ale_lint_on_text_changed = 0
+    let g:ale_lint_on_insert_leaver = 0
+    let g:ale_linters_explicit = 1
+    let g:ale_max_signs = 20
 
-    nnoremap gd :ALEGoToDefinition<cr>
-    nnoremap gtd :ALEGoToTypeDefinition<cr>
-    nnoremap gr :ALEFindReferences<cr>
-    nnoremap gh :ALEHover<cr>
-    nnoremap ga :ALESymbolSearch 
-    nnoremap gw :ALEDetail<cr>
+    Plug 'dense-analysis/ale' 
 
-    " deoplete 
-    " let g:deoplete#enable_at_startup=1
-    " highlight Pmenu ctermbg=8 guibg=#606060
-    " highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
-    " highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
+    " let g:ale_pattern_options = {
+    "         \ '\.\(h\|hpp\|H\|HPP\)$': { 'ale_linters': { 'cpp': ['clang', 'ccls'], 'c': ['clang', 'ccls'] } },
+    "         \ '\.\(c\|cc\|cpp\|cppm\|cxx\|C\|CC\|CPP\|CPPM\|CXX\)$': { 'ale_linters': { 'cpp': ['clangtidy', 'ccls'], 'c': ['clangtidy', 'ccls'] } },
+    "         \ }
+    let g:ale_cpp_ccls_init_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
+    let g:ale_c_ccls_init_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
+    let g:ale_cpp_clangtidy_checks = ['*', '-llvm*', '-modernize-use-trailing-return-type', '-fuchsia-default*']
+    let compile_options = '-std=c++2a -Wall -Wextra -Wconversion -Wunreachable-code 
+                                \ -Wuninitialized -pedantic -Wvla -Wextra-semi'
+    let g:ale_cpp_clang_options = compile_options
+    let g:ale_cpp_gcc_options = compile_options
 
+    let g:ale_linters = {
+                \ 'rust': ['cargo', 'rls'],
+                \}
+    let g:ale_fixers = {
+                \ 'rust': ['rustfmt'],
+                \}
 
-    " 'pacha/vem-tabline' 
-    let g:vem_tabline_multiwindow_mode = 1
-    highlight VemTablineNormal           term=reverse cterm=none ctermfg=1 ctermbg=251 guifg=#ffffff guibg=#212333 gui=none
-    highlight VemTablineLocation         term=reverse cterm=none ctermfg=239 ctermbg=251 guifg=#666666 guibg=#cdcdcd gui=none
-    highlight VemTablineNumber           term=reverse cterm=none ctermfg=239 ctermbg=251 guifg=#666666 guibg=#cdcdcd gui=none
-    highlight VemTablineSelected         term=bold    cterm=bold ctermfg=0   ctermbg=255 guifg=#242424 guibg=#ffffff gui=bold
-    highlight VemTablineLocationSelected term=bold    cterm=none ctermfg=239 ctermbg=255 guifg=#666666 guibg=#ffffff gui=bold
-    highlight VemTablineNumberSelected   term=bold    cterm=none ctermfg=239 ctermbg=255 guifg=#666666 guibg=#ffffff gui=bold
-    highlight VemTablineShown            term=reverse cterm=none ctermfg=0   ctermbg=251 guifg=#242424 guibg=#cdcdcd gui=none
-    highlight VemTablineLocationShown    term=reverse cterm=none ctermfg=0   ctermbg=251 guifg=#666666 guibg=#cdcdcd gui=none
-    highlight VemTablineNumberShown      term=reverse cterm=none ctermfg=0   ctermbg=251 guifg=#666666 guibg=#cdcdcd gui=none
-    highlight VemTablineSeparator        term=reverse cterm=none ctermfg=246 ctermbg=251 guifg=#888888 guibg=#cdcdcd gui=none
-    highlight VemTablinePartialName      term=reverse cterm=none ctermfg=246 ctermbg=251 guifg=#888888 guibg=#cdcdcd gui=none
-    highlight VemTablineTabNormal        term=reverse cterm=none ctermfg=0   ctermbg=251 guifg=#242424 guibg=#4a4a4a gui=none
-    highlight VemTablineTabSelected      term=bold    cterm=bold ctermfg=0   ctermbg=255 guifg=#242424 guibg=#ffffff gui=bold
+    let g:ale_rust_cargo_avoid_whole_workspace = 1
+    let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+    let g:ale_rust_rls_config = {
+                        \ 'rust': {
+                        \       'clippy_preference': 'on'
+                        \   }
+                        \ }
+
+    
+    " octol/vim-cpp-enhanced-highlight
+    let g:cpp_class_scope_highlight = 1
+    let g:cpp_member_variable_highlight = 1
+    let g:cpp_concepts_highlight = 1
+    let g:cpp_posix_standart = 1
+    let c_no_curly_error = 1
+
+    call plug#end()
+    colorscheme xcodedarkhc
 endif
 
 " }}}
@@ -369,6 +348,15 @@ inoremap <C-v> <C-o>:set paste<CR><c-r>=substitute(system('xclip -o -selection c
 " misc
 nnoremap q: <nop>
 cnoremap sudow w !sudo tee % > /dev/null<CR>
+
+" Plugins
+nnoremap gd :ALEGoToDefinition<cr>
+nnoremap gtd :ALEGoToTypeDefinition<cr>
+nnoremap gr :ALEFindReferences<cr>
+nnoremap gh :ALEHover<cr>
+nnoremap ga :ALESymbolSearch 
+nnoremap gw :ALEDetail<cr>
+nnoremap <leader>l :ALEToggle<cr>
 
 " }}}
 
@@ -450,48 +438,10 @@ au FileType cpp :setlocal commentstring=/*\ %s\ */
 
 au FileType c :set foldmethod=syntax
 au FileType cpp :set foldmethod=syntax
-
-" 'octol/vim-cpp-enhanced-highlight' 
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_posix_standart = 1
-let c_no_curly_error = 1
-
-let compile_options = '-std=c++2a -Wall -Wextra -Wconversion -Wunreachable-code 
-                            \ -Wuninitialized -pedantic -Wvla -Wextra-semi'
-let ccls_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
-let g:ale_pattern_options = {
-            \ '\.\(h\|hpp\|H\|HPP\)$': { 'ale_linters': { 'cpp': ['clang', 'ccls'], 'c': ['clang', 'ccls'] } },
-            \ '\.\(c\|cc\|cpp\|cppm\|cxx\|C\|CC\|CPP\|CPPM\|CXX\)$': { 'ale_linters': { 'cpp': ['clangtidy', 'ccls'], 'c': ['clangtidy', 'ccls'] } },
-            \ }
-
-let g:ale_cpp_clang_options = compile_options
-let g:ale_cpp_gcc_options = compile_options
-let g:ale_cpp_clangtidy_checks = ['*', '-llvm*', '-modernize-use-trailing-return-type', '-fuchsia-default*']
-let g:ale_cpp_ccls_init_options = ccls_options
-let g:ale_c_ccls_init_options = ccls_options
-
 " }}}
 " Rust {{{
 au FileType rust :setlocal commentstring=//\ %s
 au FileType rust :set foldmethod=manual
-
-let g:ale_linters = {
-            \ 'rust': ['cargo', 'rls'],
-            \}
-let g:ale_fixers = {
-            \ 'rust': ['rustfmt'],
-            \}
-
-let g:ale_rust_cargo_avoid_whole_workspace = 1
-let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
-let g:ale_rust_rls_config = {
-                    \ 'rust': {
-                    \       'clippy_preference': 'on'
-                    \   }
-                    \ }
-
 
 
 " }}}
@@ -500,25 +450,20 @@ au BufEnter *.rasi :setlocal commentstring=/*\ %s\ */
 "}}}
 " Python {{{
 au FileType python :set foldmethod=indent
-
 " }}}
 " Make {{{
 au FileType make setlocal noexpandtab "dont expandtab on Makefile
-
 " }}}
 " Vim {{{
 au FileType vim :setlocal commentstring=\"\ %s
 au FileType vim :set foldmethod=marker
-
 " }}}
 " Shell {{{
 au FileType sh :setlocal commentstring=#\ %s
 au FileType bash :setlocal commentstring=#\ %s
-
 " }}}
 " asm {{{
 au FileType asm :setlocal commentstring=;\ %s
-
 " }}}
 " }}}
 
