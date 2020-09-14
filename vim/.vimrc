@@ -81,6 +81,7 @@ function! RunFile() " {{{
         :% w ! sh
     endif
 endfunction " }}}
+" TODO: ReplaceWordInProject
 function! ReplaceInProject(...)
     if a:0 > 1
         let what = escape(a:1, '"''')
@@ -254,7 +255,13 @@ if IsVimPlugInstalled()
     " colortheme
     Plug 'arzg/vim-colors-xcode'
 
+    Plug 'junegunn/fzf', { 'do': './install --bin' }
+    Plug 'junegunn/fzf.vim'
+
+
     "" Plugin conf
+    " 'fzf'
+    
     " 'dense-analysis/ale'
     let g:ale_cache_executable_check_failures = 1
     let g:ale_completion_delay = 50
@@ -272,12 +279,11 @@ if IsVimPlugInstalled()
     let g:ale_linters_explicit = 1
     let g:ale_max_signs = 20
 
-    Plug 'dense-analysis/ale' 
 
-    " let g:ale_pattern_options = {
-    "         \ '\.\(h\|hpp\|H\|HPP\)$': { 'ale_linters': { 'cpp': ['clang', 'ccls'], 'c': ['clang', 'ccls'] } },
-    "         \ '\.\(c\|cc\|cpp\|cppm\|cxx\|C\|CC\|CPP\|CPPM\|CXX\)$': { 'ale_linters': { 'cpp': ['clangtidy', 'ccls'], 'c': ['clangtidy', 'ccls'] } },
-    "         \ }
+    let g:ale_pattern_options = {
+            \ '\.\(h\|hpp\|H\|HPP\)$': { 'ale_linters': { 'cpp': ['clang', 'ccls'], 'c': ['clang', 'ccls'] } },
+            \ '\.\(c\|cc\|cpp\|cppm\|cxx\|C\|CC\|CPP\|CPPM\|CXX\)$': { 'ale_linters': { 'cpp': ['clangtidy', 'ccls'], 'c': ['clangtidy', 'ccls'] } },
+            \ }
     let g:ale_cpp_ccls_init_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
     let g:ale_c_ccls_init_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
     let g:ale_cpp_clangtidy_checks = ['*', '-llvm*', '-modernize-use-trailing-return-type', '-fuchsia-default*']
@@ -309,6 +315,7 @@ if IsVimPlugInstalled()
     let g:cpp_posix_standart = 1
     let c_no_curly_error = 1
 
+    Plug 'dense-analysis/ale' 
     call plug#end()
     colorscheme xcodedarkhc
 endif
@@ -365,6 +372,7 @@ nnoremap gh :ALEHover<cr>
 nnoremap ga :ALESymbolSearch 
 nnoremap gw :ALEDetail<cr>
 nnoremap <leader>l :ALEToggle<cr>
+nnoremap <C-f> :Rg<cr>
 
 
 " }}}

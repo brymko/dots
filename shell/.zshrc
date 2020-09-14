@@ -25,6 +25,12 @@ DISABLE_MAGIC_FUNCTIONS=true
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting extract sudo colored-man-pages)
 source $ZSH/oh-my-zsh.sh
 
+if type rg &> /dev/null; then
+    export FZF_DEFAULT_COMMAND='rg --files'
+    # border is small
+    export FZF_DEFAULT_OPTS='--height 50% --border --reverse' # -m
+fi
+
 alias l="exa -lamg --sort type --color=automatic"
 alias ls="exa --sort type --color=automatic"
 alias rg="rg -i"
