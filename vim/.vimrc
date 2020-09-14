@@ -81,6 +81,16 @@ function! RunFile() " {{{
         :% w ! sh
     endif
 endfunction " }}}
+function! ReplaceInProject(...)
+    if a:0 > 1
+        let what = escape(a:1, '"''')
+        let to = escape(a:2, '"''')
+        let replace_str = join(["xargs sed -i 's/", what, "/", to, "/'"], "")
+        let cmd = join(["!rg -l", what, "|", replace_str], ' ')
+        " if this is silent, editor view gets broken
+        echo cmd
+    endif
+endfunction
 function! ModeCurrent() abort " {{{
     let l:modecurrent = mode()
     let l:modelist = toupper(get(g:currentmode, l:modecurrent, 'V·Block '))
@@ -241,9 +251,6 @@ if IsVimPlugInstalled()
     Plug 'arzg/vim-rust-syntax-ext'
     Plug 'octol/vim-cpp-enhanced-highlight'
 
-    " Plug 'junegunn/fzf', { 'do': './install --bin' }
-    " Plug 'junegunn/fzf.vim'
-
     " colortheme
     Plug 'arzg/vim-colors-xcode'
 
@@ -321,7 +328,6 @@ nnoremap <leader>o :setlocal spell! spelllang=en_us<CR>
 nnoremap <leader>r :call RunFile()<cr>
 nnoremap <leader>t :!clear; cargo run --release<cr>
 
-
 " movement
 inoremap jk <esc>
 nnoremap j gj
@@ -348,6 +354,8 @@ inoremap <C-v> <C-o>:set paste<CR><c-r>=substitute(system('xclip -o -selection c
 " misc
 nnoremap q: <nop>
 cnoremap sudow w !sudo tee % > /dev/null<CR>
+command -nargs=+ Rp call ReplaceInProject(<f-args>)
+nnoremap \ :Rp 
 
 " Plugins
 nnoremap gd :ALEGoToDefinition<cr>
@@ -357,6 +365,7 @@ nnoremap gh :ALEHover<cr>
 nnoremap ga :ALESymbolSearch 
 nnoremap gw :ALEDetail<cr>
 nnoremap <leader>l :ALEToggle<cr>
+
 
 " }}}
 
