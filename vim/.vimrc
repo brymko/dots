@@ -1,4 +1,6 @@
-" * [word], g* [partial word], 
+" * [word], g* [partial word],  
+"
+" https://github.com/BurntSushi/dotfiles/blob/master/.vimrc
 "
 " [I show lines with matching word under cursor
 " Jump to next empty line: }
@@ -87,9 +89,9 @@ function! ReplaceInProject(...)
         let what = escape(a:1, '"''')
         let to = escape(a:2, '"''')
         let replace_str = join(["xargs sed -i 's/", what, "/", to, "/'"], "")
-        let cmd = join(["!rg -l", what, "|", replace_str], ' ')
+        let cmd = join(["!rg -l -s", what, "|", replace_str], ' ')
         " if this is silent, editor view gets broken
-        echo cmd
+        execute cmd
     endif
 endfunction
 function! ModeCurrent() abort " {{{
@@ -373,6 +375,7 @@ nnoremap ga :ALESymbolSearch
 nnoremap gw :ALEDetail<cr>
 nnoremap <leader>l :ALEToggle<cr>
 nnoremap <C-f> :Rg<cr>
+nnoremap <silent> ge :ALENextWrap<cr>
 
 
 " }}}

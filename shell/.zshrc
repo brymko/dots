@@ -39,6 +39,9 @@ alias ida64="wine /home/brymko/ctf/IDA/ida/ida64.exe &; disown; exit"
 alias ida="wine /home/brymko/ctf/IDA/ida/ida.exe &; disown; exit"
 alias vi="vim"
 alias work="ssh -Y work"
+alias ncdu="ncdu -r"
+alias virtm="sudo virt-manager&; disown; exit"
+alias vm="$HOME/vm/vm.sh"
 
 pdf () { 
     zathura $* &; disown;

@@ -66,6 +66,7 @@ files=( \
     "i3/i3lock.sh" "$HOME/.config/i3/i3lock.sh" \
     "terminal/config" "$HOME/.config/termite/config" \
     "scripts/screenshot.sh" "$HOME/.config/scripts/screenshot.sh" \
+    "i3/dunstrc" "$HOME/.config/dunst/dunstrc"\
 )
 
 
@@ -126,6 +127,7 @@ if [ "$2" = "install_deps"]; then
     install_if_needed "termite"
     install_if_needed "exa"
     install_if_needed "cargo"
+    install_if_needed "dunst"
     install_if_needed_cargo "exa"
     install_if_needed_cargo "bat"
     if uname -a | grep debian; then

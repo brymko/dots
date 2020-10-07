@@ -9,3 +9,4 @@ export MYVIMRC="$HOME/.config/vim/.vimrc"
 
 # rust binaries 
 export PATH="$PATH:$HOME/.cargo/bin"
+
