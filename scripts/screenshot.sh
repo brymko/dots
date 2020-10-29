@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -euo pipefail
+
 NAME=$(date +"%s%N")
 FILE="$HOME/pics/$NAME.png"
 

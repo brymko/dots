@@ -242,6 +242,7 @@ if IsVimPlugInstalled()
     " auto close brakets on enter 
     Plug 'rstacruz/vim-closer'
     " Plug 'cohama/lexima.vim' " vim-endwise && vim-closer already do this could be great with enough configuration
+    " buffers 
     Plug 'ap/vim-buftabline'
     
     " Language stuff
@@ -288,11 +289,11 @@ if IsVimPlugInstalled()
             \ }
     let g:ale_cpp_ccls_init_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
     let g:ale_c_ccls_init_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
-    let g:ale_cpp_clangtidy_checks = ['*', '-llvm*', '-modernize-use-trailing-return-type', '-fuchsia-default*']
-    let compile_options = '-std=c++2a -Wall -Wextra -Wconversion -Wunreachable-code 
+    " let g:ale_cpp_clangtidy_checks = ['*', '-llvm*', '-modernize-use-trailing-return-type', '-fuchsia-default*']
+    " let compile_options = '-std=c++2a -Wall -Wextra -Wconversion -Wunreachable-code 
                                 \ -Wuninitialized -pedantic -Wvla -Wextra-semi'
-    let g:ale_cpp_clang_options = compile_options
-    let g:ale_cpp_gcc_options = compile_options
+    " let g:ale_cpp_clang_options = compile_options
+    " let g:ale_cpp_gcc_options = compile_options
 
     let g:ale_linters = {
                 \ 'rust': ['cargo', 'rls'],
@@ -349,6 +350,11 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+inoremap <C-h> <C-o><C-w>h
+inoremap <C-j> <C-o><C-w>j
+inoremap <C-k> <C-o><C-w>k
+inoremap <C-l> <C-o><C-w>l
 
 nnoremap <C-n> :bn<cr>
 nnoremap <C-p> :bp<cr>
