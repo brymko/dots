@@ -50,7 +50,6 @@ setopt prompt_subst
 RPS1='$($HOME/.config/zsh/gitp.sh)'
 
 # menu highlighting, straight ripped from oh-my-zsh
-zmodload -i zsh/complist
 unsetopt menu_complete
 unsetopt flowcontrol
 setopt auto_menu
@@ -69,8 +68,6 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
         operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
         rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
         usbmux uucp vcsa wwwrun xfs '_*'
-zstyle '*' singe-ignored show
-autoload -U +X bashcompinit && bashcompinit
 autoload -U +X compinit && compinit -i -C
 
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==02=01}:${(s.:.)LS_COLORS}")'
