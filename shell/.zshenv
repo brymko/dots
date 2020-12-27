@@ -1,6 +1,10 @@
 # change config path
 export ZDOTDIR="$HOME/.config/zsh"
 
+if [ -x /usr/bin/dircolors ]; then
+    eval "$(dircolors -b)"
+fi
+
 # change vim config path
 export VIMINIT="source $HOME/.config/vim/.vimrc"
 export MYVIMRC="$HOME/.config/vim/.vimrc"

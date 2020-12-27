@@ -50,28 +50,31 @@ setopt prompt_subst
 RPS1='$($HOME/.config/zsh/gitp.sh)'
 
 # menu highlighting, straight ripped from oh-my-zsh
-unsetopt menu_complete
-unsetopt flowcontrol
-setopt auto_menu
-setopt complete_in_word
-setopt always_to_end
-zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*' special-dirs true
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
-zstyle ':completion:*:*:*:users' ignored-patterns \
-        adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
-        clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
-        gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
-        ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
-        named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
-        operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
-        rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
-        usbmux uucp vcsa wwwrun xfs '_*'
-autoload -U +X compinit && compinit -i -C
-
+# unsetopt menu_complete
+# unsetopt flowcontrol
+# setopt auto_menu
+# setopt complete_in_word
+# setopt always_to_end
+# zstyle ':completion:*:*:*:*:*' menu select
+# zstyle ':completion:*' special-dirs true
+# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+# zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+# zstyle ':completion:*:*:*:users' ignored-patterns \
+#         adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
+#         clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
+#         gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
+#         ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
+#         named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
+#         operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
+#         rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
+#         usbmux uucp vcsa wwwrun xfs '_*'
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==02=01}:${(s.:.)LS_COLORS}")'
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
+#
+zstyle ':completion:*' menu select
+zstyle ':completion:*' hidden all
+
+autoload -Uz compinit && compinit
 
 # fzf
 if type rg &> /dev/null; then
@@ -96,6 +99,10 @@ pdf () {
     zathura $* &; disown;
 }
 
+
+bindkey '^E' end-of-line
+bindkey '^A' beginning-of-line
+bindkey '^U' kill-whole-line
 bindkey '^[[Z' reverse-menu-complete
 bindkey '^p' up-line-or-history
 bindkey '^n' down-line-or-history
@@ -124,3 +131,4 @@ source "$HOME/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$HOME/.config/zsh/plugins/extract/extract.zsh"
 
+eval "$(dircolors -b)"
