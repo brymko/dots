@@ -29,4 +29,13 @@ fi
 branch=$(echo "$cur_status" | head -n 1 | cut -d ' ' -f 2 | cut -d '.' -f 1)
 PROMPT="$PROMPT %F{green}$branch"
 
+ahead=$(echo "$cur_status" | perl -n -e '/ahead (\d+)]/ && print $1')
+if [[ "$ahead" -gt 0 ]]; then
+    PROMPT="$PROMPT %F{red}ahead %F{magenta}$ahead"
+fi
+behind=$(echo "$cur_status" | perl -n -e '/behind (\d+)]/ && print $1')
+if [[ "$behind" -gt 0 ]]; then
+    PROMPT="$PROMPT %F{red}behind %F{magenta}$behind"
+fi
+
 echo "$PROMPT"
