@@ -3,12 +3,10 @@ separator_block_width=15
 markup=none
 
 [vpn]
-interval=5
+interval=1
 [ip]
 label= 
-interval=5
-[arch]
-interval=5
+interval=1
 # [volume]
 # label= 
 # interval=5
@@ -30,4 +28,4 @@ instance=mem;used
 interval=5
 [time]
 label= 
-interval=5
+interval=1

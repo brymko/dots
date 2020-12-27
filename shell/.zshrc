@@ -1,52 +1,101 @@
-# shared history in all zsh
-# setopt inc_append_history
-# setopt share_history
+# Safe paste https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/safe-paste/safe-paste.plugin.zsh
+if [[ ${ZSH_VERSION:0:3} -ge 5.1 ]]; then
+    set zle_bracketed_paste  # Explicitly restore this zsh default
+    autoload -Uz bracketed-paste-magic
+    zle -N bracketed-paste bracketed-paste-magic
+fi
+#
 
-# new terminal in the same directory
-# function cd {
-#     builtin cd $@
-#     pwd > "$ZDOTDIR/.last_dir"
-# }
+# Sudo https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/sudo/sudo.plugin.zsh
+# ESC ESC => !! <ctrl-a> sudo <enter>
+sudo-command-line() {
+    [[ -z $BUFFER ]] && zle up-history
+    if [[ $BUFFER == sudo\ * ]]; then
+        LBUFFER="${LBUFFER#sudo }"
+    elif [[ $BUFFER == $EDITOR\ * ]]; then
+        LBUFFER="${LBUFFER#$EDITOR }"
+        LBUFFER="sudoedit $LBUFFER"
+    elif [[ $BUFFER == sudoedit\ * ]]; then
+        LBUFFER="${LBUFFER#sudoedit }"
+        LBUFFER="$EDITOR $LBUFFER"
+    else
+        LBUFFER="sudo $LBUFFER"
+    fi
+}
+zle -N sudo-command-line
+# Defined shortcut keys: [Esc] [Esc]
+bindkey "\e\e" sudo-command-line
+#
 
-# if [ -f "$ZDOTDIR/.last_dir" ]; then
-#     cd "$(cat $ZDOTDIR/.last_dir)"
-# fi
+# Colored man pages https://github.com/MrElendig/dotfiles-alice/blob/master/.zshrc
+man() {
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man "$@"
+}
+#
 
-export ZSH="$HOME/.config/oh-my-zsh"
+# fix paste bug
+zstyle ':bracketed-paste-magic' active-widgets '.self-*'
+# complex plugins
+source "$HOME/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$HOME/.config/zsh/plugins/extract/extract.zsh"
 
-ZSH_THEME="alanpeabody"
+# Prompt stuff
+[[ "$COLORTERM" == (24bit|truecolor) || "${terminfo[colors]}" -eq '16777216' ]] || zmodload zsh/nearcolor
 
-HYPHEN_INSENSITIVE="true"
 
-DISABLE_MAGIC_FUNCTIONS=true
+# Color section https://wiki.archlinux.org/index.php/zsh
+PS1="%(?..%F{red}=>%? )%F{magenta}%n@%F{magenta}%m %F{blue}%~%f$ "
 
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting extract sudo colored-man-pages)
-source $ZSH/oh-my-zsh.sh
+# autoload -Uz vcs_info
+setopt prompt_subst
+RPS1='$($HOME/.config/zsh/gitp.sh)'
 
+# fzf
 if type rg &> /dev/null; then
     export FZF_DEFAULT_COMMAND='rg --files'
-    # border is small
     export FZF_DEFAULT_OPTS='--height 50% --border --reverse' # -m
 fi
 
 alias l="exa -lamg --sort type --color=automatic"
 alias ls="exa --sort type --color=automatic"
 alias rg="rg -i"
-alias ip="ip -c"
+alias ip="ip -br -c"
 alias ida64="wine /home/brymko/ctf/IDA/ida/ida64.exe &; disown; exit"
 alias ida="wine /home/brymko/ctf/IDA/ida/ida.exe &; disown; exit"
 alias vi="vim"
 alias work="ssh -Y work"
 alias ncdu="ncdu -r"
-alias virtm="sudo virt-manager&; disown; exit"
 alias vm="$HOME/vm/vm.sh"
+alias sed="sd" 
+alias grep="rg"
 
 pdf () { 
     zathura $* &; disown;
 }
 
-bindkey '^l' autosuggest-accept
+bindkey '^o' autosuggest-accept
+bindkey '^h' backward-word
+bindkey '^j' backward-char
+bindkey '^l' forward-word
+bindkey '^k' forward-char
 
-# retardet default setting tbh
+# retarded default setting tbh
 setopt no_share_history
 unsetopt share_history
+
+export BROWSER="chromium"
+export EDITOR="vim"
+
+export HISTFILE="$HOME/.config/zsh/.zsh_history"
+SAVEHIST=10000
+HISTSIZE=10000
+

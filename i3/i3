@@ -4,13 +4,13 @@ default_border pixel 3
 default_floating_border pixel 3
 # hide_edge_borders smart
 
-#client.focused		#3cff00		#2c2c2c		#c1c1c1		#3cff00		#3cff00
-# Colors		    border		background	text		indicator	child_border
-#client.focused		#ff3d00		#2c2c2c		#c1c1c1		#ffb400		#ffb400
-client.focused      #00ff00     #2c2c2c     #c1c1c1     #00ff00     #00ff00
-client.unfocused	#1e1e1e     #2c2c2c		#c1c1c1		#1e1e1e     #0e0e0e
-client.focused_inactive	#1e1e1e		#2c2c2c		#c1c1c1		#0e0e0e		#0e0e0e
-client.urgent		#3c3c3c		#3c3c3c		#c1c1c1		#ffffff		#ffffff
+#client.focused          #3cff00  #2c2c2c     #c1c1c1  #3cff00    #3cff00
+#Colors                  border   background  text     indicator  child_border
+#client.focused          #ff3d00  #2c2c2c     #c1c1c1  #ffb400    #ffb400
+client.focused           #00ff00  #2c2c2c     #c1c1c1  #00ff00    #00ff00
+client.unfocused         #1e1e1e  #2c2c2c     #c1c1c1  #1e1e1e    #0e0e0e
+client.focused_inactive  #1e1e1e  #2c2c2c     #c1c1c1  #0e0e0e    #0e0e0e
+client.urgent            #3c3c3c  #3c3c3c     #c1c1c1  #ffffff    #ffffff
 
 # Auto back and forth
 workspace_auto_back_and_forth yes 
@@ -36,16 +36,17 @@ font pango:DejaVu Sans Mono 8
 floating_modifier $mod
 
 # screen brightness controls
-bindsym XF86MonBrightnessUp exec brightnessctl -d intel_backlight set 10%+ > /dev/null
-bindsym XF86MonBrightnessDown exec brightnessctl -d intel_backlight set 10%- > /dev/null
+# bindsym XF86MonBrightnessUp exec brightnessctl -d intel_backlight set 10%+ > /dev/null
+# bindsym XF86MonBrightnessDown exec brightnessctl -d intel_backlight set 10%- > /dev/null
 
-# audio control 
-bindsym XF86AudioRaiseVolume exec amixer set Master 10%+
-bindsym XF86AudioLowerVolume exec amixer set Master 10%-
-bindsym XF86AudioMute exec amixer set Master toggle
+# # audio control 
+# bindsym XF86AudioRaiseVolume exec amixer set Master 10%+
+# bindsym XF86AudioLowerVolume exec amixer set Master 10%-
+# bindsym XF86AudioMute exec amixer set Master toggle
 
 # start a terminal
 bindsym $mod+Return exec termite -d "$(xcwd)"
+bindsym $sup+Return exec termite -d "$(xcwd)"
 
 # screenshot 
 bindsym --release $mod+o exec --no-startup-id "~/.config/scripts/screenshot.sh"
@@ -55,7 +56,7 @@ bindsym $mod+Shift+q kill
 
 # dmenu binds
 bindsym $mod+Shift+d exec dmenu_run
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -i -sb "#f08030" -sf "#000000" -nf "#ffffff" -nb "#1f1f1f" -p "exec> "'
 
 # move workspaces on multimonitor
 bindsym $mod+t move workspace to left
@@ -181,10 +182,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym h resize grow width 5 px or 5 ppt
+        bindsym h resize shrink width 5 px or 5 ppt
         bindsym k resize grow height 5 px or 5 ppt
         bindsym j resize shrink height 5 px or 5 ppt
-        bindsym l resize shrink width 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"

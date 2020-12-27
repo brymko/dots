@@ -7,7 +7,7 @@ while test $# -gt 0; do
     case "$1" in
         -h|--help)
             echo "options:"
-            echo "-d, --install_deps        installes all missing programs for which dots are dropped"
+            echo "-d, --install_deps        installs all missing programs for which dots are dropped"
             exit 0
             ;;
         -d)

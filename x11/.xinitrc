@@ -1,10 +1,17 @@
-xrandr --auto
-xset r rate 200 100
-redshift -O 2000K 
-amixer -c 1 set PCM 30%
-amixer -c 0 set PCM 30%
+#!/bin/bash
 
-# Accel Profile Enabled
-xinput set-prop 18 321 0, 1
-xinput set-prop 13 321 0, 1
+xrandr --auto
+xset r rate 200 130
+redshift -O 2000K 
+
+# run startup scripts
+xscripts="$HOME/.config/x11"
+if [ -d "$xscripts" ]; then
+    for f in "$xscripts/?*.sh" ; do
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
+fi
+
+xmodmap "$HOME/.config/x11/.Xmodmap"
 exec i3

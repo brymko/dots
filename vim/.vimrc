@@ -84,16 +84,16 @@ function! RunFile() " {{{
     endif
 endfunction " }}}
 " TODO: ReplaceWordInProject
-function! ReplaceInProject(...)
-    if a:0 > 1
-        let what = escape(a:1, '"''')
-        let to = escape(a:2, '"''')
-        let replace_str = join(["xargs sed -i 's/", what, "/", to, "/'"], "")
-        let cmd = join(["!rg -l -s", what, "|", replace_str], ' ')
-        " if this is silent, editor view gets broken
-        execute cmd
-    endif
-endfunction
+" function! ReplaceInProject(...)
+"     if a:0 > 1
+"         let what = escape(a:1, '"''')
+"         let to = escape(a:2, '"''')
+"         let replace_str = join(["xargs sed -i 's/", what, "/", to, "/'"], "")
+"         let cmd = join(["!rg -l -s", what, "|", replace_str], ' ')
+"         " if this is silent, editor view gets broken
+"         execute cmd
+"     endif
+" endfunction
 function! ModeCurrent() abort " {{{
     let l:modecurrent = mode()
     let l:modelist = toupper(get(g:currentmode, l:modecurrent, 'V·Block '))
@@ -283,15 +283,15 @@ if IsVimPlugInstalled()
     let g:ale_max_signs = 20
 
 
-    let g:ale_pattern_options = {
-            \ '\.\(h\|hpp\|H\|HPP\)$': { 'ale_linters': { 'cpp': ['clang', 'ccls'], 'c': ['clang', 'ccls'] } },
-            \ '\.\(c\|cc\|cpp\|cppm\|cxx\|C\|CC\|CPP\|CPPM\|CXX\)$': { 'ale_linters': { 'cpp': ['clangtidy', 'ccls'], 'c': ['clangtidy', 'ccls'] } },
-            \ }
-    let g:ale_cpp_ccls_init_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
-    let g:ale_c_ccls_init_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
+    " let g:ale_pattern_options = {
+    "         \ '\.\(h\|hpp\|H\|HPP\)$': { 'ale_linters': { 'cpp': ['clang', 'ccls'], 'c': ['clang', 'ccls'] } },
+    "         \ '\.\(c\|cc\|cpp\|cppm\|cxx\|C\|CC\|CPP\|CPPM\|CXX\)$': { 'ale_linters': { 'cpp': ['clangtidy', 'ccls'], 'c': ['clangtidy', 'ccls'] } },
+    "         \ }
+    " let g:ale_cpp_ccls_init_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
+    " let g:ale_c_ccls_init_options = { 'cache': { 'directory': '/tmp/ccls/cache' } }
     " let g:ale_cpp_clangtidy_checks = ['*', '-llvm*', '-modernize-use-trailing-return-type', '-fuchsia-default*']
     " let compile_options = '-std=c++2a -Wall -Wextra -Wconversion -Wunreachable-code 
-                                \ -Wuninitialized -pedantic -Wvla -Wextra-semi'
+    "                            \ -Wuninitialized -pedantic -Wvla -Wextra-semi'
     " let g:ale_cpp_clang_options = compile_options
     " let g:ale_cpp_gcc_options = compile_options
 
@@ -318,7 +318,7 @@ if IsVimPlugInstalled()
     let g:cpp_posix_standart = 1
     let c_no_curly_error = 1
 
-    Plug 'dense-analysis/ale' 
+    Plug 'dense-analysis/ale'
     call plug#end()
     colorscheme xcodedarkhc
 endif
@@ -374,12 +374,13 @@ nnoremap \ :Rp
 
 " Plugins
 nnoremap gd :ALEGoToDefinition<cr>
-nnoremap gtd :ALEGoToTypeDefinition<cr>
-nnoremap gr :ALEFindReferences<cr>
-nnoremap gh :ALEHover<cr>
-nnoremap ga :ALESymbolSearch 
+" nnoremap gd <C-]>
+" nnoremap gtd :ALEGoToTypeDefinition<cr>
+" nnoremap gr :ALEFindReferences<cr>
+" nnoremap gh :ALEHover<cr>
+" nnoremap ga :ALESymbolSearch 
 nnoremap gw :ALEDetail<cr>
-nnoremap <leader>l :ALEToggle<cr>
+" nnoremap <leader>l :ALEToggle<cr>
 nnoremap <C-f> :Rg<cr>
 nnoremap <silent> ge :ALENextWrap<cr>
 
