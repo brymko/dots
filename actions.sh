@@ -70,7 +70,7 @@ files=( \
     "vim/.vimrc"                             "$HOME/.vimrc"                                       \
     "shell/.zshenv"                          "$HOME/.zshenv"                                      \
     "shell/.zshrc"                           "$HOME/.config/zsh/.zshrc"                           \
-    "shell/gitp.sh"                          "$HOME/.config/zsh/gitp.sh"                             \
+    "shell/gitp.sh"                          "$HOME/.config/zsh/gitp.sh"                          \
     "shell/plugins/zsh-autosuggestions"      "$HOME/.config/zsh/plugins/zsh-autosuggestions"      \
     "shell/plugins/zsh-syntax-highlighting"  "$HOME/.config/zsh/plugins/zsh-syntax-highlighting"  \
     "shell/plugins/extract"                  "$HOME/.config/zsh/plugins/extract"                  \
