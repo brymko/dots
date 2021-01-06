@@ -5,9 +5,8 @@ if [ -x /usr/bin/dircolors ]; then
     eval "$(dircolors -b)"
 fi
 
-# change vim config path
-export VIMINIT="source $HOME/.config/vim/.vimrc"
-export MYVIMRC="$HOME/.config/vim/.vimrc"
+# This is done to edit my vim config faster
+export MYVIMRC="$HOME/.config/nvim/init.vim"
 
 # rust binaries 
 export PATH="$PATH:$HOME/.cargo/bin"

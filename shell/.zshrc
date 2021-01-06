@@ -47,9 +47,10 @@ man() {
 # Color section https://wiki.archlinux.org/index.php/zsh
 PS1="%(?..%F{red}=>%? )%F{magenta}%n@%F{magenta}%m %F{blue}%~%f$ "
 setopt prompt_subst
-RPS1='$($HOME/.config/zsh/gitp.sh)'
+RPS1='$($HOME/.config/zsh/gitp.sh 2>/dev/null)'
 
 # menu highlighting, straight ripped from oh-my-zsh
+# Dunno what this is for {
 # unsetopt menu_complete
 # unsetopt flowcontrol
 # setopt auto_menu
@@ -68,12 +69,11 @@ RPS1='$($HOME/.config/zsh/gitp.sh)'
 #         operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
 #         rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
 #         usbmux uucp vcsa wwwrun xfs '_*'
-zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==02=01}:${(s.:.)LS_COLORS}")'
-zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
-#
+# }
+# zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==02=01}:${(s.:.)LS_COLORS}")'
+# zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
+zstyle -e ':completion:*:default' list-colors 'reply=(":${(s.:.)LS_COLORS}")'
 zstyle ':completion:*' menu select
-zstyle ':completion:*' hidden all
-
 autoload -Uz compinit && compinit
 
 # fzf
@@ -88,12 +88,14 @@ alias rg="rg -i"
 alias ip="ip -br -c"
 alias ida64="wine /home/brymko/ctf/IDA/ida/ida64.exe &; disown; exit"
 alias ida="wine /home/brymko/ctf/IDA/ida/ida.exe &; disown; exit"
-alias vi="vim"
 alias work="ssh -Y work"
 alias ncdu="ncdu -r"
 alias vm="$HOME/vm/vm.sh"
 alias sed="sd" 
 alias grep="rg"
+alias img="sxiv"
+alias vim="nvim"
+alias vi="nvim"
 
 pdf () { 
     zathura $* &; disown;

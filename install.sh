@@ -12,12 +12,13 @@ while test $# -gt 0; do
             ;;
         -d)
             shift 
-            ./actions install install_deps
+            ./actions.sh install deps
             exit 0
             ;;
-        --install_deps)
+        --deps)
             shift
-            ./actions install install_deps
+            ./actions.sh install deps
+            exit 0
             ;;
         *)
           break

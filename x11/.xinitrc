@@ -2,6 +2,7 @@
 
 xrandr --auto
 xset r rate 200 130
+redshift -x
 redshift -O 2000K 
 
 # run startup scripts

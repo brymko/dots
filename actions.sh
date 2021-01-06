@@ -37,76 +37,86 @@ restore_file() {
 
 
 
-# Directories
-mkdir -p "$HOME/.vim/autoload"
-mkdir -p "$HOME/.config/vim"
-mkdir -p "$HOME/.config/i3"
-mkdir -p "$HOME/.config/x11"
-mkdir -p "$HOME/.config/i3status"
-mkdir -p "$HOME/.config/i3lock"
-mkdir -p "$HOME/.config/zsh"
-mkdir -p "$HOME/.config/zsh/plugins"
-mkdir -p "$HOME/.config/terminal"
-mkdir -p "$HOME/.config/tmux"
-mkdir -p "$HOME/.config/termite"
-mkdir -p "$HOME/.config/scripts"
-mkdir -p "$HOME/.config/neomutt"
-mkdir -p "$HOME/.config/dunst"
-mkdir -p "$HOME/vm"
-mkdir -p "$HOME/vm/shared"
-mkdir -p "$HOME/vm/preload"
-mkdir -p "$HOME/vm/network"
-mkdir -p "$HOME/vm/images"
+if [ "$#" -eq 1 ]; then
+    # Directories
+    mkdir -p "$HOME/.config/nvim/"
+    mkdir -p "$HOME/.config/nvim/autoload"
+    mkdir -p "$HOME/.config/nvim/bundle"
+    mkdir -p "$HOME/.config/i3"
+    mkdir -p "$HOME/.config/x11"
+    mkdir -p "$HOME/.config/git"
+    mkdir -p "$HOME/.config/i3status"
+    mkdir -p "$HOME/.config/i3lock"
+    mkdir -p "$HOME/.config/zsh"
+    mkdir -p "$HOME/.config/zsh/plugins"
+    mkdir -p "$HOME/.config/terminal"
+    mkdir -p "$HOME/.config/tmux"
+    mkdir -p "$HOME/.config/termite"
+    mkdir -p "$HOME/.config/scripts"
+    mkdir -p "$HOME/.config/neomutt"
+    mkdir -p "$HOME/.config/dunst"
+    mkdir -p "$HOME/vm"
+    mkdir -p "$HOME/vm/shared"
+    mkdir -p "$HOME/vm/preload"
+    mkdir -p "$HOME/vm/network"
+    mkdir -p "$HOME/vm/images"
 
-# Files
+    # Files
 
-files=( \
-    "x11/.xinitrc"                           "$HOME/.xinitrc"                                     \
-    "x11/.Xmodmap"                           "$HOME/.config/x11/.Xmodmap"                         \
-    "x11/mouse.sh"                           "$HOME/.config/x11/mouse.sh"                         \
-    "x11/volume.sh"                          "$HOME/.config/x11/volume.sh"                        \
-    "vim/plug.vim"                           "$HOME/.vim/autoload/plug.vim"                       \
-    "vim/.vimrc"                             "$HOME/.config/vim/.vimrc"                           \
-    "vim/.vimrc"                             "$HOME/.vimrc"                                       \
-    "shell/.zshenv"                          "$HOME/.zshenv"                                      \
-    "shell/.zshrc"                           "$HOME/.config/zsh/.zshrc"                           \
-    "shell/gitp.sh"                          "$HOME/.config/zsh/gitp.sh"                          \
-    "shell/plugins/zsh-autosuggestions"      "$HOME/.config/zsh/plugins/zsh-autosuggestions"      \
-    "shell/plugins/zsh-syntax-highlighting"  "$HOME/.config/zsh/plugins/zsh-syntax-highlighting"  \
-    "shell/plugins/extract"                  "$HOME/.config/zsh/plugins/extract"                  \
-    "i3/i3"                                  "$HOME/.config/i3/config"                            \
-    "i3/i3status"                            "$HOME/.config/i3status/config"                      \
-    "i3/i3blocks"                            "$HOME/.config/i3blocks"                             \
-    "i3/i3lock.sh"                           "$HOME/.config/i3/i3lock.sh"                         \
-    "terminal/config"                        "$HOME/.config/termite/config"                       \
-    "i3/dunstrc"                             "$HOME/.config/dunst/dunstrc"                        \
-    "mail/neomuttrc"                         "$HOME/.config/neomutt/neomuttrc"                    \
-    "scripts/screenshot.sh"                  "$HOME/.config/scripts/screenshot.sh"                \
-    "scripts/colortest.sh"                   "$HOME/.config/scripts/colortest.sh"                 \
-    "vm/vm.sh"                               "$HOME/vm/vm.sh"                                     \
-    "vm/smbshare.sh"                         "$HOME/vm/smbshare.sh"                               \
-    "vm/preload/Makefile"                    "$HOME/vm/preload/Makefile"                          \
-    "vm/preload/xigd.c"                      "$HOME/vm/preload/xigd.c"                            \
-    "vm/network/nw_enable.sh"                "$HOME/vm/network/nw_enable.sh"                      \
-    "vm/network/bridge_enable.sh"            "$HOME/vm/network/bridge_enable.sh"                  \
-    "vm/network/bridge_disable.sh"           "$HOME/vm/network/bridge_disable.sh"                 \
-)
+    files=( \
+        "x11/.xinitrc"                           "$HOME/.xinitrc"                                     \
+        "x11/.Xmodmap"                           "$HOME/.config/x11/.Xmodmap"                         \
+        "x11/mouse.sh"                           "$HOME/.config/x11/mouse.sh"                         \
+        "x11/volume.sh"                          "$HOME/.config/x11/volume.sh"                        \
+        "vim/init.vim"                           "$HOME/.config/nvim/init.vim"                        \
+        "vim/pathogen.vim"                       "$HOME/.config/nvim/autoload/pathogen.vim"           \
+        "vim/coc-settings.json"                  "$HOME/.config/nvim/coc-settings.json"               \
+        "shell/.zshenv"                          "$HOME/.zshenv"                                      \
+        "shell/.zshrc"                           "$HOME/.config/zsh/.zshrc"                           \
+        "shell/gitp.sh"                          "$HOME/.config/zsh/gitp.sh"                          \
+        "shell/plugins/zsh-autosuggestions"      "$HOME/.config/zsh/plugins/zsh-autosuggestions"      \
+        "shell/plugins/zsh-syntax-highlighting"  "$HOME/.config/zsh/plugins/zsh-syntax-highlighting"  \
+        "shell/plugins/extract"                  "$HOME/.config/zsh/plugins/extract"                  \
+        "i3/i3"                                  "$HOME/.config/i3/config"                            \
+        "i3/i3status"                            "$HOME/.config/i3status/config"                      \
+        "i3/i3blocks"                            "$HOME/.config/i3blocks"                             \
+        "i3/i3lock.sh"                           "$HOME/.config/i3/i3lock.sh"                         \
+        "terminal/config"                        "$HOME/.config/termite/config"                       \
+        "i3/dunstrc"                             "$HOME/.config/dunst/dunstrc"                        \
+        "mail/neomuttrc"                         "$HOME/.config/neomutt/neomuttrc"                    \
+        "scripts/screenshot.sh"                  "$HOME/.config/scripts/screenshot.sh"                \
+        "scripts/colortest.sh"                   "$HOME/.config/scripts/colortest.sh"                 \
+        "vm/vm.sh"                               "$HOME/vm/vm.sh"                                     \
+        "vm/smbshare.sh"                         "$HOME/vm/smbshare.sh"                               \
+        "vm/preload/Makefile"                    "$HOME/vm/preload/Makefile"                          \
+        "vm/preload/xigd.c"                      "$HOME/vm/preload/xigd.c"                            \
+        "vm/network/nw_enable.sh"                "$HOME/vm/network/nw_enable.sh"                      \
+        "vm/network/bridge_enable.sh"            "$HOME/vm/network/bridge_enable.sh"                  \
+        "vm/network/bridge_disable.sh"           "$HOME/vm/network/bridge_disable.sh"                 \
+    )
 
 
-if [ "$1" = "install" ]; then
-    for ((i=0; i<${#files[@]}; i+=2)) do
-        drop_file "${files[i]}" "${files[i + 1]}"
-    done
-elif [ "$1" = "uninstall" ]; then
-    for ((i=0; i<${#files[@]}; i+=2)) do
-        restore_file "${files[i + 1]}"
-    done
+    if [ "$1" = "install" ]; then
+        for ((i=0; i<${#files[@]}; i+=2)) do
+            drop_file "${files[i]}" "${files[i + 1]}"
+        done
+    elif [ "$1" = "uninstall" ]; then
+        for ((i=0; i<${#files[@]}; i+=2)) do
+            restore_file "${files[i + 1]}"
+        done
+    fi
+
+    exit 0
 fi
 
 # done dropping
 
 install_if_needed() {
-    if [ ! -f "$(command -v "$1")" ]; then
+    bin="$1"
+    if [ $# -eq 2 ]; then
+        bin="$2"
+    fi
+    if [ ! -f "$(command -v "$bin")" ]; then
         if command -v pacman; then
             sudo pacman -S "$1" --noconfirm
         elif command -v apt; then
@@ -118,20 +128,13 @@ install_if_needed() {
     fi
 }
 
-install_if_need_omzsh() {
-    if [ ! -d "$HOME/.config/oh-my-zsh" ]; then
-        # big brain time at oh-my-zsh LLC to autoprompt
-        echo "n" | sh -c "$(curl -fsSL "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh")"
-        git clone "https://github.com/zsh-users/zsh-autosuggestions" "$HOME/.config/oh-my-zsh/custom/plugins/zsh-autosuggestions"
-        git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$HOME/.config/oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
-    fi
-}
-
 install_if_needed_cargo() {
-    if [ ! "$(command -v cargo)" ]; then
-        curl "https://sh.rustup.rs" -sSf | sh -s -- -y
+    if [ ! -f "$(command -v "$1")" ]; then
+        if [ ! "$(command -v cargo)" ]; then
+            curl "https://sh.rustup.rs" -sSf | sh -s -- -y
+        fi
+        cargo install "$1"
     fi
-    cargo install "$1"
 }
 
 update_packages() {
@@ -145,20 +148,45 @@ update_packages() {
     fi
 }
 
-if [ $# -lt 2 ]; then
-    exit 0
-fi
+install_plug_version() {
+    IFS='/' read -r -a parts <<< "$1"
+    git clone "$1" || return 0
+    pushd "${parts[${#parts[@]}-1]}"
+    git checkout "$2"
+    popd
+}
 
-if [ "$2" = "install_deps" ]; then
+if [ "$2" = "deps" ]; then
     update_packages
+
+    # setup git
+    git config --global core.excludesfile "$HOME/.config/git/cvsignore"
+    echo tags >> "$HOME/.config/git/cvsignore"
 
     install_if_needed "i3"
     install_if_needed "i3status"
     install_if_needed "zsh"
-    install_if_needed "vim"
+    install_if_needed "nvim"
+
+    # install plugins for nvim
+    pushd "$HOME/.config/nvim/bundle"
+    install_plug_version "https://github.com/ap/vim-buftabline" 73b9ef5dcb6cdf6488bc88adb382f20bc3e3262a
+    install_plug_version "https://github.com/tpope/vim-fugitive" bebe504e38d0a20c30d6dd666c4c793b3cc66104 
+    install_plug_version "https://github.com/tpope/vim-commentary" f8238d70f873969fb41bf6a6b07ca63a4c0b82b1
+    install_plug_version "https://github.com/tpope/vim-surround" f51a26d3710629d031806305b6c8727189cd1935
+    install_plug_version "https://github.com/tpope/vim-endwise" 97180a73ad26e1dcc1eebe8de201f7189eb08344
+    install_plug_version "https://github.com/rstacruz/vim-closer" c61667d27280df171a285b1274dd3cf04cbf78d4
+    install_plug_version "https://github.com/tpope/vim-repeat" c947ad2b6a16983724a0153bdf7f66d7a80a32ca
+    install_plug_version "https://github.com/neoclide/coc.nvim" 5b4b18d2ed2b18870034c7ee853164e1274ab158
+    install_plug_version "https://github.com/rust-lang/rust.vim" 96e79e397126be1a64fb53d8e3656842fe1a4532
+    popd
+
     install_if_needed "termite"
     install_if_needed "exa"
     install_if_needed "cargo"
+    install_if_needed "nodejs" "node" # for fucking coc
+    install_if_needed "npm" # fucking coc
+    sudo npm install -g neovim # fucking coc
     install_if_needed "dunst"
     install_if_needed "neomutt"
     install_if_needed "ncdu"
@@ -171,15 +199,14 @@ if [ "$2" = "install_deps" ]; then
     install_if_needed_cargo "bat"
     install_if_needed_cargo "sd"
 
-    if uname -a | grep debian; then
-        install_if_needed "vim-nox"
-    else
-        install_if_needed "vim"
-    fi
+    # if uname -a | grep debian; then
+    #     install_if_needed "vim-nox"
+    # else
+    #     install_if_needed "vim"
+    # fi
 
     install_if_needed "nvim"
     install_if_needed "curl"
 
-    install_if_need_omzsh
 fi
 
