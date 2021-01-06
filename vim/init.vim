@@ -316,7 +316,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-au CursorHold * silent call CocActionAsync('highlight')
+" au CursorHold * silent call CocActionAsync('highlight')
 " set signcolumn=yes " for always on sign column
 
 " }}}
