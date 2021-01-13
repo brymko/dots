@@ -97,6 +97,12 @@ alias img="sxiv"
 alias vim="nvim"
 alias vi="nvim"
 
+# git alias
+alias gs="git status"
+alias gcout="git checkout"
+alias gc="git commit"
+alias ga="git add"
+
 pdf () { 
     zathura $* &; disown;
 }
@@ -119,7 +125,7 @@ setopt no_share_history
 unsetopt share_history
 
 export BROWSER="chromium"
-export EDITOR="vim"
+export EDITOR="nvim"
 
 export HISTFILE="$HOME/.config/zsh/.zsh_history"
 SAVEHIST=10000

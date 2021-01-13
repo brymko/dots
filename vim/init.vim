@@ -42,7 +42,7 @@ nnoremap <leader>w :call Preserve(":%s/\\s\\+$//e")<CR>
 nnoremap <leader>o :setlocal spell! spelllang=en_us<CR>
 nnoremap <leader>l :setlocal list!<CR>
 nnoremap <leader>r :call RunFile()<CR>
-nnoremap <leader>t :!clear; cargo run --release<CR>
+nnoremap <leader>t :!clear; cargo test<CR>
 
 " movement
 inoremap jk <esc>
@@ -74,11 +74,8 @@ vnoremap > >gv
 " copy paste
 vnoremap <C-c> "+y
 inoremap <C-v> <C-o>"+P
-nnoremap <C-v> "+P
-
 
 " misc
-nnoremap q: <NOP>
 cnoremap sudow w !sudo tee % > /dev/null<CR>
 
 " }}}
@@ -107,7 +104,7 @@ set expandtab
 set autoindent
 
 " misc
-set timeoutlen=200
+set timeoutlen=400
 set listchars=eol:⏎,tab:>-,trail:·,extends:>,precedes:<,space:␣
 
 " wildmenu
@@ -129,6 +126,11 @@ set smartcase
 set incsearch
 set hlsearch
 set path+=**
+
+if executable('rg') 
+    set grepprg=rg\ --no-heading\ --vimgrep
+    set grepformat=%f:%l:%c:%m
+endif
 
 " Cursor
 " TODO: this also is retarded, guibg=#1e1f28 == my terminal bg color, so
@@ -278,6 +280,8 @@ augroup end
 
 " Languages {{{
 au FileType make setlocal noexpandtab
+au FileType markdown setlocal tabstop=2
+au FileType markdown setlocal shiftwidth=2
 
 " augroup OnFileSave
 "     autocmd!
@@ -303,6 +307,7 @@ let g:rustfmt_fail_silently = 0
 
 " https://github.com/neoclide/coc.nvim/commit/5b4b18d2ed2b18870034c7ee853164e1274ab158
 " coc-rust-analyzer => Installed via :CocInstall coc-rust-analyzer
+" coc-pyright => Installed via :CocInstall coc-pyright
 " set cmdheight=2 " not sure how to feel about that
 set updatetime=300
 " set shortmess+=c " not sure about that either
@@ -315,6 +320,9 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> <leader>rn <Plug>(coc-rename)
+nnoremap <silent> <C-f> :CocCommand rust-analyzer.openCargoToml<cr>
+nnoremap <silent> <leader>h :CocCommand rust-analyzer.toggleInlayHints<cr>
 
 " au CursorHold * silent call CocActionAsync('highlight')
 " set signcolumn=yes " for always on sign column

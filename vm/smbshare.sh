@@ -4,7 +4,8 @@ set -euf -o pipefail
 
 if [[ $# -lt 5 ]]; then
     echo "Usage: $0 <serverip> <username> <password> <remote path> <local path> "
-    echo "For Windows server:
+    echo "\tIf the remote path is C:\\folder_name\\ use \"folder_name\" as the remote path"
+    echo "For Windows server setup:
                 Create user:        net user <user name> <password> /add
                 Add to admins:      net localgroup administrators <user name> /add
                 Change NTFS perms:  icacls \"WINDOWS_PATH\" /grant \"<user name>:(OI)(CI)F\" /T /Q /C
@@ -13,7 +14,6 @@ if [[ $# -lt 5 ]]; then
     exit 1
 fi
 
-EGID="$EUID"
 SERVERIP="$1"
 USERNAME="$2"
 PASSWORD="$3"

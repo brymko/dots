@@ -1,0 +1,33 @@
+# old ifnames
+KERNEL_CMD_LINE:
+    net.ifnames=0
+where?:
+    GRUB:
+        sudo vim /etc/default/grub
+        field: GRUB_CMDLINE_LINUX
+        post: sudo grub-mkconfig -o /boot/grub/grub.conf
+
+# no ipv6 
+sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+
+permanent:
+    sudo vim /etc/sysctl.conf 
+    sudo sysctl -p
+    
+    maybe:
+        sudo /etc/rc.local
+        ```
+        /etc/sysctl.d
+        /etc/init.d/procps restart
+        exit 0
+        ```
+
+# windows
+disable updates
+disable defender & co
+disbale lalt & lwindows SharpKeys
+use qxl for automatic resize
+
+
