@@ -145,7 +145,7 @@ hi CursorLine gui=NONE guibg=NONE guifg=NONE
 autocmd InsertEnter * hi CursorLine gui=NONE guibg=#1e1f28 guifg=NONE
 autocmd InsertLeave * hi CursorLine gui=NONE guibg=NONE guifg=NONE
 
-hi iCursor gui=standout guibg=#ff8c34
+hi iCursor gui=standout guibg=#d349e8
 hi nCursor gui=standout guibg=#c5ff00
 hi MatchParen gui=inverse guifg=grey guibg=NONE
 au VimEnter,VimResume * set guicursor=a:block-blinkon0-nCursor/nCursor,i-r-ci-cr:block-iCursor/iCursor

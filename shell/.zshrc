@@ -102,6 +102,7 @@ alias gs="git status"
 alias gcout="git checkout"
 alias gc="git commit -m"
 alias ga="git add"
+alias gl="git log --online --decorate --color --graph"
 
 pdf () { 
     zathura $* &; disown;
