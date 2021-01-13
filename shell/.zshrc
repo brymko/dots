@@ -100,7 +100,7 @@ alias vi="nvim"
 # git alias
 alias gs="git status"
 alias gcout="git checkout"
-alias gc="git commit"
+alias gc="git commit -m"
 alias ga="git add"
 
 pdf () { 
