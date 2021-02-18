@@ -36,8 +36,8 @@ font pango:DejaVu Sans Mono 8
 floating_modifier $mod
 
 # screen brightness controls
-# bindsym XF86MonBrightnessUp exec brightnessctl -d intel_backlight set 10%+ > /dev/null
-# bindsym XF86MonBrightnessDown exec brightnessctl -d intel_backlight set 10%- > /dev/null
+bindsym $mod+F5 exec brightnessctl -d intel_backlight set 10%- > /dev/null
+bindsym $mod+F6 exec brightnessctl -d intel_backlight set 10%+ > /dev/null
 
 # # audio control 
 # bindsym XF86AudioRaiseVolume exec amixer set Master 10%+
@@ -170,7 +170,7 @@ bindsym $sup+Shift+9 move container to workspace $ws19
 bindsym $sup+Shift+0 move container to workspace $ws20
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+t restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
@@ -190,10 +190,10 @@ mode "resize" {
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+        bindsym $mod+Shift+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+Shift+r mode "resize"
 bindsym $mod+Shift+p exec ~/.config/i3lock/i3lock.sh
 
 bar {

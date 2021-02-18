@@ -96,13 +96,15 @@ alias grep="rg"
 alias img="sxiv"
 alias vim="nvim"
 alias vi="nvim"
+alias cdoc="cargo doc --no-deps"
 
 # git alias
 alias gs="git status"
 alias gcout="git checkout"
 alias gc="git commit -m"
 alias ga="git add"
-alias gl="git log --online --decorate --color --graph"
+alias gl="git log --oneline --decorate --color --graph"
+alias gr="git reset"
 
 pdf () { 
     zathura $* &; disown;

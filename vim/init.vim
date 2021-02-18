@@ -43,6 +43,7 @@ nnoremap <leader>o :setlocal spell! spelllang=en_us<CR>
 nnoremap <leader>l :setlocal list!<CR>
 nnoremap <leader>r :call RunFile()<CR>
 nnoremap <leader>t :!clear; cargo test<CR>
+nnoremap <leader><leader> <C-^>
 
 " movement
 inoremap jk <esc>
@@ -64,8 +65,6 @@ inoremap <C-l> <ESC><C-w>l
 
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
-nnoremap <leader><leader> <c-^>
-
 
 " visual mode
 vnoremap < <gv
@@ -88,6 +87,7 @@ set number
 set diffopt=filler,vertical
 " set lazyredraw
 set background=dark
+set titlestring=
 set hidden
 
 " scrolling
@@ -106,11 +106,16 @@ set autoindent
 " misc
 set timeoutlen=400
 set listchars=eol:⏎,tab:>-,trail:·,extends:>,precedes:<,space:␣
+set completeopt=menuone,noinsert,noselect
 
 " wildmenu
 set wildmenu
 set wildignorecase
 set wildmode=longest,full
+
+" netrw
+let g:netrw_liststyle=3 " tree view
+
 
 " formating
 " TODO: this is retarded, bc ftplugins are executed AFTER the vimrc...
@@ -124,6 +129,7 @@ set nomodeline
 set ignorecase
 set smartcase
 set incsearch
+set inccommand=nosplit
 set hlsearch
 set path+=**
 
@@ -140,35 +146,54 @@ endif
 " This seems to be a bug & i'll be better off fixing it
 set cursorline
 " set guifg to SignColumn to not highlight the current line
-hi CursorLineNr gui=NONE guibg=NONE guifg=NONE 
-hi CursorLine gui=NONE guibg=NONE guifg=NONE
-autocmd InsertEnter * hi CursorLine gui=NONE guibg=#1e1f28 guifg=NONE
-autocmd InsertLeave * hi CursorLine gui=NONE guibg=NONE guifg=NONE
+hi       CursorLineNr  gui=NONE  guibg=NONE  guifg=NONE                           
+hi       CursorLine    gui=NONE  guibg=NONE  guifg=NONE                           
+autocmd  InsertEnter   *         hi          CursorLine  gui=NONE  guibg=#1e1f28  guifg=NONE
+autocmd  InsertLeave   *         hi          CursorLine  gui=NONE  guibg=NONE     guifg=NONE
 
+" insert mode cursor color
 hi iCursor gui=standout guibg=#d349e8
+" non-insert mode cursor color
 hi nCursor gui=standout guibg=#c5ff00
 hi MatchParen gui=inverse guifg=grey guibg=NONE
 au VimEnter,VimResume * set guicursor=a:block-blinkon0-nCursor/nCursor,i-r-ci-cr:block-iCursor/iCursor
 au VimLeave * set guicursor=
 
 " Some more colors
-hi VertSplit gui=NONE guifg=#313238 guibg=#313238
-hi StatusLineNC gui=NONE guifg=#7f8c98 guibg=#393b44
-hi SignColumn gui=NONE guifg=#313238 guibg=#313238
-hi LineNr gui=NONE guifg=#50535b guibg=NONE
-hi Pmenu gui=NONE guifg=#f0f0f0 guibg=#313238
-hi PmenuSel gui=bold guifg=#ffffff guibg=#ab3b06
-hi PmenuSbar gui=NONE guifg=#313238 guibg=#313238
-hi PmenuThumb gui=NONE guifg=#41434a guibg=#41434a
-hi Visual gui=NONE guifg=NONE guibg=grey
-hi ErrorMsg gui=NONE guifg=red guibg=NONE
-hi Error gui=NONE guifg=white guibg=#a07033
-hi ModeMsg gui=NONE guifg=red guibg=NONE
-hi MoreMsg gui=None guifg=magenta guibg=NONE
-hi Question gui=NONE guifg=#ff7ab2 guibg=NONE
-hi WarningMsg gui=NONE guifg=#ffa14f guibg=NONE
-hi IncSearch gui=NONE guifg=#292a30 guibg=#fef937 
-hi Search gui=NONE guifg=#dfdfe0 guibg=#515453
+hi  VertSplit     gui=NONE       guifg=#313238  guibg=#313238            
+hi  StatusLineNC  gui=NONE       guifg=#7f8c98  guibg=#313238            
+hi  SignColumn    gui=NONE       guifg=#313238  guibg=#313238            
+hi  LineNr        gui=NONE       guifg=#50535b  guibg=NONE               
+hi  Pmenu         gui=NONE       guifg=#f0f0f0  guibg=#313238            
+hi  PmenuSel      gui=bold       guifg=#ffffff  guibg=#ab3b06            
+hi  PmenuSbar     gui=NONE       guifg=#313238  guibg=#313238            
+hi  PmenuThumb    gui=NONE       guifg=#41434a  guibg=#41434a            
+hi  Visual        gui=NONE       guifg=NONE     guibg=grey               
+hi  ErrorMsg      gui=NONE       guifg=red      guibg=NONE               
+hi  Error         gui=NONE       guifg=white    guibg=#a07033            
+hi  ModeMsg       gui=NONE       guifg=red      guibg=NONE               
+hi  MoreMsg       gui=None       guifg=magenta  guibg=NONE               
+hi  Question      gui=NONE       guifg=#ff7ab2  guibg=NONE               
+hi  WarningMsg    gui=NONE       guifg=#ffa14f  guibg=NONE               
+hi  IncSearch     gui=NONE       guifg=#292a30  guibg=#fef937            
+hi  Search        gui=NONE       guifg=#dfdfe0  guibg=#515453            
+hi  DiffAdd       guifg=#acf2e4  guibg=#243330  guisp=NONE     gui=NONE  cterm=NONE
+hi  DiffChange    guifg=#ffa14f  guibg=NONE     guisp=NONE     gui=NONE  cterm=NONE
+hi  DiffDelete    guifg=#ff8170  guibg=#3b2d2b  guisp=NONE     gui=NONE  cterm=NONE
+hi  DiffText      guifg=#ffa14f  guibg=#382e27  guisp=NONE     gui=NONE  cterm=NONE
+
+hi! link diffAdded DiffAdd
+hi! link diffBDiffer WarningMsg
+hi! link diffChanged DiffChange
+hi! link diffCommon WarningMsg
+hi! link diffDiffer WarningMsg
+hi! link diffFile Directory
+hi! link diffIdentical WarningMsg
+hi! link diffIndexLine Number
+hi! link diffIsA WarningMsg
+hi! link diffNoEOL WarningMsg
+hi! link diffOnly WarningMsg
+hi! link diffRemoved DiffDelete
 
 " Files
 call EnsureExists("~/.config/nvim/.backup//")
@@ -199,9 +224,9 @@ augroup end
 au InsertEnter * hi StatusLine gui=NONE guifg=black guibg=#d349e8 ctermfg=black ctermbg=magenta
 au InsertLeave * hi StatusLine gui=NONE guifg=black guibg=#c5ff00 ctermfg=black ctermbg=cyan
 
-hi StatusLine gui=NONE guifg=black guibg=#c5ff00 ctermfg=black ctermbg=cyan
-hi HSplit gui=NONE guifg=#000000 guibg=#000000
-hi Base gui=NONE guifg=#313333 guibg=#313333
+hi  StatusLine  gui=NONE  guifg=black    guibg=#c5ff00  ctermfg=black  ctermbg=cyan
+hi  HSplit      gui=NONE  guifg=#000000  guibg=#000000                 
+hi  Base        gui=NONE  guifg=#313333  guibg=#313333                 
 
 hi! link Terminal Normal
 hi! link TabLine StatusLineNC
@@ -282,6 +307,8 @@ augroup end
 au FileType make setlocal noexpandtab
 au FileType markdown setlocal tabstop=2
 au FileType markdown setlocal shiftwidth=2
+au FileType yaml setlocal tabstop=2
+au FileType yaml setlocal shiftwidth=2
 
 " augroup OnFileSave
 "     autocmd!

@@ -160,7 +160,12 @@ if [ "$2" = "deps" ]; then
     update_packages
 
     # setup git
-    git config --global core.excludesfile "$HOME/.config/git/cvsignore"
+    git config --global "core.excludesfile" "$HOME/.config/git/cvsignore"
+    git config --global "merge.ff" "only"
+    git config --global "diff.tool" "nvimdiff"
+    git config --global "alias.d" "difftool"
+    git config --global "pull.rebase" "true"
+    git config --global "protocol.version" "2"
     echo tags >> "$HOME/.config/git/cvsignore"
 
     install_if_needed "i3"
@@ -181,9 +186,8 @@ if [ "$2" = "deps" ]; then
     install_plug_version "https://github.com/rust-lang/rust.vim" 96e79e397126be1a64fb53d8e3656842fe1a4532
     popd
 
-    install_if_needed "termite"
-    install_if_needed "exa"
     install_if_needed "cargo"
+    install_if_needed "termite"
     install_if_needed "nodejs" "node" # for fucking coc
     install_if_needed "npm" # fucking coc
     sudo npm install -g neovim # fucking coc
