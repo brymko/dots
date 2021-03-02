@@ -72,7 +72,7 @@ vnoremap > >gv
 
 " copy paste
 vnoremap <C-c> "+y
-inoremap <C-v> <C-o>"+P
+inoremap <C-v> <space><C-o>"+P
 
 " misc
 cnoremap sudow w !sudo tee % > /dev/null<CR>
@@ -211,6 +211,7 @@ set nobackup
 set nowritebackup
 set undofile
 set viewoptions=folds,cursor
+set foldmethod=manual
 
 augroup AutoSaveFolds
     autocmd!

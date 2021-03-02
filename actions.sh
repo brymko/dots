@@ -166,6 +166,7 @@ if [ "$2" = "deps" ]; then
     git config --global "alias.d" "difftool"
     git config --global "pull.rebase" "true"
     git config --global "protocol.version" "2"
+    git config --global "alias.f" "fetch"
     echo tags >> "$HOME/.config/git/cvsignore"
 
     install_if_needed "i3"
