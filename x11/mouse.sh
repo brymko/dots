@@ -8,3 +8,15 @@ while IFS= read -r did; do
     done <<< "$fieldid"
 done <<< "$devids"
 exit 0
+
+
+# store persistent
+#
+# in /etc/X11/xorg.conf.d/99-libinput-custom-config.conf
+
+# Section "InputClass"
+#   Identifier "Fuck Mouse Accel"
+#   MatchDriver "libinput"
+#   MatchProduct "Logitech MX Master 3"
+#   Option "Accel Profile Enabled" "0, 1"
+# EndSection 
