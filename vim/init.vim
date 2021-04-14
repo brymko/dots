@@ -139,7 +139,7 @@ if executable('rg')
 endif
 
 " Cursor
-" TODO: this also is retarded, guibg=#1e1f28 == my terminal bg color, so
+" TODO: this also is retarded, guibg=#000000 == my terminal bg color, so
 " cursorline is effectivly off This is needed bc if there isn't a change in 
 " the cursoline color when switching modes, the cursor color won't change 
 " WHILE the cursor hasn't moved yet. 
@@ -148,7 +148,7 @@ set cursorline
 " set guifg to SignColumn to not highlight the current line
 hi       CursorLineNr  gui=NONE  guibg=NONE  guifg=NONE                           
 hi       CursorLine    gui=NONE  guibg=NONE  guifg=NONE                           
-autocmd  InsertEnter   *         hi          CursorLine  gui=NONE  guibg=#1e1f28  guifg=NONE
+autocmd  InsertEnter   *         hi          CursorLine  gui=NONE  guibg=#000000  guifg=NONE
 autocmd  InsertLeave   *         hi          CursorLine  gui=NONE  guibg=NONE     guifg=NONE
 
 " insert mode cursor color
@@ -226,7 +226,7 @@ au InsertEnter * hi StatusLine gui=NONE guifg=black guibg=#d349e8 ctermfg=black 
 au InsertLeave * hi StatusLine gui=NONE guifg=black guibg=#c5ff00 ctermfg=black ctermbg=cyan
 
 hi  StatusLine  gui=NONE  guifg=black    guibg=#c5ff00  ctermfg=black  ctermbg=cyan
-hi  HSplit      gui=NONE  guifg=#000000  guibg=#000000                 
+hi  HSplit      gui=NONE  guifg=#1e1f28  guibg=#1e1f28
 hi  Base        gui=NONE  guifg=#313333  guibg=#313333                 
 
 hi! link Terminal Normal
@@ -349,7 +349,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> <leader>rn <Plug>(coc-rename)
-nnoremap <silent> <C-f> :CocCommand rust-analyzer.openCargoToml<cr>
+nnoremap <silent> <C-g> :CocCommand rust-analyzer.openCargoToml<cr>
 nnoremap <silent> <leader>h :CocCommand rust-analyzer.toggleInlayHints<cr>
 
 " au CursorHold * silent call CocActionAsync('highlight')

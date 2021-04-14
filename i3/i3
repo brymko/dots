@@ -45,8 +45,10 @@ bindsym $mod+F6 exec brightnessctl -d intel_backlight set 10%+ > /dev/null
 # bindsym XF86AudioMute exec amixer set Master toggle
 
 # start a terminal
-bindsym $mod+Return exec termite -d "$(xcwd)"
-bindsym $sup+Return exec termite -d "$(xcwd)"
+# bindsym $mod+Return exec termite -d "$(xcwd)"
+# bindsym $sup+Return exec termite -d "$(xcwd)"
+bindsym $mod+Return exec wezterm start --cwd "$(xcwd)"
+bindsym $sup+Return exec termite start --cwd "$(xcwd)"
 
 # screenshot 
 bindsym --release $mod+o exec --no-startup-id "~/.config/scripts/screenshot.sh"

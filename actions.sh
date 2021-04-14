@@ -55,6 +55,7 @@ if [ "$#" -eq 1 ]; then
     mkdir -p "$HOME/.config/scripts"
     mkdir -p "$HOME/.config/neomutt"
     mkdir -p "$HOME/.config/dunst"
+    mkdir -p "$HOME/.config/wezterm"
     mkdir -p "$HOME/vm"
     mkdir -p "$HOME/vm/shared"
     mkdir -p "$HOME/vm/preload"
@@ -82,6 +83,7 @@ if [ "$#" -eq 1 ]; then
         "i3/i3blocks"                            "$HOME/.config/i3blocks"                             \
         "i3/i3lock.sh"                           "$HOME/.config/i3/i3lock.sh"                         \
         "terminal/config"                        "$HOME/.config/termite/config"                       \
+        "terminal/wezterm.lua"                   "$HOME/.config/wezterm/wezterm.lua"
         "i3/dunstrc"                             "$HOME/.config/dunst/dunstrc"                        \
         "mail/neomuttrc"                         "$HOME/.config/neomutt/neomuttrc"                    \
         "scripts/screenshot.sh"                  "$HOME/.config/scripts/screenshot.sh"                \
