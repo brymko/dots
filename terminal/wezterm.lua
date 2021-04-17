@@ -17,7 +17,6 @@ return {
         { key = "+", mods = "CTRL", action = "IncreaseFontSize" },
         { key = "-", mods = "CTRL", action = "DecreaseFontSize" },
         { key = "=", mods = "CTRL", action = "ResetFontSize" },
-        { key = "d", mods = "CTRL", action = wezterm.action{CloseCurrentPane={confirm=false}}},
         { key = "j", mods = "CTRL|ALT", action = wezterm.action{ScrollByLine=5}},
         { key = "k", mods = "CTRL|ALT", action = wezterm.action{ScrollByLine=-5}},
         { key = "f", mods = "CTRL", action = wezterm.action{Search={Regex=""}}},

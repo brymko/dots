@@ -11,7 +11,6 @@
     "rust-analyzer.updates.channel": "nightly",
     "rust-analyzer.checkOnSave.command": "clippy",
     "rust-analyzer.diagnostics.enableExperimental": false,
-    "rust-analyzer.cargo.loadOutDirsFromCheck": true,
     "rust-analyzer.procMacro.enable": true,
     "rust-analyzer.updates.prompt": false,
     "coc.preferences.hoverTarget": "preview",
