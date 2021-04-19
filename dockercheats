@@ -1,0 +1,25 @@
+# rm all stale containers
+sudo docker rm $(sudo docker ps -aq)
+
+# rm all images
+sudo docker rmi $(sudo docker images qa)
+
+# spawn bash in a new dockered ubuntu with hostname (-h) flexstation 
+# and the current directory mapped
+# privileged mode is ON
+sudo docker run -it --privileged -v "$(pwd)":"$(pwd)" --workdir "$(pwd)" -h flexstation ubuntu:latest bash 
+
+# give a docker a name 
+sudo docker run --name <bla>
+
+# can be used in 
+sudo docker exec -it <name> bash
+
+# start deamonized
+sudo docker run -d 
+
+# one shot start, will block & container will be gone after C-c
+sudo docker run --rm
+
+
+
