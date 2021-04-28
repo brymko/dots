@@ -169,15 +169,22 @@ if [ "$2" = "deps" ]; then
     git config --global "pull.rebase" "true"
     git config --global "protocol.version" "2"
     git config --global "alias.f" "fetch"
-    echo tags >> "$HOME/.config/git/cvsignore"
+    grep "tags" "$HOME/.config/git/cvsignore" >/dev/null 2>&1 || echo tags >> "$HOME/.config/git/cvsignore"
 
     install_if_needed "i3"
     install_if_needed "i3status"
     install_if_needed "zsh"
     install_if_needed "nvim"
+    install_if_needed "neovim"
+    install_if_needed "yarn"
 
     # install plugins for nvim
     pushd "$HOME/.config/nvim/bundle"
+    install_plug_version "https://github.com/iamcco/markdown-preview.nvim" e5bfe9b89dc9c2fbd24ed0f0596c85fd0568b143
+    cd "markdown-preview.nvim"
+    yarn install
+    cd ..
+    install_plug_version "https://github.com/junegunn/fzf.vim" ee91c93d4cbc6f29cf82877ca39f3ce23d5c5b7b
     install_plug_version "https://github.com/ap/vim-buftabline" 73b9ef5dcb6cdf6488bc88adb382f20bc3e3262a
     install_plug_version "https://github.com/tpope/vim-fugitive" bebe504e38d0a20c30d6dd666c4c793b3cc66104 
     install_plug_version "https://github.com/tpope/vim-commentary" f8238d70f873969fb41bf6a6b07ca63a4c0b82b1
@@ -212,7 +219,6 @@ if [ "$2" = "deps" ]; then
     #     install_if_needed "vim"
     # fi
 
-    install_if_needed "nvim"
     install_if_needed "curl"
 
 fi

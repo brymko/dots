@@ -27,6 +27,8 @@ function! RunFile()
         :% w ! python
     elseif (&ft == 'sh')
         :% w ! sh
+    elseif (&ft == 'php')
+        :% w ! php 
     endif
 endfunction
 " }}}
@@ -178,10 +180,9 @@ hi  WarningMsg    gui=NONE       guifg=#ffa14f  guibg=NONE
 hi  IncSearch     gui=NONE       guifg=#292a30  guibg=#fef937            
 hi  Search        gui=NONE       guifg=#dfdfe0  guibg=#515453            
 hi  DiffAdd       guifg=#acf2e4  guibg=#243330  guisp=NONE     gui=NONE  cterm=NONE
-hi  DiffChange    guifg=#ffa14f  guibg=NONE     guisp=NONE     gui=NONE  cterm=NONE
-hi  DiffDelete    guifg=#ff8170  guibg=#3b2d2b  guisp=NONE     gui=NONE  cterm=NONE
-hi  DiffText      guifg=#ffa14f  guibg=#382e27  guisp=NONE     gui=NONE  cterm=NONE
-
+hi  DiffChange    guifg=#ffa14f  guibg=NONE     guisp=NONE     gui=NONE  cterm=NONE 
+hi  DiffDelete    guifg=#ff8170  guibg=#3b2d2b  guisp=NONE     gui=NONE  cterm=NONE 
+hi  DiffText      guifg=#ffa14f  guibg=#382e27  guisp=NONE     gui=NONE  cterm=NONE 
 hi! link diffAdded DiffAdd
 hi! link diffBDiffer WarningMsg
 hi! link diffChanged DiffChange
@@ -212,6 +213,7 @@ set nowritebackup
 set undofile
 set viewoptions=folds,cursor
 set foldmethod=manual
+set foldcolumn=0
 
 augroup AutoSaveFolds
     autocmd!
@@ -333,6 +335,13 @@ let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 
+" https://github.com/junegunn/fzf.vim/commit/ee91c93d4cbc6f29cf82877ca39f3ce23d5c5b7b
+let g:fzf_buffers_jump = 1
+let g:fzf_tags_command = 'ctags -R'
+
+" https://github.com/iamcco/markdown-preview.nvim/commit/e5bfe9b89dc9c2fbd24ed0f0596c85fd0568b143
+
+
 " https://github.com/neoclide/coc.nvim/commit/5b4b18d2ed2b18870034c7ee853164e1274ab158
 " coc-rust-analyzer => Installed via :CocInstall coc-rust-analyzer
 " coc-pyright => Installed via :CocInstall coc-pyright
@@ -353,7 +362,7 @@ nnoremap <silent> <C-g> :CocCommand rust-analyzer.openCargoToml<cr>
 nnoremap <silent> <leader>h :CocCommand rust-analyzer.toggleInlayHints<cr>
 
 " au CursorHold * silent call CocActionAsync('highlight')
-" set signcolumn=yes " for always on sign column
+set signcolumn=yes " for always on sign column
 
 " }}}
 

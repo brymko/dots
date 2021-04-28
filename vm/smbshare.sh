@@ -3,8 +3,8 @@
 set -euf -o pipefail
 
 if [[ $# -lt 5 ]]; then
-    echo "Usage: $0 <serverip> <username> <password> <remote path> <local path> "
-    echo "\tIf the remote path is C:\\folder_name\\ use \"folder_name\" as the remote path"
+    echo "Usage: $0 <serverip> <username> <password> <remote path> <local path> 
+                If the remote path is C:\\folder_name\\ use \"folder_name\" as the remote path"
     echo "For Windows server setup:
                 Create user:        net user <user name> <password> /add
                 Add to admins:      net localgroup administrators <user name> /add

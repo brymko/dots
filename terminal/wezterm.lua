@@ -2,7 +2,7 @@ local wezterm = require 'wezterm';
 
 return {
     -- FONTS
-    font_size = 10.0;
+    font_size = 9.0;
     
     -- TODO: fallback fonts yo.
     -- sudo pacman -S fft-fira-mono
