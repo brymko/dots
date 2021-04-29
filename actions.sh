@@ -70,7 +70,8 @@ if [ "$#" -eq 1 ]; then
         "x11/mouse.sh"                           "$HOME/.config/x11/mouse.sh"                         \
         "x11/volume.sh"                          "$HOME/.config/x11/volume.sh"                        \
         "vim/init.vim"                           "$HOME/.config/nvim/init.vim"                        \
-        "vim/pathogen.vim"                       "$HOME/.config/nvim/autoload/pathogen.vim"           \
+        "vim/init.lua"                           "$HOME/.config/nvim/lua/init.vim"                    \
+        # "vim/pathogen.vim"                       "$HOME/.config/nvim/autoload/pathogen.vim"           \
         "vim/coc-settings.json"                  "$HOME/.config/nvim/coc-settings.json"               \
         "shell/.zshenv"                          "$HOME/.zshenv"                                      \
         "shell/.zshrc"                           "$HOME/.config/zsh/.zshrc"                           \
@@ -83,7 +84,7 @@ if [ "$#" -eq 1 ]; then
         "i3/i3blocks"                            "$HOME/.config/i3blocks"                             \
         "i3/i3lock.sh"                           "$HOME/.config/i3/i3lock.sh"                         \
         "terminal/config"                        "$HOME/.config/termite/config"                       \
-        "terminal/wezterm.lua"                   "$HOME/.config/wezterm/wezterm.lua"
+        "terminal/wezterm.lua"                   "$HOME/.config/wezterm/wezterm.lua"                  \
         "i3/dunstrc"                             "$HOME/.config/dunst/dunstrc"                        \
         "mail/neomuttrc"                         "$HOME/.config/neomutt/neomuttrc"                    \
         "scripts/screenshot.sh"                  "$HOME/.config/scripts/screenshot.sh"                \
@@ -177,25 +178,6 @@ if [ "$2" = "deps" ]; then
     install_if_needed "nvim"
     install_if_needed "neovim"
     install_if_needed "yarn"
-
-    # install plugins for nvim
-    pushd "$HOME/.config/nvim/bundle"
-    install_plug_version "https://github.com/iamcco/markdown-preview.nvim" e5bfe9b89dc9c2fbd24ed0f0596c85fd0568b143
-    cd "markdown-preview.nvim"
-    yarn install
-    cd ..
-    install_plug_version "https://github.com/junegunn/fzf.vim" ee91c93d4cbc6f29cf82877ca39f3ce23d5c5b7b
-    install_plug_version "https://github.com/ap/vim-buftabline" 73b9ef5dcb6cdf6488bc88adb382f20bc3e3262a
-    install_plug_version "https://github.com/tpope/vim-fugitive" bebe504e38d0a20c30d6dd666c4c793b3cc66104 
-    install_plug_version "https://github.com/tpope/vim-commentary" f8238d70f873969fb41bf6a6b07ca63a4c0b82b1
-    install_plug_version "https://github.com/tpope/vim-surround" f51a26d3710629d031806305b6c8727189cd1935
-    install_plug_version "https://github.com/tpope/vim-endwise" 97180a73ad26e1dcc1eebe8de201f7189eb08344
-    install_plug_version "https://github.com/rstacruz/vim-closer" c61667d27280df171a285b1274dd3cf04cbf78d4
-    install_plug_version "https://github.com/tpope/vim-repeat" c947ad2b6a16983724a0153bdf7f66d7a80a32ca
-    install_plug_version "https://github.com/neoclide/coc.nvim" 5b4b18d2ed2b18870034c7ee853164e1274ab158
-    install_plug_version "https://github.com/rust-lang/rust.vim" 96e79e397126be1a64fb53d8e3656842fe1a4532
-    popd
-
     install_if_needed "cargo"
     install_if_needed "termite"
     install_if_needed "nodejs" "node" # for fucking coc

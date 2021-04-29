@@ -13,7 +13,14 @@
     "rust-analyzer.diagnostics.enableExperimental": false,
     "rust-analyzer.procMacro.enable": true,
     "rust-analyzer.updates.prompt": false,
-    "coc.preferences.hoverTarget": "preview",
+    "rust-analyzer.inlayHints.chainingHints": true,
+    "rust-analyzer.lruCapacity": 512,
+    "rust-analyzer.inlayHints.typeHintsSeparator": "┇ ",
+    "rust-analyzer.inlayHints.chainingHintsSeparator": "┇ ",
+    "rust-analyzer.notifications.cargoTomlNotFound": false,
+    "rust-analyzer.cargo.allFeatures": true,
+    "rust-analyzer.debug.runtime": "vimspector",
+    "coc.preferences.colorSupport": true,
     "coc.preferences.jumpCommand": "edit",
     "coc.preferences.extensionUpdateCheck": "never"
 }

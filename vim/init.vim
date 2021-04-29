@@ -1,3 +1,7 @@
+" new age Lua config {{{
+lua require('init')
+" }}}
+
 " Functions {{{
 function! Preserve(cmd)
     let _s=@/
@@ -160,14 +164,14 @@ hi nCursor gui=standout guibg=#c5ff00
 hi MatchParen gui=inverse guifg=grey guibg=NONE
 au VimEnter,VimResume * set guicursor=a:block-blinkon0-nCursor/nCursor,i-r-ci-cr:block-iCursor/iCursor
 au VimLeave * set guicursor=
-
+" #98c379
 " Some more colors
 hi  VertSplit     gui=NONE       guifg=#313238  guibg=#313238            
 hi  StatusLineNC  gui=NONE       guifg=#7f8c98  guibg=#313238            
 hi  SignColumn    gui=NONE       guifg=#313238  guibg=#313238            
 hi  LineNr        gui=NONE       guifg=#50535b  guibg=NONE               
-hi  Pmenu         gui=NONE       guifg=#f0f0f0  guibg=#313238            
-hi  PmenuSel      gui=bold       guifg=#ffffff  guibg=#ab3b06            
+hi  Pmenu         gui=NONE       guifg=#abb2bf  guibg=#353b45 
+hi  PmenuSel      gui=bold       guifg=#473d45  guibg=#98c379            
 hi  PmenuSbar     gui=NONE       guifg=#313238  guibg=#313238            
 hi  PmenuThumb    gui=NONE       guifg=#41434a  guibg=#41434a            
 hi  Visual        gui=NONE       guifg=NONE     guibg=grey               
@@ -313,42 +317,23 @@ au FileType markdown setlocal shiftwidth=2
 au FileType yaml setlocal tabstop=2
 au FileType yaml setlocal shiftwidth=2
 
-" augroup OnFileSave
-"     autocmd!
-"     autocmd BufWritePre *.rs
-" augroup end
-
 " }}}
 
 " Plugins {{{
-execute pathogen#infect()
-" plugins are installed in actions.sh
-" https://github.com/ap/vim-buftabline/commit/73b9ef5dcb6cdf6488bc88adb382f20bc3e3262a
-" https://github.com/tpope/vim-fugitive/commit/bebe504e38d0a20c30d6dd666c4c793b3cc66104 " Git wrapper
-" https://github.com/tpope/vim-commentary/commit/f8238d70f873969fb41bf6a6b07ca63a4c0b82b1
-" https://github.com/tpope/vim-surround/commit/f51a26d3710629d031806305b6c8727189cd1935
-" https://github.com/tpope/vim-endwise/commit/97180a73ad26e1dcc1eebe8de201f7189eb08344
-" https://github.com/rstacruz/vim-closer/commit/c61667d27280df171a285b1274dd3cf04cbf78d4
-" https://github.com/tpope/vim-repeat/commit/c947ad2b6a16983724a0153bdf7f66d7a80a32ca
-" https://github.com/rust-lang/rust.vim/commit/96e79e397126be1a64fb53d8e3656842fe1a4532
+" https://github.com/rust-lang/rust.vim/
 let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 
-" https://github.com/junegunn/fzf.vim/commit/ee91c93d4cbc6f29cf82877ca39f3ce23d5c5b7b
+" https://github.com/junegunn/fzf.vim/
 let g:fzf_buffers_jump = 1
 let g:fzf_tags_command = 'ctags -R'
 
-" https://github.com/iamcco/markdown-preview.nvim/commit/e5bfe9b89dc9c2fbd24ed0f0596c85fd0568b143
 
-
-" https://github.com/neoclide/coc.nvim/commit/5b4b18d2ed2b18870034c7ee853164e1274ab158
 " coc-rust-analyzer => Installed via :CocInstall coc-rust-analyzer
 " coc-pyright => Installed via :CocInstall coc-pyright
-" set cmdheight=2 " not sure how to feel about that
 set updatetime=300
-" set shortmess+=c " not sure about that either
-nnoremap gw :CocCommand rust-analyzer.explainError<cr>
+" au CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 nnoremap ge :CocDiagnostic<cr>
 nnoremap ga :CocAction<cr>
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -360,10 +345,13 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <silent> <leader>rn <Plug>(coc-rename)
 nnoremap <silent> <C-g> :CocCommand rust-analyzer.openCargoToml<cr>
 nnoremap <silent> <leader>h :CocCommand rust-analyzer.toggleInlayHints<cr>
+nnoremap gw :CocCommand rust-analyzer.explainError<cr>
+
+hi CocRustTypeHint gui=NONE guifg=#39a8c3
+hi! link CocRustChainingHint CocRustTypeHint 
 
 " au CursorHold * silent call CocActionAsync('highlight')
 set signcolumn=yes " for always on sign column
 
 " }}}
-
 
