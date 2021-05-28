@@ -30,6 +30,14 @@ return {
     -- Scrollback
     scrollback_lines = 10000;
     enable_scroll_bar = false;
-    
+
+    -- no hyperlinks
+    hyperlink_rules = {
+        {
+            regex = "",
+            format ="$0",
+        },
+    };
+      
 }
 

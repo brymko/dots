@@ -11,7 +11,6 @@ vim.cmd 'autocmd BufWritePost init.lua PackerCompile' -- Auto compile when there
 require("packer").startup(function()
     use { 'wbthomason/packer.nvim' }
     use { "ap/vim-buftabline" }
-    use { "tpope/vim-fugitive" }
     use { "tpope/vim-commentary" }
     use { "tpope/vim-surround" }
     use { "tpope/vim-endwise" }
@@ -19,7 +18,7 @@ require("packer").startup(function()
     use { "tpope/vim-repeat" }
     use { "rust-lang/rust.vim" }
     use { "junegunn/fzf.vim" }
-    use { "iamcco/markdown-preview.nvim" }
+    use { "iamcco/markdown-preview.nvim", run = "cd app && yarn install" }
     -- use { "neovim/nvim-lspconfig" }
     -- use { "nvim-lua/completion-nvim" }
     use { 'neoclide/coc.nvim' } 
