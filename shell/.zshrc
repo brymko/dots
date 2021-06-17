@@ -102,7 +102,7 @@ alias cdoc="cargo doc --no-deps"
 
 # git alias
 alias gs="git status"
-alias gcout="git checkout"
+gb() { git stash && git stash branch "${1}" stash@{0}; } 
 alias gc="git commit -m"
 alias ga="git add"
 alias gl="git log --oneline --decorate --color --graph"

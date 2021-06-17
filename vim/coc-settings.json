@@ -20,6 +20,7 @@
     "rust-analyzer.notifications.cargoTomlNotFound": false,
     "rust-analyzer.cargo.allFeatures": true,
     "rust-analyzer.debug.runtime": "vimspector",
+    "rust-analyzer.diagnostics.disabled": ["inactive-code"],
     "coc.preferences.colorSupport": true,
     "coc.preferences.jumpCommand": "edit",
     "coc.preferences.extensionUpdateCheck": "never"

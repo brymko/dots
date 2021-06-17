@@ -22,9 +22,10 @@ require("packer").startup(function()
     -- use { "neovim/nvim-lspconfig" }
     -- use { "nvim-lua/completion-nvim" }
     use { 'neoclide/coc.nvim' } 
+    use { 'mfussenegger/nvim-dap' }
 end)
 
--- lspstuff, maybe once more matue
+-- lspstuff, maybe once more matue, using Coc in the meantime
 -- require("lspstuff")
 -- local nvim_lsp = require('lspconfig')
 -- local on_attach = function(client, bufnr)

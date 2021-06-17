@@ -48,15 +48,11 @@ nnoremap <leader>w :call Preserve(":%s/\\s\\+$//e")<CR>
 nnoremap <leader>o :setlocal spell! spelllang=en_us<CR>
 nnoremap <leader>l :setlocal list!<CR>
 nnoremap <leader>r :call RunFile()<CR>
-nnoremap <leader>t :!clear; cargo test<CR>
-nnoremap <leader><leader> <C-^>
 
 " movement
 inoremap jk <esc>
 nnoremap j gj
 nnoremap k gk
-nnoremap E $
-nnoremap B ^
 
 " windows
 nnoremap <C-h> <C-w>h
@@ -301,7 +297,6 @@ endfunction
 set laststatus=2
 set showcmd
 set noshowmode
-
 augroup Statusline
     autocmd!
     autocmd WinEnter,BufEnter * setlocal statusline=%!LineActive()
@@ -316,6 +311,8 @@ au FileType markdown setlocal tabstop=2
 au FileType markdown setlocal shiftwidth=2
 au FileType yaml setlocal tabstop=2
 au FileType yaml setlocal shiftwidth=2
+au FileType toml setlocal commentstring=#\ %s
+au FileType python setlocal foldmethod=indent
 
 " }}}
 
