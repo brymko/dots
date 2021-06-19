@@ -45,7 +45,8 @@ nnoremap <leader>u :nohl<CR>
 nnoremap <leader>lv :so $MYVIMRC<CR>
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>w :call Preserve(":%s/\\s\\+$//e")<CR>
-nnoremap <leader>o :setlocal spell! spelllang=en_us<CR>
+" <leader>o mapped to debuggin step over
+" nnoremap <leader>o :setlocal spell! spelllang=en_us<CR>
 nnoremap <leader>l :setlocal list!<CR>
 nnoremap <leader>r :call RunFile()<CR>
 
@@ -55,15 +56,15 @@ nnoremap j gj
 nnoremap k gk
 
 " windows
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <silent> <C-h> <C-w>h
+nnoremap <silent> <C-j> <C-w>j
+nnoremap <silent> <C-k> <C-w>k
+nnoremap <silent> <C-l> <C-w>l
 
-inoremap <C-h> <ESC><C-w>h
-inoremap <C-j> <ESC><C-w>j
-inoremap <C-k> <ESC><C-w>k
-inoremap <C-l> <ESC><C-w>l
+inoremap <silent> <C-h> <ESC><C-w>h
+inoremap <silent> <C-j> <ESC><C-w>j
+inoremap <silent> <C-k> <ESC><C-w>k
+inoremap <silent> <C-l> <ESC><C-w>l
 
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
@@ -83,7 +84,8 @@ cnoremap sudow w !sudo tee % > /dev/null<CR>
 
 " Vim Core {{{
 set tgc
-set splitright splitbelow
+set splitright 
+set splitbelow
 set number
 " set cursorline
 set diffopt=filler,vertical
@@ -105,10 +107,15 @@ set smarttab
 set expandtab
 set autoindent
 
+" wrapping
+set breakindent
+set linebreak
+
 " misc
 set timeoutlen=400
 set listchars=eol:⏎,tab:>-,trail:·,extends:>,precedes:<,space:␣
-set completeopt=menuone,noinsert,noselect
+set completeopt=menu,menuone,noselect
+set backspace=indent,eol,start
 
 " wildmenu
 set wildmenu
@@ -123,7 +130,7 @@ let g:netrw_liststyle=3 " tree view
 " TODO: this is retarded, bc ftplugins are executed AFTER the vimrc...
 " but on the other hand its not that expensive considering that the view is
 " loaded with this callback aswell
-autocmd BufWinEnter ?* silent! setlocal formatoptions=crjq 
+autocmd BufWinEnter ?* silent! setlocal formatoptions=crjql
 set autoread
 set nomodeline
 
@@ -140,61 +147,61 @@ if executable('rg')
     set grepformat=%f:%l:%c:%m
 endif
 
-" Cursor
-" TODO: this also is retarded, guibg=#000000 == my terminal bg color, so
-" cursorline is effectivly off This is needed bc if there isn't a change in 
-" the cursoline color when switching modes, the cursor color won't change 
-" WHILE the cursor hasn't moved yet. 
-" This seems to be a bug & i'll be better off fixing it
-set cursorline
-" set guifg to SignColumn to not highlight the current line
-hi       CursorLineNr  gui=NONE  guibg=NONE  guifg=NONE                           
-hi       CursorLine    gui=NONE  guibg=NONE  guifg=NONE                           
-autocmd  InsertEnter   *         hi          CursorLine  gui=NONE  guibg=#000000  guifg=NONE
-autocmd  InsertLeave   *         hi          CursorLine  gui=NONE  guibg=NONE     guifg=NONE
+" " Cursor
+" " TODO: this also is retarded, guibg=#000000 == my terminal bg color, so
+" " cursorline is effectivly off This is needed bc if there isn't a change in 
+" " the cursoline color when switching modes, the cursor color won't change 
+" " WHILE the cursor hasn't moved yet. 
+" " This seems to be a bug & i'll be better off fixing it
+" set cursorline
+" " set guifg to SignColumn to not highlight the current line
+" hi       CursorLineNr  gui=NONE  guibg=NONE  guifg=NONE                           
+" hi       CursorLine    gui=NONE  guibg=NONE  guifg=NONE                           
+" autocmd  InsertEnter   *         hi          CursorLine  gui=NONE  guibg=#000000  guifg=NONE
+" autocmd  InsertLeave   *         hi          CursorLine  gui=NONE  guibg=NONE     guifg=NONE
 
-" insert mode cursor color
+" " insert mode cursor color
 hi iCursor gui=standout guibg=#d349e8
-" non-insert mode cursor color
+" " non-insert mode cursor color
 hi nCursor gui=standout guibg=#c5ff00
-hi MatchParen gui=inverse guifg=grey guibg=NONE
-au VimEnter,VimResume * set guicursor=a:block-blinkon0-nCursor/nCursor,i-r-ci-cr:block-iCursor/iCursor
-au VimLeave * set guicursor=
-" #98c379
-" Some more colors
-hi  VertSplit     gui=NONE       guifg=#313238  guibg=#313238            
-hi  StatusLineNC  gui=NONE       guifg=#7f8c98  guibg=#313238            
-hi  SignColumn    gui=NONE       guifg=#313238  guibg=#313238            
-hi  LineNr        gui=NONE       guifg=#50535b  guibg=NONE               
+" hi MatchParen gui=inverse guifg=grey guibg=NONE
+au VimEnter,VimResume * set guicursor=a:block-blinkon0-nCursor/nCursor,i-r-ci-cr:ver1-iCursor/iCursor
+" au VimLeave * set guicursor=
+" " #98c379
+" " Some more colors
+" hi  VertSplit     gui=NONE       guifg=#313238  guibg=#313238            
+" hi  StatusLineNC  gui=NONE       guifg=#7f8c98  guibg=#313238            
+" hi  SignColumn    gui=NONE       guifg=#313238  guibg=#313238            
+" hi  LineNr        gui=NONE       guifg=#50535b  guibg=NONE               
 hi  Pmenu         gui=NONE       guifg=#abb2bf  guibg=#353b45 
 hi  PmenuSel      gui=bold       guifg=#473d45  guibg=#98c379            
 hi  PmenuSbar     gui=NONE       guifg=#313238  guibg=#313238            
 hi  PmenuThumb    gui=NONE       guifg=#41434a  guibg=#41434a            
-hi  Visual        gui=NONE       guifg=NONE     guibg=grey               
-hi  ErrorMsg      gui=NONE       guifg=red      guibg=NONE               
-hi  Error         gui=NONE       guifg=white    guibg=#a07033            
-hi  ModeMsg       gui=NONE       guifg=red      guibg=NONE               
-hi  MoreMsg       gui=None       guifg=magenta  guibg=NONE               
-hi  Question      gui=NONE       guifg=#ff7ab2  guibg=NONE               
-hi  WarningMsg    gui=NONE       guifg=#ffa14f  guibg=NONE               
-hi  IncSearch     gui=NONE       guifg=#292a30  guibg=#fef937            
-hi  Search        gui=NONE       guifg=#dfdfe0  guibg=#515453            
-hi  DiffAdd       guifg=#acf2e4  guibg=#243330  guisp=NONE     gui=NONE  cterm=NONE
-hi  DiffChange    guifg=#ffa14f  guibg=NONE     guisp=NONE     gui=NONE  cterm=NONE 
-hi  DiffDelete    guifg=#ff8170  guibg=#3b2d2b  guisp=NONE     gui=NONE  cterm=NONE 
-hi  DiffText      guifg=#ffa14f  guibg=#382e27  guisp=NONE     gui=NONE  cterm=NONE 
-hi! link diffAdded DiffAdd
-hi! link diffBDiffer WarningMsg
-hi! link diffChanged DiffChange
-hi! link diffCommon WarningMsg
-hi! link diffDiffer WarningMsg
-hi! link diffFile Directory
-hi! link diffIdentical WarningMsg
-hi! link diffIndexLine Number
-hi! link diffIsA WarningMsg
-hi! link diffNoEOL WarningMsg
-hi! link diffOnly WarningMsg
-hi! link diffRemoved DiffDelete
+" hi  Visual        gui=NONE       guifg=NONE     guibg=grey               
+" hi  ErrorMsg      gui=NONE       guifg=red      guibg=NONE               
+" hi  Error         gui=NONE       guifg=white    guibg=#a07033            
+" hi  ModeMsg       gui=NONE       guifg=red      guibg=NONE               
+" hi  MoreMsg       gui=None       guifg=magenta  guibg=NONE               
+" hi  Question      gui=NONE       guifg=#ff7ab2  guibg=NONE               
+" hi  WarningMsg    gui=NONE       guifg=#ffa14f  guibg=NONE               
+" hi  IncSearch     gui=NONE       guifg=#292a30  guibg=#fef937            
+" hi  Search        gui=NONE       guifg=#dfdfe0  guibg=#515453            
+" hi  DiffAdd       guifg=#acf2e4  guibg=#243330  guisp=NONE     gui=NONE  cterm=NONE
+" hi  DiffChange    guifg=#ffa14f  guibg=NONE     guisp=NONE     gui=NONE  cterm=NONE 
+" hi  DiffDelete    guifg=#ff8170  guibg=#3b2d2b  guisp=NONE     gui=NONE  cterm=NONE 
+" hi  DiffText      guifg=#ffa14f  guibg=#382e27  guisp=NONE     gui=NONE  cterm=NONE 
+" hi! link diffAdded DiffAdd
+" hi! link diffBDiffer WarningMsg
+" hi! link diffChanged DiffChange
+" hi! link diffCommon WarningMsg
+" hi! link diffDiffer WarningMsg
+" hi! link diffFile Directory
+" hi! link diffIdentical WarningMsg
+" hi! link diffIndexLine Number
+" hi! link diffIsA WarningMsg
+" hi! link diffNoEOL WarningMsg
+" hi! link diffOnly WarningMsg
+" hi! link diffRemoved DiffDelete
 
 " Files
 call EnsureExists("~/.config/nvim/.backup//")
@@ -228,15 +235,15 @@ au InsertEnter * hi StatusLine gui=NONE guifg=black guibg=#d349e8 ctermfg=black 
 au InsertLeave * hi StatusLine gui=NONE guifg=black guibg=#c5ff00 ctermfg=black ctermbg=cyan
 
 hi  StatusLine  gui=NONE  guifg=black    guibg=#c5ff00  ctermfg=black  ctermbg=cyan
-hi  HSplit      gui=NONE  guifg=#1e1f28  guibg=#1e1f28
+" hi  HSplit      gui=NONE  guifg=#1e1f28  guibg=#1e1f28
 hi  Base        gui=NONE  guifg=#313333  guibg=#313333                 
 
-hi! link Terminal Normal
+" hi! link Terminal Normal
 hi! link TabLine StatusLineNC
 hi! link TabLineFill StatusLineNC
 hi! link TabLineSel StatusLine
-hi! link StatusLineTerm StatusLine
-hi! link StatusLineTermNC StatusLineNC
+" hi! link StatusLineTerm StatusLine
+" hi! link StatusLineTermNC StatusLineNC
 
 " These function are only used in statusline generation hence they are here
 " and not in the script section
@@ -276,7 +283,7 @@ function! LineActive()
     let statusline .= "%#Base#"
     let statusline .= "%0* %{ModeCurrent()}"                " Mode
     let statusline .= "%2* %Y "                             " FileType
-    let statusline .= "%2* %{''.(&fenc!=''?&fenc:&enc).''}" " Encoding
+    let statusline .= "%2*%{''.(&fenc!=''?&fenc:&enc).''}" " Encoding
     let statusline .= "%2* %{&ff} "                         " File format
     let statusline .= "%#Base#"                             " Seperator
     let statusline .= "%="                                  " Right Side
@@ -289,10 +296,11 @@ endfunction
 
 function! LineInactive()
   let statusline = ""
-  let statusline .= "%#HSplit#"
 
   return statusline
 endfunction
+
+set fillchars=stlnc:─
 
 set laststatus=2
 set showcmd
@@ -344,7 +352,7 @@ nnoremap <silent> <C-g> :CocCommand rust-analyzer.openCargoToml<cr>
 nnoremap <silent> <leader>h :CocCommand rust-analyzer.toggleInlayHints<cr>
 nnoremap gw :CocCommand rust-analyzer.explainError<cr>
 
-hi CocRustTypeHint gui=NONE guifg=#39a8c3
+hi CocRustTypeHint gui=NONE guifg=#8c9dfa
 hi! link CocRustChainingHint CocRustTypeHint 
 
 " au CursorHold * silent call CocActionAsync('highlight')

@@ -49,29 +49,6 @@ PS1="%(?..%F{red}=>%? )%F{magenta}%n@%F{magenta}%m %F{blue}%~%f$ "
 setopt prompt_subst
 RPS1='$($HOME/.config/zsh/gitp.sh 2>/dev/null)'
 
-# menu highlighting, straight ripped from oh-my-zsh
-# Dunno what this is for {
-# unsetopt menu_complete
-# unsetopt flowcontrol
-# setopt auto_menu
-# setopt complete_in_word
-# setopt always_to_end
-# zstyle ':completion:*:*:*:*:*' menu select
-# zstyle ':completion:*' special-dirs true
-# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-# zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
-# zstyle ':completion:*:*:*:users' ignored-patterns \
-#         adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
-#         clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
-#         gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
-#         ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
-#         named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
-#         operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
-#         rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
-#         usbmux uucp vcsa wwwrun xfs '_*'
-# }
-# zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==02=01}:${(s.:.)LS_COLORS}")'
-# zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
 zstyle -e ':completion:*:default' list-colors 'reply=(":${(s.:.)LS_COLORS}")'
 zstyle ':completion:*' menu select
 autoload -Uz compinit && compinit
@@ -113,6 +90,7 @@ pdf () {
 }
 
 
+set -o emacs # set emacs mode for shell
 bindkey '^E' end-of-line
 bindkey '^A' beginning-of-line
 bindkey '^U' kill-whole-line
@@ -135,6 +113,7 @@ export EDITOR="nvim"
 export HISTFILE="$HOME/.config/zsh/.zsh_history"
 SAVEHIST=10000
 HISTSIZE=10000
+setopt HIST_IGNORE_ALL_DUPS
 
 # fix paste bug
 zstyle ':bracketed-paste-magic' active-widgets '.self-*'

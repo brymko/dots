@@ -190,6 +190,16 @@ if [ "$2" = "deps" ]; then
     install_if_needed "virt-manager"
     install_if_needed "pamixer"
     install_if_needed "perl"
+    install_if_needed "python"
+    install_if_needed "python3"
+    install_if_needed "lldb"
+
+    # fonts ???
+
+    # setup vimdbg venv
+    python -m venv "$HOME/.local/share/vimdbg/"
+    "$HOME/.local/share/vimdbg/bin/python" -m pip install debugpy
+
 
     install_if_needed_cargo "exa"
     install_if_needed_cargo "bat"
