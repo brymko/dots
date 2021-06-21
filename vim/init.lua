@@ -172,6 +172,7 @@ local Yellow = ConstructColour("#FFF59D")
 local Orange = ConstructColour("#F79000")
 local Red = ConstructColour("#F70067")
 local RedDiff = ConstructColour("#370000")
+local GreenDiff = ConstructColour("#666666")
 local FloatBackground = ConstructColour("#132434")
 local Background = ConstructColour("NONE")
 local Black = ConstructColour("#000000")
@@ -286,7 +287,7 @@ loadHighlights(
     -- Constant = {VarName},
     -- Define = {BuiltIn},
     DiffAdd = {Success, GreenDiff},
-    DiffChange = {Warning, RedDiff},
+    DiffChange = {Warning, GreyDiff},
     DiffDelete = {Error, RedDiff},
     DiffText = {Error, RedDiff},
     ErrorMsg = {Error},
