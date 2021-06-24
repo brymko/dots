@@ -220,6 +220,7 @@ set nowritebackup
 set undofile
 set viewoptions=folds,cursor
 set foldmethod=manual
+set foldlevel=99
 set foldcolumn=0
 
 augroup AutoSaveFolds

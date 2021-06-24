@@ -8,6 +8,7 @@
     "diagnostic.checkCurrentLine": true,
     "diagnostic.maxWindowHeight": 20,
     "suggest.triggerCompletionWait": 30,
+    "rust-analyzer.enable": true,
     "rust-analyzer.updates.channel": "nightly",
     "rust-analyzer.checkOnSave.command": "clippy",
     "rust-analyzer.diagnostics.enableExperimental": false,

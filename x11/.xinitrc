@@ -14,6 +14,6 @@ if [ -d "$xscripts" ]; then
     unset f
 fi
 
-/home/brymko/.screenlayout/home.sh
+bash /home/brymko/.screenlayout/home.sh
 xmodmap "$HOME/.config/x11/.Xmodmap"
 exec i3
