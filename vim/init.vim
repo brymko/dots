@@ -361,3 +361,6 @@ set signcolumn=yes " for always on sign column
 
 " }}}
 
+
+noremap <silent> <leader>8 :%!xxd -g 1<CR>
+noremap <silent> <leader>9 :%!xxd -g 1 -r<CR>

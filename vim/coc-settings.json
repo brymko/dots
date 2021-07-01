@@ -15,7 +15,7 @@
     "rust-analyzer.procMacro.enable": true,
     "rust-analyzer.updates.prompt": false,
     "rust-analyzer.inlayHints.chainingHints": true,
-    "rust-analyzer.lruCapacity": 512,
+    "rust-analyzer.lruCapacity": 1024,
     "rust-analyzer.inlayHints.typeHintsSeparator": "┇ ",
     "rust-analyzer.inlayHints.chainingHintsSeparator": "┇ ",
     "rust-analyzer.notifications.cargoTomlNotFound": false,

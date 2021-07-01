@@ -20,12 +20,17 @@ require("packer").startup(function()
     use { "rust-lang/rust.vim" }
     use { "junegunn/fzf.vim" }
     use { "iamcco/markdown-preview.nvim", run = "cd app && yarn install" }
-    -- use { "neovim/nvim-lspconfig" }
-    -- use { "nvim-lua/completion-nvim" }
     use { "neoclide/coc.nvim" } 
     use { "mfussenegger/nvim-dap" }
     use { "brymko/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }  }
+    use { "Yggdroot/indentLine" }
+    use { "moll/vim-bbye" }
+    use { "elzr/vim-json" }
+    -- use { "neovim/nvim-lspconfig" }
+    -- use { "nvim-lua/completion-nvim" }
 end)
+
+-- 
 
 -- nvim-dap configurations 
 local dap = require("dap")
@@ -148,7 +153,12 @@ require("dapui").setup({
 -- other options
 
 vim.g.border_chars =  {"╭", "─", "╮", "│", "╯", "─", "╰", "│",}
+vim.g.indentLine_char = '⎸' -- '¦'
+vim.g.vim_json_syntax_conceal = 0
 
+-- use :close to close split
+vim.api.nvim_set_keymap("c", "bd", "Bdelete", {expr = false; noremap = true})
+vim.api.nvim_set_keymap("c", "bw", "Bwipeout", {expr = false; noremap = true})
 
 -- colors
 function ConstructColour(colour)
