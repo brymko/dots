@@ -109,6 +109,7 @@ unsetopt share_history
 
 export BROWSER="chromium"
 export EDITOR="nvim"
+export VISUAL="nvim"
 
 export HISTFILE="$HOME/.config/zsh/.zsh_history"
 SAVEHIST=10000
