@@ -26,6 +26,7 @@ require("packer").startup(function()
     use { "Yggdroot/indentLine" }
     use { "moll/vim-bbye" }
     use { "elzr/vim-json" }
+    -- use { "google/vim-codefmt" }
     -- use { "neovim/nvim-lspconfig" }
     -- use { "nvim-lua/completion-nvim" }
 end)

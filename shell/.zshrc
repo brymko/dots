@@ -60,7 +60,7 @@ if type rg &> /dev/null; then
 fi
 
 alias l="exa -lamg --sort type --color=automatic"
-alias ls="exa --sort type --color=automatic"
+alias ls="exa -l --sort type --color=automatic"
 alias rg="rg -i"
 alias ip="ip -br -c"
 alias ida64="wine /home/brymko/ctf/IDA/ida/ida64.exe &; disown; exit"
@@ -76,6 +76,7 @@ alias vim="nvim"
 alias vi="nvim"
 alias vimdiff="nvim -d"
 alias cdoc="cargo doc --no-deps"
+alias tsc="yarn exec tsc"
 
 # git alias
 alias gs="git status"

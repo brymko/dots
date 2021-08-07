@@ -35,6 +35,14 @@ function! RunFile()
         :% w ! php 
     endif
 endfunction
+
+function! OpenConfig() 
+    if(&ft == 'rust')
+        :CocCommand rust-analyzer.openCargoToml
+    elseif(&ft == 'typescript')
+        :CocCommand tsserver.goToProjectConfig
+    endif
+endfunction
 " }}}
 
 " Keybindings {{{
@@ -79,6 +87,7 @@ inoremap <C-v> <space><C-o>"+P
 
 " misc
 cnoremap sudow w !sudo tee % > /dev/null<CR>
+nnoremap \ :Rg<CR>
 
 " }}}
 
@@ -349,7 +358,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> <leader>rn <Plug>(coc-rename)
-nnoremap <silent> <C-g> :CocCommand rust-analyzer.openCargoToml<cr>
+nnoremap <silent> <C-g> :call OpenConfig()<cr>
 nnoremap <silent> <leader>h :CocCommand rust-analyzer.toggleInlayHints<cr>
 nnoremap gw :CocCommand rust-analyzer.explainError<cr>
 
