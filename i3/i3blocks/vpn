@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VPNC_FILE='var/run/vpnc.pid'
+VPNC_FILE='/var/run/vpnc.pid'
 OVPN_FILE='/proc/sys/net/ipv4/conf/tun0'
 
 if [[ -e "${VPNC_FILE}" || -e "${OVPN_FILE}" ]]; then

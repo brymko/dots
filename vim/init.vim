@@ -33,6 +33,8 @@ function! RunFile()
         :% w ! sh
     elseif (&ft == 'php')
         :% w ! php 
+    elseif (&ft == "typescript")
+        :% w ! tsc && yarn run run
     endif
 endfunction
 
