@@ -1,12 +1,15 @@
 local wezterm = require 'wezterm';
 
 return {
+    -- Disable update notifications
+    check_for_updates = false,
+
     -- FONTS
     font_size = 9.0;
     
     -- TODO: fallback fonts yo.
     -- sudo pacman -S fft-fira-mono
-    font = wezterm.font('Fira Mono Medium', {bold = false, italic=false});
+    font = wezterm.font('Fira Mono Medium', {bold = true, italic=false});
 
     -- KEYS
     use_dead_keys = false;

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 xrandr --auto
-xset r rate 200 130
+xset r rate 200 120
 redshift -x
 redshift -O 2000K 
 
