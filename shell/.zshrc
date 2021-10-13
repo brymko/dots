@@ -116,6 +116,9 @@ export HISTFILE="$HOME/.config/zsh/.zsh_history"
 SAVEHIST=10000
 HISTSIZE=10000
 setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt INC_APPEND_HISTORY
+setopt HIST_SAVE_NO_DUPS
 
 # fix paste bug
 zstyle ':bracketed-paste-magic' active-widgets '.self-*'

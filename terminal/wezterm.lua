@@ -9,7 +9,7 @@ return {
     
     -- TODO: fallback fonts yo.
     -- sudo pacman -S fft-fira-mono
-    font = wezterm.font('Fira Mono Medium', {bold = true, italic=false});
+    font = wezterm.font('Fira Mono', {bold = false, italic=false});
 
     -- KEYS
     use_dead_keys = false;

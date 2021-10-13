@@ -8,6 +8,8 @@ sudo docker rmi $(sudo docker images qa)
 # and the current directory mapped
 # privileged mode is ON
 sudo docker run -it --privileged -v "$(pwd)":"$(pwd)" --workdir "$(pwd)" -h flexstation ubuntu:latest bash 
+# map volume mount to local user
+sudo docker run -it --privileged -v "$(pwd)":"$(pwd)" --user "$(id -u)":"$(id -u)" --workdir "$(pwd)" python:3.7 bash
 
 # give a docker a name 
 sudo docker run --name <bla>

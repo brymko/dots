@@ -40,6 +40,7 @@ restore_file() {
 if [ "$#" -eq 1 ]; then
     # Directories
     mkdir -p "$HOME/.config/nvim/"
+    mkdir -p "$HOME/.config/nvim/lua"
     mkdir -p "$HOME/.config/nvim/autoload"
     mkdir -p "$HOME/.config/nvim/bundle"
     mkdir -p "$HOME/.config/i3"
@@ -70,7 +71,7 @@ if [ "$#" -eq 1 ]; then
         "x11/mouse.sh"                           "$HOME/.config/x11/mouse.sh"                         \
         "x11/volume.sh"                          "$HOME/.config/x11/volume.sh"                        \
         "vim/init.vim"                           "$HOME/.config/nvim/init.vim"                        \
-        "vim/init.lua"                           "$HOME/.config/nvim/lua/init.vim"                    \
+        "vim/init.lua"                           "$HOME/.config/nvim/lua/init.lua"                    \
         # "vim/pathogen.vim"                       "$HOME/.config/nvim/autoload/pathogen.vim"           \
         "vim/coc-settings.json"                  "$HOME/.config/nvim/coc-settings.json"               \
         "shell/.zshenv"                          "$HOME/.zshenv"                                      \
@@ -170,16 +171,17 @@ if [ "$2" = "deps" ]; then
     git config --global "pull.rebase" "true"
     git config --global "protocol.version" "2"
     git config --global "alias.f" "fetch"
+    git config --global "difftool.prompt" "false"
     grep "tags" "$HOME/.config/git/cvsignore" >/dev/null 2>&1 || echo tags >> "$HOME/.config/git/cvsignore"
 
     install_if_needed "i3"
     install_if_needed "i3status"
+    install_if_needed "dmenu"
     install_if_needed "zsh"
-    install_if_needed "nvim"
     install_if_needed "neovim"
     install_if_needed "yarn"
     install_if_needed "cargo"
-    install_if_needed "termite"
+    # install_if_needed "termite" # termite not in pacman ???
     install_if_needed "nodejs" "node" # for fucking coc
     install_if_needed "npm" # fucking coc
     sudo npm install -g neovim # fucking coc
@@ -193,17 +195,25 @@ if [ "$2" = "deps" ]; then
     install_if_needed "python"
     install_if_needed "python3"
     install_if_needed "lldb"
+    install_if_needed "base-devel"
+    install_if_needed "chromium"
+    install_if_needed "arandr"
+    install_if_needed "bluez"
+    install_if_needed "bluez-utils"
+    install_if_needed "redshift"
+    install_if_needed "keepassxc"
 
     # fonts ???
 
     # setup vimdbg venv
-    python -m venv "$HOME/.local/share/vimdbg/"
-    "$HOME/.local/share/vimdbg/bin/python" -m pip install debugpy
+    # python -m venv "$HOME/.local/share/vimdbg/"
+    # "$HOME/.local/share/vimdbg/bin/python" -m pip install debugpy
 
 
     install_if_needed_cargo "exa"
     install_if_needed_cargo "bat"
     install_if_needed_cargo "sd"
+    install_if_needed_cargo "ripgrep"
 
     # if uname -a | grep debian; then
     #     install_if_needed "vim-nox"
