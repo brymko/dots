@@ -63,10 +63,10 @@ bindsym $mod+Shift+d exec dmenu_run
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -i -sb "#f08030" -sf "#000000" -nf "#ffffff" -nb "#1f1f1f" -p "exec> "'
 
 # move workspaces on multimonitor
-bindsym $mod+t move workspace to left
-bindsym $mod+y move workspace to right
-bindsym $sub+t move workspace to left
-bindsym $sub+y move workspace to right
+bindsym $mod+t move workspace to output left
+bindsym $mod+y move workspace to output right
+bindsym $sub+t move workspace to output left
+bindsym $sub+y move workspace to output right
 
 # change focus
 bindsym $mod+h focus left

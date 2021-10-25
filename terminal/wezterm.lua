@@ -9,7 +9,8 @@ return {
     
     -- TODO: fallback fonts yo.
     -- sudo pacman -S fft-fira-mono
-    font = wezterm.font('Fira Mono', {bold = false, italic=false});
+    -- font = wezterm.font('FiraMono Nerd Font', {bold = false, italic=false});
+    font = wezterm.font('mononoki Nerd Font', {stretch = "Normal", weight = "Regular", italic=false});
 
     -- KEYS
     use_dead_keys = false;
@@ -41,6 +42,18 @@ return {
             format ="$0",
         },
     };
-      
+
+    -- no padding
+    window_padding = {
+        left = 0,
+        right = 0,
+        top = 0,
+        bottom = 0,
+    };
+
+    use_cap_height_to_scale_fallback_fonts = true;
+    adjust_window_size_when_changing_font_size = false;
+    allow_square_glyphs_to_overflow_width = "Always";
+    custom_block_glyphs = false;
 }
 

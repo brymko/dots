@@ -3,6 +3,7 @@
     "suggest.autoTrigger": "always",
     "suggest.fixInsertedWord": false,
     "suggest.timeout": 500,
+    "suggest.triggerAfterInsertEnter": true,
     "diagnostic.level": "hint",
     "diagnostic.messageDelay": 100,
     "diagnostic.checkCurrentLine": true,

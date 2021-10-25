@@ -20,7 +20,7 @@ require("packer").startup(function()
     use { "rust-lang/rust.vim" }
     use { "junegunn/fzf.vim" }
     use { "iamcco/markdown-preview.nvim", run = "cd app && yarn install" }
-    use { "neoclide/coc.nvim", run = "yarn install --frozen-lockfile" } 
+    use { "neoclide/coc.nvim", run = "yarn install --frozen-lockfile"} 
     use { "mfussenegger/nvim-dap" }
     use { "brymko/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }  }
     use { "Yggdroot/indentLine" }
@@ -356,6 +356,7 @@ loadHighlights(
     CocHintSign = {Info},
     CocHighlightText = {Transparent, "underline"},
     CocCodeLens = {Hidden, "bold"},
+    CocFloating = {Transparent, Grey2},
     CocListFgGreen = {Green},
     CocListFgRed = {Red},
     CocListFgBlack = {Grey1},
