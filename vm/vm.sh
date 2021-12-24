@@ -19,7 +19,7 @@ fi
 
 while true
 do
-    out=$(LD_PRELOAD="$HOME/vm/preload/xigd.so" remote-viewer -v spice://127.0.0.1:$port -f)
+    out=$(LD_PRELOAD="$HOME/vm/preload/xigd.so" remote-viewer -v spice://127.0.0.1:$port)
     if [[ $out =~ "Could not connect" ]]; then
         exit 0
     elif [[ $out =~ "has disconnected" ]]; then

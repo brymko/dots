@@ -1,14 +1,18 @@
 {
-    "suggest.enablePreselect": true,
+    "suggest.enablePreselect": false,
     "suggest.autoTrigger": "always",
     "suggest.fixInsertedWord": false,
     "suggest.timeout": 500,
     "suggest.triggerAfterInsertEnter": true,
+    "suggest.triggerCompletionWait": 30,
+    "suggest.removeDuplicateItems": true,
+    "suggest.fixInsertedWord": false,
+    
     "diagnostic.level": "hint",
     "diagnostic.messageDelay": 100,
     "diagnostic.checkCurrentLine": true,
     "diagnostic.maxWindowHeight": 20,
-    "suggest.triggerCompletionWait": 30,
+
     "rust-analyzer.enable": true,
     "rust-analyzer.updates.channel": "nightly",
     "rust-analyzer.checkOnSave.command": "clippy",
@@ -24,7 +28,25 @@
     "rust-analyzer.diagnostics.disabled": ["inactive-code"],
     "typescript.showUnused": false,
     "typescript.format.enabled":  true,
+    "python.linting.flake8Enabled": true,
+
+    "languageserver": {
+        "elmLS": {
+            "command": "elm-language-server",
+            "filetypes": ["elm"],
+            "rootPatterns": ["elm.json"],
+            "disableDiagnostics": true
+        },
+        "ocaml-lsp": {
+            "command": "opam",
+            "args": ["config", "exec", "--", "ocamllsp"],
+            "rootPatterns": ["dune-project"],
+            "filetypes": ["ocaml", "reason"]
+        }
+    },
+
     "coc.preferences.colorSupport": true,
     "coc.preferences.jumpCommand": "edit",
+    "coc.preferences.formatOnSaveFiletypes": [""],
     "coc.preferences.extensionUpdateCheck": "never"
 }

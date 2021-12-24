@@ -202,6 +202,7 @@ if [ "$2" = "deps" ]; then
     install_if_needed "bluez-utils"
     install_if_needed "redshift"
     install_if_needed "keepassxc"
+    install_if_needed "jq"
 
     # fonts ???
 

@@ -63,8 +63,8 @@ alias l="exa -lamg --sort type --color=automatic"
 alias ls="exa -l --sort type --color=automatic"
 alias rg="rg -i"
 alias ip="ip -br -c"
-alias ida64="wine /home/brymko/ctf/IDA/ida/ida64.exe &; disown; exit"
-alias ida="wine /home/brymko/ctf/IDA/ida/ida.exe &; disown; exit"
+alias ida64="wine /home/brymko/ida/ida64.exe &; disown; exit"
+alias ida="wine /home/brymko/ida/ida.exe &; disown; exit"
 alias binja="/home/brymko/ctf/binaryninja/binaryninja &; disown; exit"
 alias work="ssh -Y work"
 alias ncdu="ncdu -r"
@@ -129,3 +129,5 @@ source "$HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlightin
 source "$HOME/.config/zsh/plugins/extract/extract.zsh"
 
 eval "$(dircolors -b)"
+
+[[ ! -r /home/brymko/.opam/opam-init/init.zsh ]] || source /home/brymko/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null 

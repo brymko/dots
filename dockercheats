@@ -1,3 +1,9 @@
+# build container and tag it as <name>
+sudo docker build -t <name> .
+
+# run build container tagged <name>
+sudo docker run [<flags n shit>] <name>
+
 # rm all stale containers
 sudo docker rm $(sudo docker ps -aq)
 

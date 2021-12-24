@@ -5,12 +5,13 @@ return {
     check_for_updates = false,
 
     -- FONTS
-    font_size = 9.0;
+    font_size = 11.0;
     
     -- TODO: fallback fonts yo.
     -- sudo pacman -S fft-fira-mono
     -- font = wezterm.font('FiraMono Nerd Font', {bold = false, italic=false});
     font = wezterm.font('mononoki Nerd Font', {stretch = "Normal", weight = "Regular", italic=false});
+    -- font = wezterm.font('DM Mono Light', {stretch = "Normal", weight = "Regular", italic=false});
 
     -- KEYS
     use_dead_keys = false;

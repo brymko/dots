@@ -16,6 +16,6 @@ fi
 
 bash /home/brymko/.screenlayout/home.conf.sh
 bluetoothctl power on
-bluetoothctl connect D3:2D:C3:A7:E7:5B
-xmodmap "$HOME/.config/x11/.Xmodmap"
+bluetoothctl connect E7:67:B1:69:C9:9E
+xmodmap "$HOME/.config/x11/Xmodmap"
 exec i3
