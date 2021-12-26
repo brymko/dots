@@ -10,5 +10,5 @@ if [ ! -f "$(command -v "import")" ]; then
     exit 1
 fi
 
-import "$FILE" 2>&1 1>/dev/null
+import "$FILE" > /dev/null 2>&1 
 
