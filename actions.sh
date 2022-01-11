@@ -67,7 +67,7 @@ if [ "$#" -eq 1 ]; then
 
     files=( \
         "x11/.xinitrc"                           "$HOME/.xinitrc"                                     \
-        "x11/.Xmodmap"                           "$HOME/.config/x11/.Xmodmap"                         \
+        "x11/Xmodmap"                           "$HOME/.config/x11/Xmodmap"                          \
         "x11/mouse.sh"                           "$HOME/.config/x11/mouse.sh"                         \
         "x11/volume.sh"                          "$HOME/.config/x11/volume.sh"                        \
         "vim/init.vim"                           "$HOME/.config/nvim/init.vim"                        \

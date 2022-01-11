@@ -21,5 +21,3 @@
 #   Option "AccelProfile" "flat"
 #   Option "AccelSpeed" "1.0"
 # EndSection 
-
- 
