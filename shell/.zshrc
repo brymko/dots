@@ -77,6 +77,7 @@ alias vi="nvim"
 alias vimdiff="nvim -d"
 alias cdoc="cargo doc --no-deps"
 alias tsc="yarn exec tsc"
+alias q="QHOME=$HOME/q rlwrap -r $HOME/q/l64/q"
 
 # git alias
 alias gs="git status"

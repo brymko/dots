@@ -27,6 +27,7 @@ require("packer").startup(function()
     use { "moll/vim-bbye" }
     use { "elzr/vim-json" }
     use { "joukevandermaas/vim-ember-hbs" }
+    use { "cstrahan/vim-capnp" }
     -- use { "google/vim-codefmt" }
     -- use { "neovim/nvim-lspconfig" }
     -- use { "nvim-lua/completion-nvim" }
