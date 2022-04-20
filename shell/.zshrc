@@ -78,7 +78,7 @@ alias vimdiff="nvim -d"
 alias cdoc="cargo doc --no-deps"
 alias tsc="yarn exec tsc"
 alias q="QHOME=$HOME/q rlwrap -r $HOME/q/l64/q"
-alias lastpic="echo \"/home/brymko/pics/$(/bin/ls -lt /home/brymko/pics | grep ".png" | head -n 1 | awk '{print $NF}')\""
+alias lastpic="/bin/ls -lt /home/brymko/pics | grep \".png\" | head -n 1 | awk '{print \"/home/brymko/pics/\" \$NF }'"
 
 # git alias
 alias gs="git status"
