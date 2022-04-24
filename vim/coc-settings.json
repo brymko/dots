@@ -12,11 +12,17 @@
     "diagnostic.messageDelay": 100,
     "diagnostic.checkCurrentLine": true,
     "diagnostic.maxWindowHeight": 20,
+    "diagnostic.enable": true,
+    "diagnostic.virtualText": false,
+    "diagnostic.messageTarget": "echo",
+
 
     "rust-analyzer.enable": true,
     "rust-analyzer.updates.channel": "nightly",
+    "rust-analyzer.checkOnSave.enable": true,
     "rust-analyzer.checkOnSave.command": "clippy",
     "rust-analyzer.diagnostics.enableExperimental": false,
+    "rust-analyzer.diagnostics.enable": true,
     "rust-analyzer.procMacro.enable": true,
     "rust-analyzer.updates.prompt": false,
     "rust-analyzer.inlayHints.chainingHints": true,
