@@ -364,6 +364,7 @@ nmap <silent> <leader>rn <Plug>(coc-rename)
 nnoremap <silent> <C-g> :call OpenConfig()<cr>
 nnoremap <silent> <leader>h :CocCommand rust-analyzer.toggleInlayHints<cr>
 nnoremap gw :CocCommand rust-analyzer.explainError<cr>
+inoremap <silent><expr> <c-space> coc#refresh()
 
 hi CocRustTypeHint gui=NONE guifg=#8c9dfa
 hi! link CocRustChainingHint CocRustTypeHint 
