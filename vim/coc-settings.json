@@ -14,8 +14,6 @@
     "diagnostic.maxWindowHeight": 20,
     "diagnostic.enable": true,
     "diagnostic.virtualText": false,
-    "diagnostic.messageTarget": "echo",
-
 
     "rust-analyzer.enable": true,
     "rust-analyzer.updates.channel": "nightly",

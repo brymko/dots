@@ -17,3 +17,6 @@ export PATH="$PATH:$HOME/.local/bin"
 # fucking ruby
 # why the fuck does every new language drop their stuff in a new local folder
 export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
+
+# solana
+export PATH="$PATH:$HOME/.local/share/solana/install/active_release/bin"

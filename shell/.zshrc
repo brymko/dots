@@ -134,3 +134,6 @@ source "$HOME/.config/zsh/plugins/extract/extract.zsh"
 eval "$(dircolors -b)"
 
 [[ ! -r /home/brymko/.opam/opam-init/init.zsh ]] || source /home/brymko/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null 
+
+# solana
+export PATH="$PATH:$HOME/.local/share/solana/install/active_release/bin"
