@@ -9,8 +9,8 @@ return {
     
     -- TODO: fallback fonts yo.
     -- sudo pacman -S fft-fira-mono
-    -- font = wezterm.font('FiraMono Nerd Font', {bold = false, italic=false});
-    font = wezterm.font('mononoki Nerd Font', {stretch = "Normal", weight = "Regular", italic=false});
+    font = wezterm.font('FiraMono Nerd Font', {bold = false, italic=false});
+    -- font = wezterm.font('mononoki Nerd Font', {stretch = "Normal", weight = "Regular", italic=false});
     -- font = wezterm.font('DM Mono Light', {stretch = "Normal", weight = "Regular", italic=false});
 
     -- KEYS

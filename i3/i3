@@ -54,6 +54,7 @@ bindsym $sup+Return exec wezterm start --cwd "$(xcwd)"
 
 # screenshot 
 bindsym --release $mod+o exec --no-startup-id "~/.config/scripts/screenshot.sh"
+bindsym --release $sub+o exec --no-startup-id "~/.config/scripts/screenshot.sh"
 
 # kill focused window
 bindsym $mod+Shift+q kill

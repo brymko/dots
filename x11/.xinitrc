@@ -14,6 +14,8 @@ if [ -d "$xscripts" ]; then
     unset f
 fi
 
-# bash /home/brymko/.screenlayout/home.sh
-xmodmap "$HOME/.config/x11/.Xmodmap"
+#bash /home/brymko/.screenlayout/home.conf.sh
+xmodmap "$HOME/.config/x11/Xmodmap"
+bluetoothctl power on
+bluetoothctl connect E7:67:B1:69:C9:9E
 exec i3
