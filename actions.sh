@@ -67,13 +67,13 @@ if [ "$#" -eq 1 ]; then
 
     files=( \
         "x11/.xinitrc"                           "$HOME/.xinitrc"                                     \
-        "x11/Xmodmap"                           "$HOME/.config/x11/Xmodmap"                          \
+        "x11/Xmodmap"                            "$HOME/.config/x11/Xmodmap"                          \
         "x11/mouse.sh"                           "$HOME/.config/x11/mouse.sh"                         \
         "x11/volume.sh"                          "$HOME/.config/x11/volume.sh"                        \
         "vim/init.vim"                           "$HOME/.config/nvim/init.vim"                        \
         "vim/init.lua"                           "$HOME/.config/nvim/lua/init.lua"                    \
-        # "vim/pathogen.vim"                       "$HOME/.config/nvim/autoload/pathogen.vim"           \
-        "vim/coc-settings.json"                  "$HOME/.config/nvim/coc-settings.json"               \
+        "vim/keymaps.lua"                        "$HOME/.config/nvim/lua/keymaps.lua"                 \
+        "vim/plugins.lua"                        "$HOME/.config/nvim/lua/plugins.lua"                 \
         "shell/.zshenv"                          "$HOME/.zshenv"                                      \
         "shell/.zshrc"                           "$HOME/.config/zsh/.zshrc"                           \
         "shell/gitp.sh"                          "$HOME/.config/zsh/gitp.sh"                          \
@@ -182,9 +182,9 @@ if [ "$2" = "deps" ]; then
     install_if_needed "yarn"
     install_if_needed "cargo"
     # install_if_needed "termite" # termite not in pacman ???
-    install_if_needed "nodejs" "node" # for fucking coc
-    install_if_needed "npm" # fucking coc
-    sudo npm install -g neovim # fucking coc
+    # install_if_needed "nodejs" "node" # for fucking coc
+    # install_if_needed "npm" # fucking coc
+    sudo npm install -g neovim 
     install_if_needed "dunst"
     install_if_needed "neomutt"
     install_if_needed "ncdu"

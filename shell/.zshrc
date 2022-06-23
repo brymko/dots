@@ -98,8 +98,8 @@ bindkey '^E' end-of-line
 bindkey '^A' beginning-of-line
 bindkey '^U' kill-whole-line
 bindkey '^[[Z' reverse-menu-complete
-bindkey '^p' up-line-or-history
-bindkey '^n' down-line-or-history
+bindkey '^p' up-history
+bindkey '^n' down-history
 bindkey '^o' autosuggest-accept
 bindkey '^h' backward-word
 bindkey '^j' backward-char
