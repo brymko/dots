@@ -14,6 +14,7 @@ vim.cmd("set background=dark")
 vim.opt.hidden          = true
 vim.opt.scrolloff       = 5
 vim.opt.sidescroll      = 5
+vim.opt.showmatch       = true
 
 -- tabs
 vim.opt.autoindent      = true
@@ -47,7 +48,6 @@ vim.opt.viewdir=os.getenv("HOME").."/.config/nvim/.views//"
 
 -- disable some useless standard plugins to save startup time
 -- these features have been better covered by plugins
-vim.g.loaded_matchparen        = 1
 vim.g.loaded_matchit           = 1
 vim.g.loaded_logiPat           = 1
 vim.g.loaded_rrhelper          = 1

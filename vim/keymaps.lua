@@ -80,14 +80,15 @@ maplua(']g', 'vim.diagnostic.goto_next()')
 maplua('gr', 'vim.lsp.buf.references()')
 maplua('<leader>rn', 'vim.lsp.buf.rename()')
 maplua('gw', 'vim.diagnostic.open_float()')
-nmap('<leader>h', ':RustToggleInlayHints')
+nmap('<leader>h', ':RustToggleInlayHints<CR>')
 
 -- still missing
 -- [x] formatting (rust)
 -- [x] rust-analyzer inlay hints
 -- [?] rust-analyzer "takes" too long error msg taking cursor control (start is fine'ish)
 -- [?] rust-analyzer doesn't recognize error (fixed through saving)
--- port more old config
+-- [] port more old config 
+--      almost done, missing few autocmd & ensure dirs & runfile
 
 -- maybe debugging
 -- " Debugging
