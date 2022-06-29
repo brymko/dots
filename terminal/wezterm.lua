@@ -6,12 +6,15 @@ return {
 
     -- FONTS
     font_size = 10.0;
+    line_height = 0.8;
     
     -- TODO: fallback fonts yo.
     -- sudo pacman -S fft-fira-mono
-    font = wezterm.font_with_fallback({'FiraMono Nerd Font', 'codicon.ttf'});
+    font = wezterm.font_with_fallback({'Monaco Nerd Font Complete', 'codicon.ttf'});
+    -- font = wezterm.font_with_fallback({'FiraMono Nerd Font', 'codicon.ttf'});
     -- font = wezterm.font('mononoki Nerd Font', {stretch = "Normal", weight = "Regular", italic=false});
     -- font = wezterm.font('DM Mono Light', {stretch = "Normal", weight = "Regular", italic=false});
+    harfbuzz_features = { "calt =0", "clig=0", "liga=0" };
 
     -- KEYS
     use_dead_keys = false;
