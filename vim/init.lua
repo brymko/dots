@@ -15,6 +15,7 @@ vim.opt.hidden          = true
 vim.opt.scrolloff       = 5
 vim.opt.sidescroll      = 5
 vim.opt.showmatch       = true
+vim.opt.formatoptions   = "crjql"
 
 -- tabs
 vim.opt.autoindent      = true

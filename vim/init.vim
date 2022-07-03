@@ -42,6 +42,7 @@ augroup AutoSaveFolds
     autocmd BufWinEnter ?* silent! loadview
 augroup end
 
+autocmd BufWinEnter ?* silent! setlocal formatoptions=crjql
   " api.nvim_create_autocmd("BufRead", {
   "   pattern = "*",
   "   once = true,

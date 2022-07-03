@@ -7,8 +7,7 @@ require('packer').startup(function()
     -- typing
     use { "tpope/vim-commentary" }
     use { "tpope/vim-surround" }
-    use { "tpope/vim-endwise" }
-    use { "rstacruz/vim-closer" }
+    use { "windwp/nvim-autopairs" }
     use { "tpope/vim-repeat" }
 
     -- fzf
@@ -43,6 +42,7 @@ require('packer').startup(function()
     -- use 'joshdick/onedark.vim'
 
     -- language
+    use 'williamboman/nvim-lsp-installer'
     use 'neovim/nvim-lspconfig'
     use { 'hrsh7th/nvim-cmp',
         requires = {
@@ -69,6 +69,11 @@ end)
 -- misc config
 vim.g.rustfmt_autosave = 1
 vim.g.fzf_buffers_jump = 1
+
+require("nvim-autopairs").setup({
+    map_c_w = true,
+})
+
 
 -- theme
 vim.g.sonokai_style = "atlantis"
@@ -317,7 +322,7 @@ cmp.setup {
             if cmp.visible() then
                 local entry = cmp.get_selected_entry()
                 if not entry then
-                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                    cmp.select_next_item()
                 else
                     cmp.confirm()
                 end
@@ -329,6 +334,7 @@ cmp.setup {
     },
 }
  
+require("nvim-lsp-installer").setup {}
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()) 
 local servers = { 
     {'html', {}},
@@ -371,6 +377,29 @@ for _, lsp in pairs(servers) do
         capabilities = capabilities,
     }
 end 
+
+require("lspconfig").elmls.setup {
+    on_attach = function(client) 
+        if client.config.flags then
+            client.config.flags.allow_incremental_sync = true
+        end
+    end,
+    capabilities = capabilities,
+    -- WTF??? doing 
+    -- root_dir = root_pattern("elm.json") doesn't the the file
+    -- doing this it does
+    -- ???????????????????????????????
+    root_dir = function(fname) 
+        return require('lspconfig').util.root_pattern("elm.json")(fname)
+    end,
+    init_options = {
+        elmAnalysisTrigger = "save",
+        disableElmLSDiagnostics = true,
+        onlyUpdateDiagnosticsOnSave = true,
+        elmReviewDiagnostics = "on",
+    },
+
+}
 
 ---- nvim-dap configurations 
 --local dap = require("dap")
