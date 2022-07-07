@@ -52,6 +52,7 @@ require('packer').startup(function()
             'hrsh7th/cmp-nvim-lsp',
         }
     } 
+    use 'purescript-contrib/purescript-vim'
     use 'L3MON4D3/LuaSnip'
     use 'onsails/lspkind-nvim'
     use { "elzr/vim-json" }
