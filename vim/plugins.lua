@@ -365,6 +365,9 @@ local servers = {
     }},
     {'bashls', {}}, 
     {'pyright', {}},
+    {'purescriptls', {}},
+    -- {'emmet_ls', {}},
+    {'cssls', {}}
 }
 
 require('lspconfig').rust_analyzer.setup{}

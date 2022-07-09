@@ -43,6 +43,9 @@ augroup AutoSaveFolds
 augroup end
 
 autocmd BufEnter,BufNew *.purs silent! setlocal filetype=purescript
+autocmd BufEnter,BufNew *.purs silent! setlocal tabstop=2
+autocmd BufEnter,BufNew *.purs silent! setlocal shiftwidth=2
+autocmd BufEnter,BufNew *.purs silent! setlocal softtabstop=2
 
 autocmd BufWinEnter ?* silent! setlocal formatoptions=crjql
   " api.nvim_create_autocmd("BufRead", {
