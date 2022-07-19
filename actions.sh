@@ -57,6 +57,7 @@ if [ "$#" -eq 1 ]; then
     mkdir -p "$HOME/.config/neomutt"
     mkdir -p "$HOME/.config/dunst"
     mkdir -p "$HOME/.config/wezterm"
+    mkdir -p "$HOME/.config/ideavim"
     mkdir -p "$HOME/vm"
     mkdir -p "$HOME/vm/shared"
     mkdir -p "$HOME/vm/preload"
@@ -71,6 +72,7 @@ if [ "$#" -eq 1 ]; then
         "x11/mouse.sh"                           "$HOME/.config/x11/mouse.sh"                         \
         "x11/volume.sh"                          "$HOME/.config/x11/volume.sh"                        \
         "vim/init.vim"                           "$HOME/.config/nvim/init.vim"                        \
+        "vim/ideavimrc"                          "$HOME/.config/ideavim/ideavimrc"                    \
         "vim/init.lua"                           "$HOME/.config/nvim/lua/init.lua"                    \
         "vim/keymaps.lua"                        "$HOME/.config/nvim/lua/keymaps.lua"                 \
         "vim/plugins.lua"                        "$HOME/.config/nvim/lua/plugins.lua"                 \

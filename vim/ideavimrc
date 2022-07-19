@@ -1,0 +1,16 @@
+let mapleader=" "
+
+inoremap jk <esc>
+
+set incsearch
+set showmode
+
+map <leader>rn <Action>(RenameElement)
+map ]g <Action>(GotoNextError)
+map gw <Action>(ShowErrorDescription)
+
+map <leader>r <Action>(mainRunToolbarRunProcess)
+map <leader>d <Action>(mainRunToolbarDebugProcess)
+map <leader>b <Action>(ToggleLineBreakpoint)
+
+
