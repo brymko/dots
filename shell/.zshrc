@@ -80,6 +80,9 @@ alias tsc="yarn exec tsc"
 alias q="QHOME=$HOME/q rlwrap -r $HOME/q/l64/q"
 alias lastpic="/bin/ls -lt /home/brymko/pics | grep \".png\" | head -n 1 | awk '{print \"/home/brymko/pics/\" \$NF }'"
 alias rider="/home/brymko/jetbrains/rider/bin/rider.sh &; disown; exit"
+alias clion="/home/brymko/jetbrains/clion/bin/clion.sh &; disown; exit"
+alias webstorm="/home/brymko/jetbrains/webstorm/bin/webstorm.sh &; disown; exit"
+alias goland="/home/brymko/jetbrains/goland/bin/goland.sh &; disown; exit"
 
 # git alias
 alias gs="git status"
