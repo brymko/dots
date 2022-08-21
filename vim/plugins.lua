@@ -58,6 +58,7 @@ require('packer').startup(function()
     use { "elzr/vim-json" }
 
     use "rust-lang/rust.vim" -- autosave + syntax
+    -- use "fatih/vim-go" -- Linting + Formatting 
 
     -- file telescope
     use {
@@ -369,7 +370,6 @@ local servers = {
     -- {'emmet_ls', {}},
     {'cssls', {}},
     {'csharp_ls', {}},
-    {'gopls', {}}
 }
 
 require('lspconfig').rust_analyzer.setup{}
@@ -383,6 +383,8 @@ for _, lsp in pairs(servers) do
         capabilities = capabilities,
     }
 end 
+
+require('lspconfig').gopls.setup{}
 
 require("lspconfig").elmls.setup {
     on_attach = function(client) 
