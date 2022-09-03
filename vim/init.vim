@@ -25,6 +25,8 @@ function! RunFile()
         :% w ! tsc && yarn run run
     elseif (&ft == "javascript")
         :% w ! node - 
+    elseif (&ft == "go")
+        :GoRun
     endif
 endfunction
 

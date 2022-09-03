@@ -58,7 +58,7 @@ require('packer').startup(function()
     use { "elzr/vim-json" }
 
     use "rust-lang/rust.vim" -- autosave + syntax
-    -- use "fatih/vim-go" -- Linting + Formatting 
+    use "fatih/vim-go" -- Linting + Formatting 
 
     -- file telescope
     use {
@@ -70,6 +70,13 @@ end)
 
 -- misc config
 vim.g.rustfmt_autosave = 1
+vim.g.go_fmt_autosave = 1
+vim.g.go_fmt_command = "goimports"
+vim.g.go_fmt_fail_silently = 0
+vim.g.go_highlight_build_constraints = 1
+vim.g.go_metalinter_autosave_enabled = {'vet', 'golint', 'errcheck'}
+vim.g.go_metalinter_autosave = 1
+
 vim.g.fzf_buffers_jump = 1
 
 require("nvim-autopairs").setup({
