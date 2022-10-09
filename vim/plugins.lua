@@ -7,8 +7,9 @@ require('packer').startup(function()
     -- typing
     use { "tpope/vim-commentary" }
     use { "tpope/vim-surround" }
-    use { "windwp/nvim-autopairs" }
     use { "tpope/vim-repeat" }
+    use { "windwp/nvim-autopairs" }
+    use { "windwp/nvim-ts-autotag" }
 
     -- fzf
     use { "junegunn/fzf.vim" }
@@ -42,6 +43,7 @@ require('packer').startup(function()
     -- use 'joshdick/onedark.vim'
 
     -- language
+    use 'nvim-treesitter/nvim-treesitter'
     use 'williamboman/nvim-lsp-installer'
     use 'neovim/nvim-lspconfig'
     use { 'hrsh7th/nvim-cmp',
@@ -53,12 +55,14 @@ require('packer').startup(function()
         }
     } 
     use 'purescript-contrib/purescript-vim'
+    use 'HerringtonDarkholme/yats.vim' -- typescript
+    use 'leafOfTree/vim-svelte-plugin'
     use 'L3MON4D3/LuaSnip'
     use 'onsails/lspkind-nvim'
     use { "elzr/vim-json" }
 
     use "rust-lang/rust.vim" -- autosave + syntax
-    use "fatih/vim-go" -- Linting + Formatting 
+    -- use "fatih/vim-go" -- Linting + Formatting 
 
     -- file telescope
     use {
@@ -70,18 +74,23 @@ end)
 
 -- misc config
 vim.g.rustfmt_autosave = 1
-vim.g.go_fmt_autosave = 1
-vim.g.go_fmt_command = "goimports"
-vim.g.go_fmt_fail_silently = 0
-vim.g.go_highlight_build_constraints = 1
-vim.g.go_metalinter_autosave_enabled = {'vet', 'golint', 'errcheck'}
-vim.g.go_metalinter_autosave = 1
+-- vim.g.go_fmt_autosave = 1
+-- vim.g.go_fmt_command = "goimports"
+-- vim.g.go_fmt_fail_silently = 0
+-- vim.g.go_highlight_build_constraints = 1
+-- vim.g.go_metalinter_autosave_enabled = {'vet', 'golint', 'errcheck'}
+-- vim.g.go_metalinter_autosave = 1
+-- vim.g.go_list_height = 0
+-- vim.g.go_gopls_enabled = 0
+vim.g.vim_svelte_plugin_use_typescript = 1
 
 vim.g.fzf_buffers_jump = 1
 
 require("nvim-autopairs").setup({
     map_c_w = true,
 })
+
+require('nvim-ts-autotag').setup()
 
 
 -- theme
@@ -377,9 +386,10 @@ local servers = {
     -- {'emmet_ls', {}},
     {'cssls', {}},
     {'csharp_ls', {}},
+    {'tailwindcss', {}},
+    {'svelte', {}},
+    {'tsserver', {}}
 }
-
-require('lspconfig').rust_analyzer.setup{}
 
 for _, lsp in pairs(servers) do
     require('lspconfig')[lsp[1]].setup {
@@ -401,7 +411,7 @@ require("lspconfig").elmls.setup {
     end,
     capabilities = capabilities,
     -- WTF??? doing 
-    -- root_dir = root_pattern("elm.json") doesn't the the file
+    -- root_dir = root_pattern("elm.json") doesn't find the file
     -- doing this it does
     -- ???????????????????????????????
     root_dir = function(fname) 
@@ -413,8 +423,9 @@ require("lspconfig").elmls.setup {
         onlyUpdateDiagnosticsOnSave = true,
         elmReviewDiagnostics = "on",
     },
-
 }
+
+require('lspconfig').sqls.setup{}
 
 ---- nvim-dap configurations 
 --local dap = require("dap")

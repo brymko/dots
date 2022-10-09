@@ -45,18 +45,33 @@ augroup AutoSaveFolds
 augroup end
 
 autocmd BufEnter,BufNew *.purs silent! setlocal filetype=purescript
-autocmd BufEnter,BufNew *.purs silent! setlocal tabstop=2
-autocmd BufEnter,BufNew *.purs silent! setlocal shiftwidth=2
-autocmd BufEnter,BufNew *.purs silent! setlocal softtabstop=2
-
 autocmd BufWinEnter ?* silent! setlocal formatoptions=crjql
-  " api.nvim_create_autocmd("BufRead", {
-  "   pattern = "*",
-  "   once = true,
-  "   callback = function()
-  "     vim.schedule(handle_group_enter)
-  "   end,
-  " })
+
+" augroup web_tabs 
+"     autocmd!
+"     autocmd BufEnter,BufNew *.purs,*.js,*.ts,*.json,*.yaml,*.yml,*.svelte,*.css,*.html silent! setlocal tabstop=2
+"     autocmd BufEnter,BufNew *.purs,*.js,*.ts,*.json,*.yaml,*.yml,*.svelte,*.css,*.html silent! setlocal shiftwidth=2
+"     autocmd BufEnter,BufNew *.purs,*.js,*.ts,*.json,*.yaml,*.yml,*.svelte,*.css,*.html silent! setlocal softtabstop=2
+"     autocmd Filetype javascript,typescript silent! setlocal tabstop=2
+"     autocmd Filetype javascript,typescript silent! setlocal shiftwidth=2
+"     autocmd Filetype javascript,typescript silent! setlocal softtabstop=2
+" augroup end
+
+
+augroup web_fmt 
+    autocmd!
+    autocmd BufWritePost *.go silen! :!goimports -w %:p
+    autocmd BufWritePost *.go redraw!
+    autocmd BufWritePost *.purs,*.js,*.ts,*.json,*.yaml,*.yml,*.svelte,*.css,*.html silent! :lua vim.lsp.buf.format()
+augroup end
+
+" api.nvim_create_autocmd("BufRead", {
+"   pattern = "*",
+"   once = true,
+"   callback = function()
+"     vim.schedule(handle_group_enter)
+"   end,
+" })
 
 " " Languages {{{
 " au FileType make setlocal noexpandtab
