@@ -36,6 +36,8 @@ nmap('<leader>9', ':%!xxd -g 1 -r<CR>')
 imap('jk', '<esc>')
 nmap('j', 'gj')
 nmap('k', 'gk')
+nmap('w', "W")
+nmap('b', "B")
 
 -- window
 nmap('<C-h>', '<C-w>h')
@@ -82,6 +84,8 @@ maplua('<leader>rn', 'vim.lsp.buf.rename()')
 maplua('gw', 'vim.diagnostic.open_float()')
 nmap('<leader>h', ':RustToggleInlayHints<CR>')
 
+vim.cmd('set mouse=')
+
 -- still missing
 -- [x] formatting (rust)
 -- [x] rust-analyzer inlay hints
@@ -94,4 +98,4 @@ nmap('<leader>h', ':RustToggleInlayHints<CR>')
 -- " Debugging
 -- Plug 'nvim-lua/plenary.nvim'
 -- Plug 'mfussenegger/nvim-dap' 
- 
+

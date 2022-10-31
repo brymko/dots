@@ -1,7 +1,8 @@
 # Border
+
 default_border pixel 3
 default_floating_border pixel 3
-# hide_edge_borders smart
+for_window [class="^.*"] border pixel 3
 
 #client.focused          #3cff00  #2c2c2c     #c1c1c1  #3cff00    #3cff00
 #Colors                  border   background  text     indicator  child_border
