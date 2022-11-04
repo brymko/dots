@@ -134,6 +134,13 @@ install_if_needed() {
     fi
 }
 
+install_if_needed_yay() {
+    if [ ! -f "$(command -v "$1")" ]; then
+        yay -S "$1" --noconfirm
+    fi
+}
+
+
 install_if_needed_cargo() {
     if [ ! -f "$(command -v "$1")" ]; then
         if [ ! "$(command -v cargo)" ]; then
@@ -183,20 +190,17 @@ if [ "$2" = "deps" ]; then
     install_if_needed "neovim"
     install_if_needed "yarn"
     install_if_needed "cargo"
-    # install_if_needed "termite" # termite not in pacman ???
-    # install_if_needed "nodejs" "node" # for fucking coc
-    # install_if_needed "npm" # fucking coc
+    install_if_needed "npm" 
     sudo npm install -g neovim 
     install_if_needed "dunst"
-    install_if_needed "neomutt"
     install_if_needed "ncdu"
     install_if_needed "zathura"
     install_if_needed "virt-manager"
-    install_if_needed "pamixer"
     install_if_needed "perl"
     install_if_needed "python"
     install_if_needed "python3"
     install_if_needed "lldb"
+    install_if_needed "gdb"
     install_if_needed "base-devel"
     install_if_needed "chromium"
     install_if_needed "arandr"
@@ -206,26 +210,36 @@ if [ "$2" = "deps" ]; then
     install_if_needed "keepassxc"
     install_if_needed "bitwarden"
     install_if_needed "jq"
+    install_if_needed "bitwarden"
+    install_if_needed "curl"
+    install_if_needed "tor"
+    install_if_needed "neofetch"
+    install_if_needed "go"
+    install_if_needed "amdvlk"
+    install_if_needed "amdgpu"
+    install_if_needed "pipewire"
+    install_if_needed "xorg"
 
-    # fonts ???
-
-    # setup vimdbg venv
-    # python -m venv "$HOME/.local/share/vimdbg/"
-    # "$HOME/.local/share/vimdbg/bin/python" -m pip install debugpy
-
+    if command -v pacman; then
+        if [ ! "$(command -v yay)" ]; then 
+            pushd /tmp
+            git clone https://aur.archlinux.org/yay.git
+            cd yay
+            makepkg -si --noconfirm
+            popd
+        fi
+		
+        install_if_needed "yay"
+        install_if_needed_yay "nerd-fonts-complete"
+    	install_if_needed_yay "wezterm-nightly-bin"
+    fi
 
     install_if_needed_cargo "exa"
     install_if_needed_cargo "bat"
     install_if_needed_cargo "sd"
     install_if_needed_cargo "ripgrep"
+    install_if_needed_cargo "git-delta"
 
-    # if uname -a | grep debian; then
-    #     install_if_needed "vim-nox"
-    # else
-    #     install_if_needed "vim"
-    # fi
-
-    install_if_needed "curl"
-
+    chsh -s zsh
 fi
 
