@@ -187,6 +187,7 @@ if [ "$2" = "deps" ]; then
     install_if_needed "i3status"
     install_if_needed "dmenu"
     install_if_needed "zsh"
+    install_if_needed "ssh"
     install_if_needed "neovim"
     install_if_needed "yarn"
     install_if_needed "cargo"
