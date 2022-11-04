@@ -188,7 +188,6 @@ if [ "$2" = "deps" ]; then
     install_if_needed "dmenu"
     install_if_needed "zsh"
     install_if_needed "ssh"
-    install_if_needed "neovim"
     install_if_needed "yarn"
     install_if_needed "cargo"
     install_if_needed "npm" 
@@ -207,6 +206,7 @@ if [ "$2" = "deps" ]; then
     install_if_needed "arandr"
     install_if_needed "bluez"
     install_if_needed "bluez-utils"
+    systemctl enable bluetooth.service
     install_if_needed "redshift"
     install_if_needed "keepassxc"
     install_if_needed "bitwarden"
@@ -220,6 +220,10 @@ if [ "$2" = "deps" ]; then
     install_if_needed "amdgpu"
     install_if_needed "pipewire"
     install_if_needed "xorg"
+    install_if_needed "xorg-xinit"
+    install_if_needed "xsel"
+    install_if_needed "xclip"
+    install_if_needed "neovim"
 
     if command -v pacman; then
         if [ ! "$(command -v yay)" ]; then 
@@ -233,6 +237,8 @@ if [ "$2" = "deps" ]; then
         install_if_needed "yay"
         install_if_needed_yay "nerd-fonts-complete"
     	install_if_needed_yay "wezterm-nightly-bin"
+        install_if_needed_yay "neovim-git"
+        install_if_needed_yay "nvim-packer-git"
     fi
 
     install_if_needed_cargo "exa"
