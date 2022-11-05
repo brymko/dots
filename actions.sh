@@ -54,10 +54,10 @@ if [ "$#" -eq 1 ]; then
     mkdir -p "$HOME/.config/tmux"
     mkdir -p "$HOME/.config/termite"
     mkdir -p "$HOME/.config/scripts"
-    mkdir -p "$HOME/.config/neomutt"
     mkdir -p "$HOME/.config/dunst"
     mkdir -p "$HOME/.config/wezterm"
     mkdir -p "$HOME/.config/ideavim"
+    mkdir -p "$HOME/.config/flameshot"
     mkdir -p "$HOME/vm"
     mkdir -p "$HOME/vm/shared"
     mkdir -p "$HOME/vm/preload"
@@ -89,7 +89,7 @@ if [ "$#" -eq 1 ]; then
         "terminal/config"                        "$HOME/.config/termite/config"                       \
         "terminal/wezterm.lua"                   "$HOME/.config/wezterm/wezterm.lua"                  \
         "i3/dunstrc"                             "$HOME/.config/dunst/dunstrc"                        \
-        "mail/neomuttrc"                         "$HOME/.config/neomutt/neomuttrc"                    \
+        "flameshot/flameshot.ini"                             "$HOME/.config/flameshot/flameshot.ini"                        \
         "scripts/screenshot.sh"                  "$HOME/.config/scripts/screenshot.sh"                \
         "scripts/colortest.sh"                   "$HOME/.config/scripts/colortest.sh"                 \
         "vm/vm.sh"                               "$HOME/vm/vm.sh"                                     \
@@ -231,6 +231,9 @@ if [ "$2" = "deps" ]; then
     install_if_needed "neovim"
     install_if_needed "pipewire-pulse"
     install_if_needed "pavucontrol"
+    install_if_needed "sxiv"
+    install_if_needed "vlc"
+    install_if_needed "fameshot"
 
     if command -v pacman; then
         if [ ! "$(command -v yay)" ]; then 
