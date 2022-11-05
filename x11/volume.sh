@@ -1,3 +1,3 @@
 #!/usr/bin/bash
 
-# pamixer --set-volume 40
+pamixer --set-volume 40

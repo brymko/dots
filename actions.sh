@@ -169,6 +169,12 @@ install_plug_version() {
     popd
 }
 
+enable_service() {
+    sudo systemctl enable "$1"
+    sudo systemctl start "$1"
+}
+
+
 if [ "$2" = "deps" ]; then
     update_packages
 
@@ -206,7 +212,6 @@ if [ "$2" = "deps" ]; then
     install_if_needed "arandr"
     install_if_needed "bluez"
     install_if_needed "bluez-utils"
-    systemctl enable bluetooth.service
     install_if_needed "redshift"
     install_if_needed "keepassxc"
     install_if_needed "bitwarden"
@@ -224,6 +229,8 @@ if [ "$2" = "deps" ]; then
     install_if_needed "xsel"
     install_if_needed "xclip"
     install_if_needed "neovim"
+    install_if_needed "pipewire-pulse"
+    install_if_needed "pavucontrol"
 
     if command -v pacman; then
         if [ ! "$(command -v yay)" ]; then 
@@ -246,6 +253,8 @@ if [ "$2" = "deps" ]; then
     install_if_needed_cargo "sd"
     install_if_needed_cargo "ripgrep"
     install_if_needed_cargo "git-delta"
+
+    enable_service bluetooth.service
 
     chsh -s zsh
 fi
