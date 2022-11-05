@@ -89,7 +89,7 @@ if [ "$#" -eq 1 ]; then
         "terminal/config"                        "$HOME/.config/termite/config"                       \
         "terminal/wezterm.lua"                   "$HOME/.config/wezterm/wezterm.lua"                  \
         "i3/dunstrc"                             "$HOME/.config/dunst/dunstrc"                        \
-        "flameshot/flameshot.ini"                             "$HOME/.config/flameshot/flameshot.ini"                        \
+        "flameshot/flameshot.ini"                "$HOME/.config/flameshot/flameshot.ini"              \
         "scripts/screenshot.sh"                  "$HOME/.config/scripts/screenshot.sh"                \
         "scripts/colortest.sh"                   "$HOME/.config/scripts/colortest.sh"                 \
         "vm/vm.sh"                               "$HOME/vm/vm.sh"                                     \
