@@ -234,6 +234,10 @@ if [ "$2" = "deps" ]; then
     install_if_needed "sxiv"
     install_if_needed "vlc"
     install_if_needed "fameshot"
+    install_if_needed "adobe-source-han-sans-otc-fonts"
+    install_if_needed "adobe-source-han-sans-cn-fonts"
+    install_if_needed "adobe-source-han-sans-kr-fonts"
+    install_if_needed "ttf-hannom"
 
     if command -v pacman; then
         if [ ! "$(command -v yay)" ]; then 
@@ -249,6 +253,12 @@ if [ "$2" = "deps" ]; then
     	install_if_needed_yay "wezterm-nightly-bin"
         install_if_needed_yay "neovim-git"
         install_if_needed_yay "nvim-packer-git"
+        install_if_needed_yay "ttf-ancient-fonts"
+        install_if_needed_yay "ttf-arabeyes-fonts"
+        install_if_needed_yay "ttf-freebanglafont"
+        install_if_needed_yay "ttf-ubraille"
+        install_if_needed_yay "ttf-paratype"
+        install_if_needed_yay "ttf-mgopen"
     fi
 
     install_if_needed_cargo "exa"

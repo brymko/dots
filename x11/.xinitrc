@@ -18,4 +18,5 @@ bash /home/brymko/.screenlayout/home.conf.sh
 xmodmap "$HOME/.config/x11/Xmodmap"
 bluetoothctl power on
 bluetoothctl connect E7:67:B1:69:C9:9E
+flameshot &
 exec i3
