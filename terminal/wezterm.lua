@@ -59,5 +59,9 @@ return {
     adjust_window_size_when_changing_font_size = false;
     allow_square_glyphs_to_overflow_width = "Always";
     custom_block_glyphs = false;
+
+    colors = {
+        selection_bg = '#524254',
+    }
 }
 
