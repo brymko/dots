@@ -41,6 +41,7 @@ require('packer').startup(function()
 
     -- themes (disabled other themes to optimize startup time)
     use 'sainnhe/sonokai'
+    use { "robre/poison.vim" }
     -- use 'folke/tokyonight.nvim'
     -- use 'joshdick/onedark.vim'
 
@@ -101,7 +102,7 @@ require('nvim-ts-autotag').setup()
 vim.g.sonokai_style = "atlantis"
 vim.g.sonokai_enable_italic = false
 vim.g.sonokai_disable_italic_comment = true
-vim.cmd("colorscheme sonokai")
+vim.cmd("colorscheme poison")
 vim.cmd("hi SpecialComment ctermfg=224 guifg=Orange")
 
 -- statusline 
