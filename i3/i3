@@ -199,7 +199,7 @@ mode "resize" {
 }
 
 bindsym $mod+Shift+r mode "resize"
-bindsym $modF7 exec xrandr --auto
+bindsym $mod+F7 exec xrandr --auto
 bindsym $mod+Shift+p exec ~/.config/i3/i3lock.sh
 
 bar {

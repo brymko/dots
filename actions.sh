@@ -143,9 +143,6 @@ install_if_needed_yay() {
 
 install_if_needed_cargo() {
     if [ ! -f "$(command -v "$1")" ]; then
-        if [ ! "$(command -v cargo)" ]; then
-            curl "https://sh.rustup.rs" -sSf | sh -s -- -y
-        fi
         cargo install "$1"
     fi
 }
@@ -195,7 +192,7 @@ if [ "$2" = "deps" ]; then
     install_if_needed "zsh"
     install_if_needed "ssh"
     install_if_needed "yarn"
-    install_if_needed "cargo"
+    install_if_needed "rustup"
     install_if_needed "npm" 
     sudo npm install -g neovim 
     install_if_needed "dunst"

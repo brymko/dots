@@ -6,7 +6,7 @@ return {
 
     -- FONTS
     font_size = 10.0;
-    line_height = 1.0;
+    line_height = 0.8;
     
     -- TODO: fallback fonts yo.
     -- sudo pacman -S fft-fira-mono
@@ -22,7 +22,7 @@ return {
     keys = {
         { key = "c", mods = "CTRL|SHIFT", action=wezterm.action{ CopyTo = "ClipboardAndPrimarySelection" }},
         { key = "v", mods = "CTRL|SHIFT", action=wezterm.action{ PasteFrom = "Clipboard" }},
-        { key = "+", mods = "CTRL", action = "IncreaseFontSize" },
+        { key = "+", mods = "CTRL|SHIFT", action = "IncreaseFontSize" },
         { key = "-", mods = "CTRL", action = "DecreaseFontSize" },
         { key = "=", mods = "CTRL", action = "ResetFontSize" },
         { key = "j", mods = "CTRL|ALT", action = wezterm.action{ScrollByLine=5}},

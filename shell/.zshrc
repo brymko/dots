@@ -83,6 +83,7 @@ alias rider="/home/brymko/jetbrains/rider/bin/rider.sh &; disown; exit"
 alias clion="/home/brymko/jetbrains/clion/bin/clion.sh &; disown; exit"
 alias webstorm="/home/brymko/jetbrains/webstorm/bin/webstorm.sh &; disown; exit"
 alias goland="/home/brymko/jetbrains/goland/bin/goland.sh &; disown; exit"
+alias k="kubectl"
 
 # git alias
 alias gs="git status"

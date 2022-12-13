@@ -82,7 +82,7 @@ maplua(']g', 'vim.diagnostic.goto_next()')
 maplua('gr', 'vim.lsp.buf.references()')
 maplua('<leader>rn', 'vim.lsp.buf.rename()')
 maplua('gw', 'vim.diagnostic.open_float()')
-nmap('<leader>h', ':RustToggleInlayHints<CR>')
+nmap('<leader>h', ':lua require('lsp-inlayhints').toggle()')
 
 vim.cmd('set mouse=')
 

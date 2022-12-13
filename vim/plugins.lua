@@ -63,6 +63,9 @@ require('packer').startup(function()
     use 'L3MON4D3/LuaSnip'
     use 'onsails/lspkind-nvim'
     use { "elzr/vim-json" }
+    -- use 'Olical/conjure'
+    -- use 'PaterJason/cmp-conjure'
+    
 
     use "rust-lang/rust.vim" -- autosave + syntax
     -- use "fatih/vim-go" -- Linting + Formatting 
@@ -87,6 +90,8 @@ vim.g.rustfmt_autosave = 1
 -- vim.g.go_gopls_enabled = 0
 vim.g.vim_svelte_plugin_use_typescript = 1
 vim.g.fzf_buffers_jump = 1
+vim.cmd("let g:conjure#mapping#prefix = ' '")
+vim.cmd("let g:conjure#mapping#eval_buf = 'r'")
 
 require('leap').add_default_mappings()
 require('flit').setup()
@@ -94,7 +99,16 @@ require("nvim-autopairs").setup({
     map_c_w = true,
 })
 
-require('nvim-ts-autotag').setup()
+require('nvim-ts-autotag').setup({
+    filetypes = {
+        'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx', 'rescript',
+        'xml',
+        'php',
+        'markdown',
+        'glimmer','handlebars','hbs',
+        'rs',
+    } 
+})
 
 
 -- theme
@@ -303,6 +317,7 @@ cmp.setup {
     sources = {
         { name = "buffer" },
         { name = "nvim_lsp" },
+        { name = "conjure" },
     },
     sorting = {
         comparators = {
@@ -388,13 +403,14 @@ local servers = {
     {'bashls', {}}, 
     {'pyright', {}},
     {'purescriptls', {}},
-    -- {'emmet_ls', {}},
     {'cssls', {}},
     {'csharp_ls', {}},
     {'tailwindcss', {}},
     {'svelte', {}},
     {'tsserver', {}},
     {'clangd', {}},
+    {'clojure_lsp', {}}
+    -- {'eslint', {}}
 }
 
 for _, lsp in pairs(servers) do
