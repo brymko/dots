@@ -34,6 +34,8 @@ nmap('<leader>9', ':%!xxd -g 1 -r<CR>')
 
 -- movement
 imap('jk', '<esc>')
+vim.api.nvim_set_keymap("t", "jk", "<C-\\><C-n>", {noremap=true, silent=true})
+vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", {noremap=true, silent=true})
 nmap('j', 'gj')
 nmap('k', 'gk')
 nmap('w', "W")
@@ -82,7 +84,7 @@ maplua(']g', 'vim.diagnostic.goto_next()')
 maplua('gr', 'vim.lsp.buf.references()')
 maplua('<leader>rn', 'vim.lsp.buf.rename()')
 maplua('gw', 'vim.diagnostic.open_float()')
-nmap('<leader>h', ':lua require('lsp-inlayhints').toggle()')
+nmap('<leader>h', ':lua require("lsp-inlayhints").toggle()<CR>')
 
 vim.cmd('set mouse=')
 
