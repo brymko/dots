@@ -389,6 +389,7 @@ local servers = {
             },
             disabled = {
                 "inactive-code",
+                "unresolved-proc-macro",
             },
         },
         cargo = {
