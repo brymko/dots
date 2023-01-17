@@ -10,8 +10,6 @@ require('packer').startup(function()
     use { "tpope/vim-repeat" }
     use { "windwp/nvim-autopairs" }
     use { "windwp/nvim-ts-autotag" }
-    use { "ggandor/leap.nvim" }
-    use { "ggandor/flit.nvim" }
 
     -- fzf
     use { "junegunn/fzf.vim" }
@@ -19,13 +17,7 @@ require('packer').startup(function()
     -- markdown
     use { "iamcco/markdown-preview.nvim", run = "cd app && yarn install" }
 
-    -- starup time optimise
-    use 'dstein64/vim-startuptime'
-    use 'lewis6991/impatient.nvim'
-    use 'nathom/filetype.nvim'
-
     -- ui
-    use {'RRethy/vim-hexokinase', run = "make hexokinase" }
     use 'lukas-reineke/indent-blankline.nvim' 
     use {
         'nvim-lualine/lualine.nvim',
@@ -41,8 +33,6 @@ require('packer').startup(function()
 
     -- themes (disabled other themes to optimize startup time)
     use 'sainnhe/sonokai'
-    -- use 'folke/tokyonight.nvim'
-    -- use 'joshdick/onedark.vim'
 
     -- language
     use 'nvim-treesitter/nvim-treesitter'
@@ -57,18 +47,13 @@ require('packer').startup(function()
             'hrsh7th/cmp-nvim-lsp',
         }
     } 
-    use 'purescript-contrib/purescript-vim'
-    use 'HerringtonDarkholme/yats.vim' -- typescript
-    use 'leafOfTree/vim-svelte-plugin'
     use 'L3MON4D3/LuaSnip'
     use 'onsails/lspkind-nvim'
-    use { "elzr/vim-json" }
-    -- use 'Olical/conjure'
-    -- use 'PaterJason/cmp-conjure'
+    use "elzr/vim-json"
+    use 'github/copilot.vim'
     
 
     use "rust-lang/rust.vim" -- autosave + syntax
-    -- use "fatih/vim-go" -- Linting + Formatting 
 
     -- file telescope
     use {
@@ -80,21 +65,8 @@ end)
 
 -- misc config
 vim.g.rustfmt_autosave = 1
--- vim.g.go_fmt_autosave = 1
--- vim.g.go_fmt_command = "goimports"
--- vim.g.go_fmt_fail_silently = 0
--- vim.g.go_highlight_build_constraints = 1
--- vim.g.go_metalinter_autosave_enabled = {'vet', 'golint', 'errcheck'}
--- vim.g.go_metalinter_autosave = 1
--- vim.g.go_list_height = 0
--- vim.g.go_gopls_enabled = 0
-vim.g.vim_svelte_plugin_use_typescript = 1
 vim.g.fzf_buffers_jump = 1
-vim.cmd("let g:conjure#mapping#prefix = ' '")
-vim.cmd("let g:conjure#mapping#eval_buf = 'r'")
 
-require('leap').add_default_mappings()
-require('flit').setup()
 require("nvim-autopairs").setup({
     map_c_w = true,
 })
@@ -294,6 +266,7 @@ local has_words_before = function()
 end 
 
 cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(), 
     sources = cmp.config.sources({
         { name = 'path' }
     }, {
@@ -315,9 +288,8 @@ cmp.setup {
         end,
     }, 
     sources = {
-        { name = "buffer" },
         { name = "nvim_lsp" },
-        { name = "conjure" },
+        { name = "buffer" },
     },
     sorting = {
         comparators = {
@@ -336,10 +308,10 @@ cmp.setup {
     },
     mapping = {
         ["<C-n>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
+            if luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
+            elseif cmp.visible() then
+                cmp.select_next_item()
             elseif has_words_before() then
                 cmp.complete()
             else 
@@ -347,27 +319,14 @@ cmp.setup {
             end
         end, { "i", "s", "c" }),
         ["<C-p>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
+            if luasnip.jumpable(-1) then
                 luasnip.jump(-1)
+            elseif cmp.visible() then
+                cmp.select_prev_item()
             else
                 fallback()
             end
         end, { "i", "s", "c" }), 
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
-            if cmp.visible() then
-                local entry = cmp.get_selected_entry()
-                if not entry then
-                    cmp.select_next_item()
-                else
-                    cmp.confirm()
-                end
-            else
-                fallback()
-            end
-        end, {"i","s","c",}), 
         ['<CR>'] = cmp.mapping.confirm({ select = true }), 
     },
 }
@@ -411,7 +370,6 @@ local servers = {
     {'tsserver', {}},
     {'clangd', {}},
     {'clojure_lsp', {}}
-    -- {'eslint', {}}
 }
 
 for _, lsp in pairs(servers) do
@@ -424,6 +382,7 @@ for _, lsp in pairs(servers) do
     }
 end 
 
+require('lspconfig').sqls.setup{}
 require('lspconfig').gopls.setup{}
 
 require("lspconfig").elmls.setup {
@@ -448,8 +407,6 @@ require("lspconfig").elmls.setup {
     },
 }
 
-require('lspconfig').sqls.setup{}
-
 vim.cmd('highlight! LspInlayHint guibg=NONE guifg=#d8d8d8')
 require("lsp-inlayhints").setup {
   inlay_hints = {
@@ -463,7 +420,7 @@ require("lsp-inlayhints").setup {
     type_hints = {
       -- type and other hints
       show = true,
-      prefix = "",
+      prefix = "::",
       separator = ", ",
       remove_colon_start = false,
       remove_colon_end = true,
@@ -496,122 +453,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
     require("lsp-inlayhints").on_attach(client, bufnr)
   end,
 })
-
----- nvim-dap configurations 
---local dap = require("dap")
-
----- TODO(brymko): this isn't ideal, gotta read some more docs
---vim.api.nvim_set_keymap("n", "<Space>b", ":lua require'dap'.toggle_breakpoint()<CR>", {expr = false; noremap = true})
---vim.api.nvim_set_keymap("n", "<Space>d", ":lua start_debugger()<CR>", {expr = false; noremap = true})
---vim.api.nvim_set_keymap("n", "<Space>c", ":lua require'dap'.continue()<CR>", {expr = false; noremap = true})
----- vim.api.nvim_set_keymap("n", "<M-i>", ":lua require'dap'.step_into()<CR>", {expr = false; noremap = true})
----- vim.api.nvim_set_keymap("n", "<M-n>", ":lua require'dap'.step_over()<CR>", {expr = false; noremap = true})
---vim.fn.sign_define('DapBreakpoint', {text='🔴', texthl='', linehl='', numhl=''})
-
---function start_debugger() 
---    local dap = require("dap")
---    dap.continue()
---end
-
---dap.adapters.python = {
---    type = "executable";
---    command = os.getenv("HOME") .. "/.local/share/vimdbg/bin/python";
---    args = { "-m", "debugpy.adapter" };
---} 
-
---dap.configurations.python = {
---    {
---        type = 'python';
---        request = 'launch';
---        name = "Launch file";
---        program = "${file}";
---        -- i might want ot set `justMyCode` to `false` somewhere here to debug all code ?
---        -- use venv if in found
---        pythonPath = function()
---            local cwd = vim.fn.getcwd()
---            if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
---                return cwd .. '/venv/bin/python'
---            elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
---                return cwd .. '/.venv/bin/python'
---            else 
---                return '/usr/bin/python'
---            end
---        end;
---    },
---}
-
---dap.adapters.lldb = {
---    type = "executable",
---    command = "/usr/bin/lldb-vscode",
---    name = "lldb"
---}
-
---dap.configurations.rust = {
---    {
---        name = "Launch",
---        type = "lldb",
---        request = "launch",
---        program = function()
---            function split(source, delimiters)
---                local elements = {}
---                local pattern = '([^'..delimiters..']+)'
---                string.gsub(source, pattern, function(value) elements[#elements + 1] = value; end);
---                return elements
---            end 
---            vim.api.nvim_command("!cargo build")
---            local cwd = vim.fn.getcwd()
---            local proj = split(cwd, "/")
---            proj = proj[#proj]
---            -- return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
---            return cwd .. "/target/debug/" .. proj
---        end,
---        cwd = '${workspaceFolder}',
---        stopOnEntry = false,
---        args = {},
-
---        -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
---        --
---        --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
---        --
---        -- Otherwise you might get the following error:
---        --
---        --    Error on launch: Failed to attach to the target process
---        --
---        -- But you should be aware of the implications:
---        -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
---        runInTerminal = false,
---    }, 
---}
- 
---require("dapui").setup({
---    icons = {
---        expanded = "⯆",
---        collapsed = "⯈"
---    },
---    mappings = {
---        expand = "<CR>",
---        open = "o",
---        remove = "d",
---        edit = "e",
---    },
---    sidebar = {
---        open_on_start = true,
---        elements = {
---            "watches",
---            "scopes",
---            "stacks",
---        },
---        width = 30,
---        position = "left"
---    },
---    tray = {
---        open_on_start = true,
---        elemnts = {
---            "repl",
---        },
---        height = 5,
---        position = "top",
---        auto_insert = true
---    },
---})
 

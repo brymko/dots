@@ -1,6 +1,4 @@
-" new age Lua config {{{
 lua require('init')
-" }}}
 
 function! EnsureExists(path)
     if !isdirectory(expand(a:path))
@@ -30,8 +28,6 @@ function! RunFile()
     endif
 endfunction
 
-" }}}
-
 " " Files
 call EnsureExists("~/.config/nvim/.backup//")
 call EnsureExists("~/.config/nvim/.swap//")
@@ -47,17 +43,6 @@ augroup end
 autocmd BufEnter,BufNew *.purs silent! setlocal filetype=purescript
 autocmd BufWinEnter ?* silent! setlocal formatoptions=crjql
 
-" augroup web_tabs 
-"     autocmd!
-"     autocmd BufEnter,BufNew *.purs,*.js,*.ts,*.json,*.yaml,*.yml,*.svelte,*.css,*.html silent! setlocal tabstop=2
-"     autocmd BufEnter,BufNew *.purs,*.js,*.ts,*.json,*.yaml,*.yml,*.svelte,*.css,*.html silent! setlocal shiftwidth=2
-"     autocmd BufEnter,BufNew *.purs,*.js,*.ts,*.json,*.yaml,*.yml,*.svelte,*.css,*.html silent! setlocal softtabstop=2
-"     autocmd Filetype javascript,typescript silent! setlocal tabstop=2
-"     autocmd Filetype javascript,typescript silent! setlocal shiftwidth=2
-"     autocmd Filetype javascript,typescript silent! setlocal softtabstop=2
-" augroup end
-
-
 augroup web_fmt 
     autocmd!
     autocmd BufWritePost *.go silen! :!goimports -w %:p
@@ -65,22 +50,11 @@ augroup web_fmt
     autocmd BufWritePost *.purs,*.js,*.ts,*.json,*.yaml,*.yml,*.svelte,*.css,*.html silent! :lua vim.lsp.buf.format()
 augroup end
 
-" api.nvim_create_autocmd("BufRead", {
-"   pattern = "*",
-"   once = true,
-"   callback = function()
-"     vim.schedule(handle_group_enter)
-"   end,
-" })
-
-" " Languages {{{
-" au FileType make setlocal noexpandtab
-" au FileType markdown setlocal tabstop=2
-" au FileType markdown setlocal shiftwidth=2
-" au FileType yaml setlocal tabstop=2
-" au FileType yaml setlocal shiftwidth=2
-" au FileType toml setlocal commentstring=#\ %s
-" au FileType python setlocal foldmethod=indent
-
-" " }}}
+au FileType make setlocal noexpandtab
+au FileType markdown setlocal tabstop=2
+au FileType markdown setlocal shiftwidth=2
+au FileType yaml setlocal tabstop=2
+au FileType yaml setlocal shiftwidth=2
+au FileType toml setlocal commentstring=#\ %s
+au FileType python setlocal foldmethod=indent
 
