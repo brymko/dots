@@ -364,21 +364,21 @@ local servers = {
     {'pyright', {}},
     {'purescriptls', {}},
     {'cssls', {}},
-    {'csharp_ls', {}},
     {'tailwindcss', {}},
     {'svelte', {}},
     {'tsserver', {}},
     {'clangd', {}},
-    {'clojure_lsp', {}}
+    {'clojure_lsp', {}},
+    {'omnisharp', {}},
 }
 
 for _, lsp in pairs(servers) do
     require('lspconfig')[lsp[1]].setup {
         on_attach = on_attach,
+        capabilities = capabilities,
         settings = {
             [lsp[1]] = lsp[2],
         },
-        capabilities = capabilities,
     }
 end 
 
