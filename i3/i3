@@ -49,8 +49,8 @@ bindsym $mod+F6 exec brightnessctl -d intel_backlight set 10%+ > /dev/null
 # start a terminal
 # bindsym $mod+Return exec termite -d "$(xcwd)"
 # bindsym $sup+Return exec termite -d "$(xcwd)"
-bindsym $mod+Return exec wezterm start --cwd "$(xcwd)"
-bindsym $sup+Return exec wezterm start --cwd "$(xcwd)"
+bindsym $mod+Return exec wezterm start --always-new-process --cwd "$(xcwd)"
+bindsym $sup+Return exec wezterm start --always-new-process --cwd "$(xcwd)"
 
 # screenshot 
 bindsym --release $mod+o exec --no-startup-id "~/.config/scripts/screenshot.sh"
