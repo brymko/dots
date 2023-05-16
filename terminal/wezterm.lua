@@ -5,7 +5,7 @@ return {
     check_for_updates = false,
 
     -- FONTS
-    font_size = 10.0;
+    font_size = 12.0;
     line_height = 0.8;
     
     -- TODO: fallback fonts yo.
