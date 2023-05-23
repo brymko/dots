@@ -74,7 +74,7 @@ nmap('<C-m>', ':BufferLineMoveNext<CR>')
 nmap('<C-y>', ':BufferLineMovePrev<CR>')
 
 -- telescope
-nmap('<leader>f', ':Telescope find_files<CR>')
+nmap('<leader>f', ':Telescope file_browser<CR>')
 
 -- LSP
 maplua('gd', 'vim.lsp.buf.definition()')
@@ -87,17 +87,4 @@ maplua('gw', 'vim.diagnostic.open_float()')
 nmap('<leader>h', ':lua require("lsp-inlayhints").toggle()<CR>')
 
 vim.cmd('set mouse=')
-
--- still missing
--- [x] formatting (rust)
--- [x] rust-analyzer inlay hints
--- [?] rust-analyzer "takes" too long error msg taking cursor control (start is fine'ish)
--- [?] rust-analyzer doesn't recognize error (fixed through saving)
--- [] port more old config 
---      almost done, missing few autocmd & ensure dirs & runfile
-
--- maybe debugging
--- " Debugging
--- Plug 'nvim-lua/plenary.nvim'
--- Plug 'mfussenegger/nvim-dap' 
 

@@ -6,7 +6,7 @@ return {
 
     -- FONTS
     font_size = 12.0;
-    line_height = 0.8;
+    line_height = 0.9;
     
     -- TODO: fallback fonts yo.
     -- sudo pacman -S fft-fira-mono

@@ -1,6 +1,6 @@
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+  \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), 1)
 
 lua require('init')
 
@@ -49,15 +49,13 @@ autocmd BufWinEnter ?* silent! setlocal formatoptions=crjql
 
 augroup web_fmt 
     autocmd!
-    autocmd BufWritePost *.go silen! :!goimports -w %:p
+    autocmd BufWritePost *.go silent! :!goimports -w %:p
     autocmd BufWritePost *.go redraw!
     autocmd BufWritePost *.purs,*.js,*.tsx,*.jsx,*.ts,*.json,*.yaml,*.yml,*.svelte,*.css,*.html silent! :lua vim.lsp.buf.format()
 augroup end
 
 au FileType make setlocal noexpandtab
-au FileType markdown setlocal tabstop=2
 au FileType markdown setlocal shiftwidth=2
-au FileType yaml setlocal tabstop=2
 au FileType yaml setlocal shiftwidth=2
 au FileType toml setlocal commentstring=#\ %s
 au FileType python setlocal foldmethod=indent
@@ -65,4 +63,3 @@ au FileType typescript setlocal shiftwidth=2
 au FileType typescriptreact setlocal shiftwidth=2
 au FileType javascript setlocal shiftwidth=2
 au FileType javascriptreact setlocal shiftwidth=2
-
