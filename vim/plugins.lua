@@ -64,7 +64,6 @@ end)
 
 local fb_actions = require "telescope._extensions.file_browser.actions"
 
-
 require("telescope").setup {
   extensions = {
     file_browser = {
@@ -75,7 +74,7 @@ require("telescope").setup {
       depth = 3,
       auto_depth = true,
       select_buffer = false,
-      hidden = { file_browser = true, folder_browser = true },
+      hidden = { file_browser = false, folder_browser = false },
       hide_parent_dir = true,
       collapse_dirs = false,
       prompt_path = false,
@@ -102,7 +101,9 @@ require("telescope").setup {
           ["<C-f>"] = fb_actions.toggle_browser,
           ["<C-h>"] = fb_actions.toggle_hidden,
           ["<C-s>"] = fb_actions.toggle_all,
-          ["<bs>"] = fb_actions.backspace,
+          ["<bs>"] = function()
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<bs>", true, false, true), "tn", false)
+          end,
         },
         ["n"] = {
           ["c"] = fb_actions.create,
