@@ -22,7 +22,7 @@ local function maplua(key, txt)
 end
 
 -- misc
-nmap('<leader>q', ':q!<CR>')
+nmap('<leader>q', ':qa!<CR>')
 nmap('<leader>u', ':nohl<CR>')
 nmap('<leader>ev', ':vsp $MYVIMRC<CR>')
 nmap('<leader>l', ':setlocal list!<CR>')
