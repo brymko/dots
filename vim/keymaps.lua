@@ -58,8 +58,8 @@ vim.cmd('nnoremap <C-p> :BufferLineCyclePrev<CR>')
 -- mapkey('n', '<C-n>', ':bn')
 -- mapkey('n', '<C-p>', ':bp')
 
-cmap('bd', 'Bdelete')
-cmap('bw', 'Bwipeout')
+-- cmap('bd', 'Bdelete')
+-- cmap('bw', 'Bwipeout')
 
 -- visual 
 vmap('<', '<gv')

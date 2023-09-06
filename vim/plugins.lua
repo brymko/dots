@@ -432,7 +432,6 @@ require'lspconfig'.rust_analyzer.setup{
                     enable = true,
                 },
                 disabled = {
-                    "inactive-code",
                     "unresolved-proc-macro",
                 },
             },
