@@ -258,7 +258,7 @@ if [ "$2" = "deps" ]; then
         install_if_needed_yay "ttf-mgopen"
     fi
 
-    install_if_needed_cargo "exa"
+    install_if_needed_cargo "eza"
     install_if_needed_cargo "bat"
     install_if_needed_cargo "sd"
     install_if_needed_cargo "ripgrep"

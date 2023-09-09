@@ -59,8 +59,8 @@ if type rg &> /dev/null; then
     export FZF_DEFAULT_OPTS='--height 50% --border --reverse' # -m
 fi
 
-alias l="exa -lamg --sort type --color=automatic"
-alias ls="exa -l --sort type --color=automatic"
+alias l="eza -lamg --sort type --color=automatic"
+alias ls="eza -l --sort type --color=automatic"
 alias rg="rg -i"
 alias ip="ip -br -c"
 alias ida64="wine /home/brymko/ctf/IDA/ida/ida64.exe &; disown; exit"

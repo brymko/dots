@@ -147,6 +147,13 @@ require('nvim-ts-autotag').setup({
 })
 
 
+-- require "nvim-treesitter.configs".setup {
+--   highlight = {
+--     enable = true, -- false will disable the whole extension
+--     disable = { "md" }, -- list of language that will be disabled
+--   },
+-- }
+
 -- theme
 vim.g.sonokai_style = "atlantis"
 vim.g.sonokai_enable_italic = false
