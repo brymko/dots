@@ -47,7 +47,7 @@ man() {
 # Color section https://wiki.archlinux.org/index.php/zsh
 PS1="%(?..%F{red}=>%? )%F{magenta}%n@%F{magenta}%m %F{blue}%~%f$ "
 setopt prompt_subst
-RPS1='$($HOME/.config/zsh/gitp.sh 2>/dev/null)'
+# RPS1='$($HOME/.config/zsh/gitp.sh 2>/dev/null)'
 
 zstyle -e ':completion:*:default' list-colors 'reply=(":${(s.:.)LS_COLORS}")'
 zstyle ':completion:*' menu select
