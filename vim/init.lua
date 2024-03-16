@@ -35,7 +35,7 @@ vim.opt.incsearch = true
 vim.opt.hlsearch = true
 
 -- files
-vim.opt.swapfile = true
+vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.undofile = true

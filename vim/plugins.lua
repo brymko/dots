@@ -3,7 +3,7 @@ vim.cmd [[packadd packer.nvim]]
 
 require('packer').startup(function()
     use 'wbthomason/packer.nvim'
-
+    
     -- typing
     use { "tpope/vim-commentary" }
     use { "tpope/vim-surround" }

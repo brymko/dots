@@ -62,6 +62,8 @@ vim.cmd('nnoremap <C-p> :BufferLineCyclePrev<CR>')
 -- cmap('bd', 'Bdelete')
 -- cmap('bw', 'Bwipeout')
 
+nmap('<leader>w', ':bw<CR>')
+
 -- visual 
 vmap('<', '<gv')
 vmap('>', '>gv')
