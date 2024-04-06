@@ -32,6 +32,7 @@ cmap('sudow', 'w !sudo tee % > /dev/null')
 nmap('\\', ':Rg<CR>')
 nmap('<leader>8', ':%!xxd -g 1<CR>')
 nmap('<leader>9', ':%!xxd -g 1 -r<CR>')
+vmap('<leader>t', ':!column -t<CR>')
 
 -- movement
 imap('jk', '<esc>')

@@ -10,6 +10,8 @@
 # exit 0
 
 
+xinput set-prop 11 324 0.6
+
 # store persistent
 #
 # in /etc/X11/xorg.conf.d/99-libinput-custom-config.conf
