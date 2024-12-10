@@ -101,6 +101,7 @@ require("telescope").setup {
           ["<C-f>"] = fb_actions.toggle_browser,
           ["<C-h>"] = fb_actions.toggle_hidden,
           ["<C-s>"] = fb_actions.toggle_all,
+          ["jk"] = require("telescope.actions").close,
           ["<bs>"] = function()
               vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<bs>", true, false, true), "tn", false)
           end,
@@ -329,6 +330,7 @@ vim.cmd('highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4 ')
 
 local cmp = require('cmp')
 local cmp_buffer = require('cmp_buffer')
+local lspkind = require('lspkind')
 local luasnip = require('luasnip')
 
 local has_words_before = function()
@@ -357,24 +359,43 @@ cmp.setup {
         expand = function(args)
             luasnip.lsp_expand(args.body)
         end,
-    }, 
-    sources = {
-        { name = "nvim_lsp" },
-        { name = "buffer" },
     },
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp', priority = 1000 },
+        { name = 'nvim_lua', priority = 800 },  -- For Neovim Lua API
+        { name = 'luasnip', priority = 750 },   -- For snippets
+        { name = 'path', priority = 500 },      -- For file paths
+        { name = 'buffer', priority = 250, keyword_length = 3 },
+    }),
     sorting = {
+        priority_weight = 2.0,
         comparators = {
-          function(...) return cmp_buffer:compare_locality(...) end,
-          -- The rest of your comparators...
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            function(...) return cmp_buffer:compare_locality(...) end,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
         }
+    },
+    matching = {
+        disallow_fuzzy_matching = false,
+        disallow_partial_matching = false,
+        disallow_prefix_unmatching = false,
     },
     formatting = {
         format = lspkind.cmp_format({
             mode = 'symbol_text',
             maxwidth = 50,
-            before = function(_, vim_item)
+            ellipsis_char = '...',
+            before = function(entry, vim_item)
+                -- Show source name in menu
+                vim_item.menu = string.format('[%s]', entry.source.name)
                 return vim_item
-            end 
+            end
         })
     },
     mapping = {
@@ -386,17 +407,26 @@ cmp.setup {
             else 
                 fallback()
             end
-        end, { "i"}),
+        end, { "i", "s" }),
         ["<C-p>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
             else
                 fallback()
             end
-        end, { "i"}), 
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), 
+        end, { "i", "s" }),
+        ['<CR>'] = cmp.mapping.confirm({ 
+            select = true,
+            behavior = cmp.ConfirmBehavior.Replace 
+        }),
+        ['<C-e>'] = cmp.mapping.abort(),
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
     },
 }
+
  
 require("nvim-lsp-installer").setup {}
 local capabilities = require('cmp_nvim_lsp').default_capabilities() 
@@ -408,7 +438,7 @@ local servers = {
     {'cssls', {}},
     {'tailwindcss', {}},
     {'svelte', {}},
-    {'tsserver', {}},
+    {'ts_ls'},
     {'clangd', {}},
     {'clojure_lsp', {}},
     {'omnisharp', {}},
