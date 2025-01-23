@@ -25,3 +25,6 @@ export PATH="$PATH:$HOME/go/bin"
 # solana
 export PATH="$PATH:$HOME/.local/share/solana/install/active_release/bin"
 
+# zystem claude 
+
+

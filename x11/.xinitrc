@@ -1,7 +1,11 @@
 #!/bin/bash
 
+xrandr --setprovideroutputsource NVIDIA
+touch /home/brymko/WORKING
 xrandr --auto
 xset r rate 200 120
+xset -dpms
+xset s off
 redshift -x
 redshift -O 2000K 
 

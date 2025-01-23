@@ -84,6 +84,8 @@ alias clion="/home/brymko/jetbrains/clion/bin/clion.sh &; disown; exit"
 alias webstorm="/home/brymko/jetbrains/webstorm/bin/webstorm.sh &; disown; exit"
 alias goland="/home/brymko/jetbrains/goland/bin/goland.sh &; disown; exit"
 alias k="kubectl"
+alias kvmm="~/.screenlayout/kvmm.sh"
+alias kvmbak="~/.screenlayout/kvmbak.sh"
 
 # git alias
 alias gs="git status"
@@ -142,3 +144,6 @@ eval "$(dircolors -b)"
 
 # solana
 export PATH="$PATH:$HOME/.local/share/solana/install/active_release/bin"
+
+
+

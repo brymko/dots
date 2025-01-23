@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 shopt -s dotglob
 set -euf -o pipefail
 
@@ -240,6 +240,7 @@ if [ "$2" = "deps" ]; then
     if command -v pacman; then
         if [ ! "$(command -v yay)" ]; then 
             pushd /tmp
+	    rm -rf yay/
             git clone https://aur.archlinux.org/yay.git
             cd yay
             makepkg -si --noconfirm
@@ -251,12 +252,12 @@ if [ "$2" = "deps" ]; then
     	install_if_needed_yay "wezterm-nightly-bin"
         # install_if_needed_yay "neovim-git"
         # install_if_needed_yay "nvim-packer-git"
-        install_if_needed_yay "ttf-ancient-fonts"
-        install_if_needed_yay "ttf-arabeyes-fonts"
-        install_if_needed_yay "ttf-freebanglafont"
-        install_if_needed_yay "ttf-ubraille"
-        install_if_needed_yay "ttf-paratype"
-        install_if_needed_yay "ttf-mgopen"
+        # install_if_needed_yay "ttf-ancient-fonts"
+        # install_if_needed_yay "ttf-arabeyes-fonts"
+        # install_if_needed_yay "ttf-freebanglafont"
+        # install_if_needed_yay "ttf-ubraille"
+        # # install_if_needed_yay "ttf-paratype"
+        # install_if_needed_yay "ttf-mgopen"
     fi
 
     install_if_needed_cargo "eza"
@@ -267,6 +268,6 @@ if [ "$2" = "deps" ]; then
 
     enable_service bluetooth.service
 
-    chsh -s zsh
+    chsh -s /usr/bin/zsh
 fi
 

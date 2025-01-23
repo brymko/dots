@@ -71,7 +71,7 @@ vmap('>', '>gv')
 
 -- copy paste
 vmap('<C-c>', '"+y')
-imap('<C-v>', '<C-o>"+P')
+imap('<C-v>', '<C-o>"+p')
 
 -- bufferline
 nmap('<C-m>', ':BufferLineMoveNext<CR>')
