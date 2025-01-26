@@ -463,10 +463,6 @@ vim.cmd('highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4 ')
 
 -- LSP/CMP
 
-vim.disagnostic.config({
-    virtual_lines=true,
-})
-
 local cmp = require('cmp')
 local cmp_buffer = require('cmp_buffer')
 local lspkind = require('lspkind')

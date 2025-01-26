@@ -20,5 +20,5 @@ PASSWORD="$3"
 REMTPATH="$4"
 LOCLPATH="$5"
 
-sudo mount.smb3 -v "//$SERVERIP/$REMTPATH" "$LOCLPATH" -o "user=$USERNAME,pass=$PASSWORD,uid=$EUID,gid=$EUID"
+sudo mount -t cifs -o "user=$USERNAME,pass=$PASSWORD,uid=$EUID,gid=$EUID,forceuid,forcegid" -v "//$SERVERIP/$REMTPATH" "$LOCLPATH" 
 

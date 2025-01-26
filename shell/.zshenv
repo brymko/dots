@@ -25,6 +25,11 @@ export PATH="$PATH:$HOME/go/bin"
 # solana
 export PATH="$PATH:$HOME/.local/share/solana/install/active_release/bin"
 
+<<<<<<< HEAD
 # zystem claude 
 
 
+=======
+#
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+>>>>>>> 68b4be6 (.)

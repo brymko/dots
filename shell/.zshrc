@@ -145,5 +145,4 @@ eval "$(dircolors -b)"
 # solana
 export PATH="$PATH:$HOME/.local/share/solana/install/active_release/bin"
 
-
-
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
