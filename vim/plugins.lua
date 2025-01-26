@@ -463,6 +463,10 @@ vim.cmd('highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4 ')
 
 -- LSP/CMP
 
+vim.disagnostic.config({
+    virtual_lines=true,
+})
+
 local cmp = require('cmp')
 local cmp_buffer = require('cmp_buffer')
 local lspkind = require('lspkind')
@@ -577,6 +581,7 @@ local servers = {
     {'clangd', {}},
     {'clojure_lsp', {}},
     {'omnisharp', {}},
+    {'eslint', {}}
 }
 
 
@@ -608,7 +613,7 @@ require'lspconfig'.rust_analyzer.setup{
                 },
             },
             cargo = {
-                features = "all",
+                -- features = "all",
             },
             lru = {
                 capacity = 256
