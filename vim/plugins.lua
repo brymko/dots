@@ -78,6 +78,17 @@ require('packer').startup(function()
         requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     }
 
+    -- claude
+    use {
+        'greggh/claude-code.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim', -- Required for git operations
+        },
+        config = function()
+            require('claude-code').setup()
+        end
+    }
+
 end) 
 
 -- Avante 
@@ -573,7 +584,8 @@ local servers = {
     {'cssls', {}},
     {'tailwindcss', {}},
     {'svelte', {}},
-    {'ts_ls'},
+    {'ts_ls', {}},
+    {'tsserver', {}},
     {'clangd', {}},
     {'clojure_lsp', {}},
     {'omnisharp', {}},

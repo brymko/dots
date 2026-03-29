@@ -1,35 +1,33 @@
 local wezterm = require 'wezterm';
+local mux = wezterm.mux
+local act = wezterm.action
+
+wezterm.on('gui-startup', function(cmd)
+  local tab, pane, window = mux.spawn_window(cmd or {}) window:gui_window():maximize()
+end)
 
 return {
     -- Disable update notifications
     check_for_updates = false,
 
+    -- bell 
+    audible_bell = "Disabled";
+
     -- FONTS
-    font_size = 12.0;
+    font_size = 13.0;
     line_height = 0.8;
     
     -- TODO: fallback fonts yo.
     -- sudo pacman -S fft-fira-mono
-    font = wezterm.font_with_fallback({'Monaco Nerd Font', 'codicon.ttf'});
-    -- font = wezterm.font_with_fallback({'FiraMono Nerd Font', 'codicon.ttf'});
+    -- font = wezterm.font_with_fallback({'CommitMono Nerd Font', 'codicon.ttf'});
+    font = wezterm.font_with_fallback({'JetBrains Mono', 'codicon.ttf'});
     -- font = wezterm.font('mononoki Nerd Font', {stretch = "Normal", weight = "Regular", italic=false});
     -- font = wezterm.font('DM Mono Light', {stretch = "Normal", weight = "Regular", italic=false});
     harfbuzz_features = { "calt=0", "clig=0", "liga=0" };
 
     -- KEYS
     use_dead_keys = false;
-    disable_default_key_bindings = true;
-    keys = {
-        { key = "c", mods = "CTRL|SHIFT", action=wezterm.action{ CopyTo = "ClipboardAndPrimarySelection" }},
-        { key = "v", mods = "CTRL|SHIFT", action=wezterm.action{ PasteFrom = "Clipboard" }},
-        { key = "+", mods = "CTRL|SHIFT", action = "IncreaseFontSize" },
-        { key = "-", mods = "CTRL", action = "DecreaseFontSize" },
-        { key = "=", mods = "CTRL", action = "ResetFontSize" },
-        { key = "j", mods = "CTRL|ALT", action = wezterm.action{ScrollByLine=5}},
-        { key = "k", mods = "CTRL|ALT", action = wezterm.action{ScrollByLine=-5}},
-        { key = "f", mods = "CTRL", action = wezterm.action{Search={Regex=""}}},
-        { key = "m", mods = "CTRL|ALT", action = "ActivateCopyMode" },
-    };
+    -- disable_default_key_bindings = true;
 
     -- shit i already have i3 for
     hide_tab_bar_if_only_one_tab = true;
@@ -62,6 +60,26 @@ return {
 
     colors = {
         selection_bg = '#524254',
-    }
+    };
+
+    keys = {
+        { key = "c", mods = "CTRL|SHIFT", action=wezterm.action{ CopyTo = "ClipboardAndPrimarySelection" }},
+        { key = "v", mods = "CTRL|SHIFT", action=wezterm.action{ PasteFrom = "Clipboard" }},
+        { key = "+", mods = "CTRL|SHIFT", action = "IncreaseFontSize" },
+        { key = "-", mods = "CTRL", action = "DecreaseFontSize" },
+        { key = "=", mods = "CTRL", action = "ResetFontSize" },
+        { key = "j", mods = "CTRL|ALT", action = wezterm.action{ScrollByLine=5}},
+        { key = "k", mods = "CTRL|ALT", action = wezterm.action{ScrollByLine=-5}},
+        { key = "f", mods = "CTRL", action = wezterm.action{Search={Regex=""}}},
+        { key = "m", mods = "CTRL|ALT", action = "ActivateCopyMode" },
+        { key = "b", mods = "OPT", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
+        { key = "v", mods = "OPT", action = act.SplitVertical { domain = "CurrentPaneDomain" } },
+        { key = 'h', mods = "OPT", action = act.ActivatePaneDirection 'Left' },
+        { key = 'l', mods = "OPT", action = act.ActivatePaneDirection 'Right' },
+        { key = 'k', mods = "OPT", action = act.ActivatePaneDirection 'Up' },
+        { key = 'j', mods = "OPT", action = act.ActivatePaneDirection 'Down' },
+        { key = 'f', mods = "OPT", action = act.TogglePaneZoomState },
+        { key = 'w', mods = "CMD", action = act.CloseCurrentPane{ confirm = true } },
+    };
 }
 
