@@ -1,0 +1,96 @@
+config-version = 2
+start-at-login = true
+
+# Keep numbered workspaces available even when empty/invisible
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
+
+# Match i3-style mouse behavior when monitor focus changes
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+[gaps]
+    inner.horizontal = 4
+    inner.vertical = 4
+    outer.left = 4
+    outer.bottom = 4
+    outer.top = 4
+    outer.right = 4
+
+[mode.main.binding]
+    # Layouts
+    alt-slash = 'layout tiles horizontal vertical'
+    alt-t = 'layout tiles horizontal vertical'
+    alt-comma = 'layout accordion horizontal vertical'
+    alt-s = 'layout v_accordion'
+    alt-w = 'layout h_accordion'
+    alt-shift-t = 'flatten-workspace-tree'
+
+    # Focus windows
+    alt-h = 'focus left'
+    alt-j = 'focus down'
+    alt-k = 'focus up'
+    alt-l = 'focus right'
+
+    # Move windows
+    alt-shift-h = 'move left'
+    alt-shift-j = 'move down'
+    alt-shift-k = 'move up'
+    alt-shift-l = 'move right'
+
+    # Fullscreen
+    alt-f = 'fullscreen'
+
+    # Resize
+    alt-minus = 'resize smart -50'
+    alt-equal = 'resize smart +50'
+
+    # Jump to workspace
+    alt-1 = 'workspace 1'
+    alt-2 = 'workspace 2'
+    alt-3 = 'workspace 3'
+    alt-4 = 'workspace 4'
+    alt-5 = 'workspace 5'
+    alt-6 = 'workspace 6'
+    alt-7 = 'workspace 7'
+    alt-8 = 'workspace 8'
+    alt-9 = 'workspace 9'
+    alt-0 = 'workspace 10'
+    alt-shift-1 = 'workspace 11'
+    alt-shift-2 = 'workspace 12'
+    alt-shift-3 = 'workspace 13'
+    alt-shift-4 = 'workspace 14'
+    alt-shift-5 = 'workspace 15'
+    alt-shift-6 = 'workspace 16'
+    alt-shift-7 = 'workspace 17'
+    alt-shift-8 = 'workspace 18'
+    alt-shift-9 = 'workspace 19'
+    alt-shift-0 = 'workspace 20'
+
+    # Move the focused window to a workspace (shift adds +10, mirroring the jump bindings above)
+    alt-ctrl-1 = 'move-node-to-workspace 1'
+    alt-ctrl-2 = 'move-node-to-workspace 2'
+    alt-ctrl-3 = 'move-node-to-workspace 3'
+    alt-ctrl-4 = 'move-node-to-workspace 4'
+    alt-ctrl-5 = 'move-node-to-workspace 5'
+    alt-ctrl-6 = 'move-node-to-workspace 6'
+    alt-ctrl-7 = 'move-node-to-workspace 7'
+    alt-ctrl-8 = 'move-node-to-workspace 8'
+    alt-ctrl-9 = 'move-node-to-workspace 9'
+    alt-ctrl-0 = 'move-node-to-workspace 10'
+    alt-ctrl-shift-1 = 'move-node-to-workspace 11'
+    alt-ctrl-shift-2 = 'move-node-to-workspace 12'
+    alt-ctrl-shift-3 = 'move-node-to-workspace 13'
+    alt-ctrl-shift-4 = 'move-node-to-workspace 14'
+    alt-ctrl-shift-5 = 'move-node-to-workspace 15'
+    alt-ctrl-shift-6 = 'move-node-to-workspace 16'
+    alt-ctrl-shift-7 = 'move-node-to-workspace 17'
+    alt-ctrl-shift-8 = 'move-node-to-workspace 18'
+    alt-ctrl-shift-9 = 'move-node-to-workspace 19'
+    alt-ctrl-shift-0 = 'move-node-to-workspace 20'
+
+
+    # Quickly bounce to the last workspace
+    alt-tab = 'workspace-back-and-forth'
+
+    # Move the current workspace between monitors without colliding with WezTerm Option bindings
+    cmd-ctrl-t = 'move-workspace-to-monitor left'
+    cmd-ctrl-y = 'move-workspace-to-monitor right'
