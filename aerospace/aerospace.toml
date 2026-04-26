@@ -37,7 +37,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     alt-shift-l = 'move right'
 
     # Fullscreen
-    alt-f = 'fullscreen'
+    alt-shift-f = 'fullscreen'
 
     # Resize
     alt-minus = 'resize smart -50'
