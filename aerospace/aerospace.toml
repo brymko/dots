@@ -16,6 +16,9 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     outer.right = 4
 
 [mode.main.binding]
+    # Launch apps in the current workspace
+    alt-b = 'exec-and-forget "$HOME/.local/bin/brave-current-workspace"'
+
     # Layouts
     alt-slash = 'layout tiles horizontal vertical'
     alt-t = 'layout tiles horizontal vertical'

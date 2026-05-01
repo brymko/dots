@@ -22,14 +22,16 @@ enable_aerospace_dock_preferences() {
 
 if [ "$#" -eq 1 ]; then
     files=( \
-        "aerospace/aerospace.toml"  "$HOME/.config/aerospace/aerospace.toml" \
-        "terminal/wezterm.lua"         "$HOME/.wezterm.lua"                     \
-        "karabiner/karabiner.json"     "$HOME/.config/karabiner/karabiner.json" \
+        "aerospace/aerospace.toml"             "$HOME/.config/aerospace/aerospace.toml" \
+        "terminal/wezterm.lua"                "$HOME/.wezterm.lua"                     \
+        "karabiner/karabiner.json"            "$HOME/.config/karabiner/karabiner.json" \
+        "scripts/brave-current-workspace.sh"  "$HOME/.local/bin/brave-current-workspace" \
     )
 
     if [ "$1" = "install" ]; then
         mkdir -p "$HOME/.config/aerospace"
         mkdir -p "$HOME/.config/karabiner"
+        mkdir -p "$HOME/.local/bin"
 
         for ((i=0; i<${#files[@]}; i+=2)) do
             drop_file "${files[i]}" "${files[i + 1]}"
