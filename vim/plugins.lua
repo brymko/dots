@@ -579,7 +579,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local servers = { 
     {'html', {}},
     {'bashls', {}}, 
-    {'pyright', {}},
     {'purescriptls', {}},
     {'cssls', {}},
     {'tailwindcss', {}},
@@ -602,6 +601,28 @@ for _, lsp in pairs(servers) do
         },
     }
 end 
+
+-- Python: basedpyright (type checking + intellisense) + ruff (linting + formatting)
+require('lspconfig').basedpyright.setup {
+    capabilities = capabilities,
+    settings = {
+        basedpyright = {
+            analysis = {
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "openFilesOnly",
+            },
+        },
+    },
+}
+
+require('lspconfig').ruff.setup {
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+        -- Disable hover in favor of basedpyright
+        client.server_capabilities.hoverProvider = false
+    end,
+}
 
 require'lspconfig'.rust_analyzer.setup{
     settings = {

@@ -94,6 +94,6 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     # Quickly bounce to the last workspace
     alt-tab = 'workspace-back-and-forth'
 
-    # Move the current workspace between monitors without colliding with WezTerm Option bindings
-    cmd-ctrl-t = 'move-workspace-to-monitor left'
-    cmd-ctrl-y = 'move-workspace-to-monitor right'
+    # Move the current workspace to the previous/next monitor in display order, wrapping at the ends
+    cmd-ctrl-t = 'move-workspace-to-monitor --wrap-around prev'
+    cmd-ctrl-y = 'move-workspace-to-monitor --wrap-around next'

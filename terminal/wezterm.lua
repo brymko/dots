@@ -72,13 +72,14 @@ return {
         { key = "k", mods = "CTRL|ALT", action = wezterm.action{ScrollByLine=-5}},
         { key = "f", mods = "CTRL", action = wezterm.action{Search={Regex=""}}},
         { key = "m", mods = "CTRL|ALT", action = "ActivateCopyMode" },
-        { key = "b", mods = "OPT", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
-        { key = "v", mods = "OPT", action = act.SplitVertical { domain = "CurrentPaneDomain" } },
-        { key = 'h', mods = "OPT", action = act.ActivatePaneDirection 'Left' },
-        { key = 'l', mods = "OPT", action = act.ActivatePaneDirection 'Right' },
-        { key = 'k', mods = "OPT", action = act.ActivatePaneDirection 'Up' },
-        { key = 'j', mods = "OPT", action = act.ActivatePaneDirection 'Down' },
+        -- Keep plain Option mostly free for AeroSpace; Alt+F zooms the current pane.
         { key = 'f', mods = "OPT", action = act.TogglePaneZoomState },
+        { key = "g", mods = "CMD", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
+        { key = "b", mods = "CMD", action = act.SplitVertical { domain = "CurrentPaneDomain" } },
+        { key = 'h', mods = "CMD", action = act.ActivatePaneDirection 'Left' },
+        { key = 'l', mods = "CMD", action = act.ActivatePaneDirection 'Right' },
+        { key = 'k', mods = "CMD", action = act.ActivatePaneDirection 'Up' },
+        { key = 'j', mods = "CMD", action = act.ActivatePaneDirection 'Down' },
         { key = 'w', mods = "CMD", action = act.CloseCurrentPane{ confirm = true } },
     };
 }

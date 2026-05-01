@@ -2,38 +2,7 @@
 shopt -s dotglob
 set -euf -o pipefail
 
-# Functions
-log() {
-    echo "$1"
-}
-
-create_symlink() {
-    ln -sr "$1" "$2"
-}
-
-backup_if_exists() {
-    if [[ -f $1 ]]; then
-        if [[ -L "$1" ]]; then
-            log "$1 already is a symlink"
-            return 1
-        fi
-        mv "$1" "$1.bak"
-    fi
-    return 0
-}
-
-drop_file() {
-    backup_if_exists "$2" || return 1
-    create_symlink "$1" "$2"
-}
-
-restore_file() {
-    if [[ -f "$1.bak" ]]; then
-        mv "$1.bak" "$1"
-    elif [[ -L "$1" ]]; then
-        rm "$1"
-    fi
-}
+source ./actions_common.sh
 
 
 
