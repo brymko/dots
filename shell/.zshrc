@@ -138,7 +138,9 @@ source "$HOME/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$HOME/.config/zsh/plugins/extract/extract.zsh"
 
-eval "$(dircolors -b)"
+if command -v dircolors >/dev/null 2>&1; then
+    eval "$(dircolors -b)"
+fi
 
 [[ ! -r /home/brymko/.opam/opam-init/init.zsh ]] || source /home/brymko/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null 
 
