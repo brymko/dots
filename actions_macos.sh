@@ -23,15 +23,33 @@ enable_aerospace_dock_preferences() {
 if [ "$#" -eq 1 ]; then
     files=( \
         "aerospace/aerospace.toml"             "$HOME/.config/aerospace/aerospace.toml" \
-        "terminal/wezterm.lua"                "$HOME/.wezterm.lua"                     \
-        "karabiner/karabiner.json"            "$HOME/.config/karabiner/karabiner.json" \
-        "scripts/brave-current-workspace.sh"  "$HOME/.local/bin/brave-current-workspace" \
+        "terminal/wezterm.lua"                 "$HOME/.wezterm.lua"                     \
+        "karabiner/karabiner.json"             "$HOME/.config/karabiner/karabiner.json" \
+        "scripts/brave-current-workspace.sh"   "$HOME/.local/bin/brave-current-workspace" \
+        "claude/settings.json"                 "$HOME/.claude/settings.json"            \
+        "claude/skills/tufte-viz"              "$HOME/.claude/skills/tufte-viz"         \
+        "vim/init.vim"                         "$HOME/.config/nvim/init.vim"            \
+        "vim/init.lua"                         "$HOME/.config/nvim/lua/init.lua"        \
+        "vim/keymaps.lua"                      "$HOME/.config/nvim/lua/keymaps.lua"     \
+        "vim/plugins.lua"                      "$HOME/.config/nvim/lua/plugins.lua"     \
+        "vim/ideavimrc"                        "$HOME/.config/ideavim/ideavimrc"        \
+        "shell/.zshenv"                        "$HOME/.zshenv"                          \
+        "shell/.zshrc"                         "$HOME/.config/zsh/.zshrc"               \
+        "shell/gitp.sh"                        "$HOME/.config/zsh/gitp.sh"              \
     )
 
     if [ "$1" = "install" ]; then
         mkdir -p "$HOME/.config/aerospace"
         mkdir -p "$HOME/.config/karabiner"
         mkdir -p "$HOME/.local/bin"
+        mkdir -p "$HOME/.claude/skills"
+        mkdir -p "$HOME/.config/nvim/lua"
+        mkdir -p "$HOME/.config/ideavim"
+        mkdir -p "$HOME/.config/zsh"
+
+        # Run claude plugin bootstrap first so a later symlink failure does not
+        # skip it. Tolerate its own failures so it never blocks the file loop.
+        ./claude/bootstrap_plugins.sh || log "claude bootstrap failed (non-fatal)"
 
         for ((i=0; i<${#files[@]}; i+=2)) do
             drop_file "${files[i]}" "${files[i + 1]}"

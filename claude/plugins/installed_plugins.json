@@ -1,0 +1,144 @@
+{
+  "version": 2,
+  "plugins": {
+    "rust-analyzer-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/claude-plugins-official/rust-analyzer-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2025-12-20T21:49:20.530Z",
+        "lastUpdated": "2025-12-20T21:49:20.530Z"
+      }
+    ],
+    "audit-context-building@trailofbits": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/trailofbits/audit-context-building/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-20T10:04:13.557Z",
+        "lastUpdated": "2026-01-20T10:04:13.557Z",
+        "gitCommitSha": "fd46c1caa71937b57f29a8060b626f4a06e5e61b"
+      }
+    ],
+    "building-secure-contracts@trailofbits": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/trailofbits/building-secure-contracts/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-20T10:04:13.593Z",
+        "lastUpdated": "2026-01-20T10:04:13.593Z",
+        "gitCommitSha": "fd46c1caa71937b57f29a8060b626f4a06e5e61b"
+      }
+    ],
+    "differential-review@trailofbits": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/trailofbits/differential-review/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-20T10:04:13.612Z",
+        "lastUpdated": "2026-01-20T10:04:13.612Z",
+        "gitCommitSha": "fd46c1caa71937b57f29a8060b626f4a06e5e61b"
+      }
+    ],
+    "entry-point-analyzer@trailofbits": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/trailofbits/entry-point-analyzer/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-20T10:04:13.629Z",
+        "lastUpdated": "2026-01-20T10:04:13.629Z",
+        "gitCommitSha": "fd46c1caa71937b57f29a8060b626f4a06e5e61b"
+      }
+    ],
+    "fix-review@trailofbits": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/trailofbits/fix-review/0.1.0",
+        "version": "0.1.0",
+        "installedAt": "2026-01-20T10:04:13.647Z",
+        "lastUpdated": "2026-01-20T10:04:13.647Z",
+        "gitCommitSha": "fd46c1caa71937b57f29a8060b626f4a06e5e61b"
+      }
+    ],
+    "property-based-testing@trailofbits": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/trailofbits/property-based-testing/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-20T10:04:13.663Z",
+        "lastUpdated": "2026-01-20T10:04:13.663Z",
+        "gitCommitSha": "fd46c1caa71937b57f29a8060b626f4a06e5e61b"
+      }
+    ],
+    "semgrep-rule-creator@trailofbits": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/trailofbits/semgrep-rule-creator/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-20T10:04:13.679Z",
+        "lastUpdated": "2026-01-20T10:04:13.679Z",
+        "gitCommitSha": "fd46c1caa71937b57f29a8060b626f4a06e5e61b"
+      }
+    ],
+    "sharp-edges@trailofbits": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/trailofbits/sharp-edges/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-20T10:04:13.698Z",
+        "lastUpdated": "2026-01-20T10:04:13.698Z",
+        "gitCommitSha": "fd46c1caa71937b57f29a8060b626f4a06e5e61b"
+      }
+    ],
+    "spec-to-code-compliance@trailofbits": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/trailofbits/spec-to-code-compliance/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-20T10:04:13.714Z",
+        "lastUpdated": "2026-01-20T10:04:13.714Z",
+        "gitCommitSha": "fd46c1caa71937b57f29a8060b626f4a06e5e61b"
+      }
+    ],
+    "static-analysis@trailofbits": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/trailofbits/static-analysis/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-01-20T10:04:13.730Z",
+        "lastUpdated": "2026-01-20T10:04:13.730Z",
+        "gitCommitSha": "fd46c1caa71937b57f29a8060b626f4a06e5e61b"
+      }
+    ],
+    "testing-handbook-skills@trailofbits": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/trailofbits/testing-handbook-skills/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-20T10:04:13.755Z",
+        "lastUpdated": "2026-01-20T10:04:13.755Z",
+        "gitCommitSha": "fd46c1caa71937b57f29a8060b626f4a06e5e61b"
+      }
+    ],
+    "variant-analysis@trailofbits": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/trailofbits/variant-analysis/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-20T10:04:13.772Z",
+        "lastUpdated": "2026-01-20T10:04:13.772Z",
+        "gitCommitSha": "fd46c1caa71937b57f29a8060b626f4a06e5e61b"
+      }
+    ],
+    "typescript-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/brymko/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-27T08:14:41.478Z",
+        "lastUpdated": "2026-01-27T08:14:41.478Z",
+        "gitCommitSha": "e30768372b4150ca1bc0839d93283e8edc30d60d"
+      }
+    ]
+  }
+}

@@ -27,6 +27,8 @@ if [ "$#" -eq 1 ]; then
     mkdir -p "$HOME/.config/wezterm"
     mkdir -p "$HOME/.config/ideavim"
     mkdir -p "$HOME/.config/flameshot"
+    mkdir -p "$HOME/.claude"
+    mkdir -p "$HOME/.claude/skills"
     mkdir -p "$HOME/vm"
     mkdir -p "$HOME/vm/shared"
     mkdir -p "$HOME/vm/preload"
@@ -68,10 +70,16 @@ if [ "$#" -eq 1 ]; then
         "vm/network/nw_enable.sh"                "$HOME/vm/network/nw_enable.sh"                      \
         "vm/network/bridge_enable.sh"            "$HOME/vm/network/bridge_enable.sh"                  \
         "vm/network/bridge_disable.sh"           "$HOME/vm/network/bridge_disable.sh"                 \
+        "claude/settings.json"                   "$HOME/.claude/settings.json"                        \
+        "claude/skills/tufte-viz"                "$HOME/.claude/skills/tufte-viz"                     \
     )
 
 
     if [ "$1" = "install" ]; then
+        # Run claude plugin bootstrap first so a later symlink failure does not
+        # skip it. Tolerate its own failures so it never blocks the file loop.
+        ./claude/bootstrap_plugins.sh || log "claude bootstrap failed (non-fatal)"
+
         for ((i=0; i<${#files[@]}; i+=2)) do
             drop_file "${files[i]}" "${files[i + 1]}"
         done
