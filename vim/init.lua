@@ -67,3 +67,6 @@ vim.g.loaded_remote_plugins    = 1
 require("plugins")
 require("keymaps")
 
+require("bug-report.bug-report").setup()
+vim.keymap.set({ "n", "v" }, "<leader>br", "<cmd>BugReport<cr>", { desc = "Generate bug report from selection" })
+
