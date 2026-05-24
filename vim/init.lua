@@ -68,5 +68,6 @@ require("plugins")
 require("keymaps")
 
 require("bug-report.bug-report").setup()
-vim.keymap.set({ "n", "v" }, "<leader>br", "<cmd>BugReport<cr>", { desc = "Generate bug report from selection" })
+vim.keymap.set("n", "<leader>br", "<cmd>BugReport<cr>", { desc = "Generate bug report" })
+vim.keymap.set("x", "<leader>br", ":<C-U>BugReport<cr>", { desc = "Generate bug report from selection" })
 
