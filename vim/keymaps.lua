@@ -88,7 +88,8 @@ maplua(']g', 'vim.diagnostic.goto_next()')
 maplua('gr', 'vim.lsp.buf.references()')
 maplua('<leader>rn', 'vim.lsp.buf.rename()')
 maplua('gw', 'vim.diagnostic.open_float()')
-nmap('<leader>h', ':lua require("lsp-inlayhints").toggle()<CR>')
+nmap('<leader>h', ':lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>')
+nmap('<leader>bt', ':BugReportTemplate list<CR>')
 
 vim.cmd('set mouse=')
 
