@@ -27,7 +27,11 @@ if [ "$#" -eq 1 ]; then
         "karabiner/karabiner.json"             "$HOME/.config/karabiner/karabiner.json" \
         "scripts/brave-current-workspace.sh"   "$HOME/.local/bin/brave-current-workspace" \
         "claude/settings.json"                 "$HOME/.claude/settings.json"            \
+        "claude/CLAUDE.md"                     "$HOME/.claude/CLAUDE.md"                \
         "claude/skills/tufte-viz"              "$HOME/.claude/skills/tufte-viz"         \
+        "claude/skills/rust-conventions"       "$HOME/.claude/skills/rust-conventions"  \
+        "claude/skills/commit-conventions"     "$HOME/.claude/skills/commit-conventions" \
+        "claude/skills/code-search-tools"      "$HOME/.claude/skills/code-search-tools" \
         "vim/init.vim"                         "$HOME/.config/nvim/init.vim"            \
         "vim/init.lua"                         "$HOME/.config/nvim/lua/init.lua"        \
         "vim/keymaps.lua"                      "$HOME/.config/nvim/lua/keymaps.lua"     \

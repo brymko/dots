@@ -71,7 +71,11 @@ if [ "$#" -eq 1 ]; then
         "vm/network/bridge_enable.sh"            "$HOME/vm/network/bridge_enable.sh"                  \
         "vm/network/bridge_disable.sh"           "$HOME/vm/network/bridge_disable.sh"                 \
         "claude/settings.json"                   "$HOME/.claude/settings.json"                        \
+        "claude/CLAUDE.md"                       "$HOME/.claude/CLAUDE.md"                            \
         "claude/skills/tufte-viz"                "$HOME/.claude/skills/tufte-viz"                     \
+        "claude/skills/rust-conventions"         "$HOME/.claude/skills/rust-conventions"              \
+        "claude/skills/commit-conventions"       "$HOME/.claude/skills/commit-conventions"            \
+        "claude/skills/code-search-tools"        "$HOME/.claude/skills/code-search-tools"             \
     )
 
 
