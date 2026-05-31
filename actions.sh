@@ -187,7 +187,6 @@ if [ "$2" = "deps" ]; then
     install_if_needed "lldb"
     install_if_needed "gdb"
     install_if_needed "base-devel"
-    install_if_needed "chromium"
     install_if_needed "arandr"
     install_if_needed "bluez"
     install_if_needed "bluez-utils"
