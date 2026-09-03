@@ -47,6 +47,7 @@ if [ "$#" -eq 1 ]; then
         "vim/init.lua"                           "$HOME/.config/nvim/lua/init.lua"                    \
         "vim/keymaps.lua"                        "$HOME/.config/nvim/lua/keymaps.lua"                 \
         "vim/plugins.lua"                        "$HOME/.config/nvim/lua/plugins.lua"                 \
+        "vim/omp.lua"                            "$HOME/.config/nvim/lua/omp.lua"                     \
         "shell/.zshenv"                          "$HOME/.zshenv"                                      \
         "shell/.zshrc"                           "$HOME/.config/zsh/.zshrc"                           \
         "shell/gitp.sh"                          "$HOME/.config/zsh/gitp.sh"                          \

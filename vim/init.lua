@@ -65,6 +65,7 @@ vim.g.loaded_tutor_mode_plugin = 1
 vim.g.loaded_remote_plugins    = 1 
 
 require("plugins")
+require("omp").setup()
 require("keymaps")
 
 require("bug-report.bug-report").setup()
