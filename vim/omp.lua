@@ -2,6 +2,8 @@ local M = {}
 
 local RPC_FRAME_LIMIT = 1024 * 1024
 local DEBUG_WIDTH = 52
+local EDIT_MODEL = "openai-codex/gpt-5.6-luna"
+local EDIT_MODEL_LABEL = "5.6 Luna"
 
 local state = {
     popup_buf = nil,
@@ -755,7 +757,12 @@ local function spawn_session(root)
     state.stdout = ""
     state.stderr = ""
     state.max_frame_bytes = RPC_FRAME_LIMIT
-    debug_event(("[%s] starting session %d · @smol · %s"):format(timestamp(), state.session_number, root))
+    debug_event(("[%s] starting session %d · %s · %s"):format(
+        timestamp(),
+        state.session_number,
+        EDIT_MODEL_LABEL,
+        root
+    ))
 
     local command = {
         vim.fn.exepath("omp"),
@@ -763,7 +770,7 @@ local function spawn_session(root)
         "--no-session",
         "--no-title",
         "--no-prewalk",
-        "--model", "@smol",
+        "--model", EDIT_MODEL,
         "--thinking", "off",
         "--tools", "read,grep,glob,lsp,edit,write,bash",
     }
@@ -886,7 +893,7 @@ function M.open()
         height = 1,
         style = "minimal",
         border = "rounded",
-        title = " OMP edit · @smol ",
+        title = " OMP edit · " .. EDIT_MODEL_LABEL .. " ",
         title_pos = "center",
     })
     vim.wo[state.popup_win].wrap = false
