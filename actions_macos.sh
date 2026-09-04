@@ -26,12 +26,9 @@ if [ "$#" -eq 1 ]; then
         "terminal/wezterm.lua"                 "$HOME/.wezterm.lua"                     \
         "karabiner/karabiner.json"             "$HOME/.config/karabiner/karabiner.json" \
         "scripts/brave-current-workspace.sh"   "$HOME/.local/bin/brave-current-workspace" \
-        "claude/settings.json"                 "$HOME/.claude/settings.json"            \
-        "claude/CLAUDE.md"                     "$HOME/.claude/CLAUDE.md"                \
-        "claude/skills/tufte-viz"              "$HOME/.claude/skills/tufte-viz"         \
-        "claude/skills/rust-conventions"       "$HOME/.claude/skills/rust-conventions"  \
-        "claude/skills/commit-conventions"     "$HOME/.claude/skills/commit-conventions" \
-        "claude/skills/code-search-tools"      "$HOME/.claude/skills/code-search-tools" \
+        "omp/AGENTS.md"                       "$HOME/.omp/agent/AGENTS.md"           \
+        "omp/PERSONALITY.md"                  "$HOME/.omp/agent/PERSONALITY.md"      \
+        "omp/config.yml"                      "$HOME/.omp/agent/config.yml"          \
         "vim/init.vim"                         "$HOME/.config/nvim/init.vim"            \
         "vim/init.lua"                         "$HOME/.config/nvim/lua/init.lua"        \
         "vim/keymaps.lua"                      "$HOME/.config/nvim/lua/keymaps.lua"     \
@@ -47,14 +44,11 @@ if [ "$#" -eq 1 ]; then
         mkdir -p "$HOME/.config/aerospace"
         mkdir -p "$HOME/.config/karabiner"
         mkdir -p "$HOME/.local/bin"
-        mkdir -p "$HOME/.claude/skills"
+        mkdir -p "$HOME/.omp/agent"
         mkdir -p "$HOME/.config/nvim/lua"
         mkdir -p "$HOME/.config/ideavim"
         mkdir -p "$HOME/.config/zsh"
 
-        # Run claude plugin bootstrap first so a later symlink failure does not
-        # skip it. Tolerate its own failures so it never blocks the file loop.
-        ./claude/bootstrap_plugins.sh || log "claude bootstrap failed (non-fatal)"
 
         for ((i=0; i<${#files[@]}; i+=2)) do
             drop_file "${files[i]}" "${files[i + 1]}"

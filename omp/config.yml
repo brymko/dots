@@ -1,0 +1,63 @@
+model: opus
+theme:
+  dark: dark-monokai
+  light: light
+selectedAuthType: oauth-personal
+modelRoles:
+  smol: openai-codex/gpt-5.6-terra
+  default: openai-codex/gpt-5.6-sol:max
+  tiny: openai-codex/gpt-5.6-luna
+defaultThinkingLevel: max
+compaction:
+  enabled: true
+  methodOrder:
+    - snapcompact
+    - handoff
+    - soft
+    - remote
+notifications:
+  onComplete: osc99
+symbolPreset: nerd
+setupVersion: 2
+autoResume: false
+power:
+  sleepPrevention: idle
+contextPromotion:
+  enabled: false
+dev:
+  autoqaConsent: denied
+  autoqa: false
+textVerbosity: low
+browser:
+  headless: true
+composer:
+  shape: box
+display:
+  hideToolActivity: true
+  showTokenUsage: true
+tui:
+  imeSafeCursor: true
+  reactions: false
+task:
+  showResolvedModelBadge: true
+  eager: preferred
+  isolation:
+    enabled: true
+hideThinkingBlock: false
+proseOnlyThinking: true
+personality: pragmatic
+advisor:
+  enabled: true
+prewalk:
+  enabled: true
+steeringMode: all
+followUpMode: all
+spelling:
+  typoDetection: false
+  autocomplete: false
+error:
+  notify: "on"
+features:
+  unexpectedStopDetection: mechanical
+isolation:
+  backend: auto
