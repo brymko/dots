@@ -744,7 +744,6 @@ local function spawn_session(root)
         "--no-prewalk",
         "--model", "@smol",
         "--thinking", "off",
-        "--approval-mode", "yolo",
     }
     local ok, process = pcall(vim.system, command, {
         cwd = root,
