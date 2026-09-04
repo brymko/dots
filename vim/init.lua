@@ -64,21 +64,6 @@ vim.g.loaded_netrwPlugin       = 1
 vim.g.loaded_tutor_mode_plugin = 1
 vim.g.loaded_remote_plugins    = 1 
 
-local show_lsp_message = vim.lsp.handlers["window/showMessage"]
-vim.lsp.handlers["window/showMessage"] = function(err, result, context, config)
-    local client = context and vim.lsp.get_client_by_id(context.client_id)
-    local message = result and result.message
-    if client
-        and client.name == "rust_analyzer"
-        and type(message) == "string"
-        and message:find("overly long loop turn took", 1, true)
-        and message:find("PrimeCaches(", 1, true)
-    then
-        return
-    end
-    return show_lsp_message(err, result, context, config)
-end
-
 require("plugins")
 require("omp").setup()
 require("keymaps")

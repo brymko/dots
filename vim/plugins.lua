@@ -523,6 +523,7 @@ vim.lsp.enable('ruff')
 -- rust-analyzer with custom settings
 vim.lsp.config.rust_analyzer = {
     root_markers = { 'Cargo.toml', 'rust-project.json' },
+    cmd = { vim.fn.expand("~/.cargo/bin/rust-analyzer") },
     settings = {
         ['rust-analyzer'] = {
             procMacro = {
