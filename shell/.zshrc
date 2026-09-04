@@ -59,8 +59,8 @@ if type rg &> /dev/null; then
     export FZF_DEFAULT_OPTS='--height 50% --border --reverse' # -m
 fi
 
-alias l="eza -lamg --sort type --color=automatic"
-alias ls="eza -l --sort type --color=automatic"
+alias l="eza -lamg --sort modified --color=automatic"
+alias ls="eza -l --sort modified --color=automatic"
 alias rg="rg -i"
 alias ip="ip -br -c"
 alias ida64="wine /home/brymko/ida/ida64.exe &; disown; exit"
@@ -146,5 +146,8 @@ fi
 
 # solana
 export PATH="$PATH:$HOME/.local/share/solana/install/active_release/bin"
+
+# bun
+export PATH="$HOME/.bun/bin:$PATH"
 
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"

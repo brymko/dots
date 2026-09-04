@@ -110,7 +110,8 @@ require("telescope").setup {
           ["<C-w>"] = fb_actions.goto_cwd,
           ["<C-t>"] = fb_actions.change_cwd,
           ["<C-f>"] = fb_actions.toggle_browser,
-          ["<C-h>"] = fb_actions.toggle_hidden,
+          ["<C-h>"] = fb_actions.goto_parent_dir,
+          ["<C-BS>"] = fb_actions.goto_parent_dir,
           ["<C-s>"] = fb_actions.toggle_all,
           ["jk"] = require("telescope.actions").close,
           ["<bs>"] = function()
@@ -125,6 +126,8 @@ require("telescope").setup {
           ["d"] = fb_actions.remove,
           ["o"] = fb_actions.open,
           ["g"] = fb_actions.goto_parent_dir,
+          ["<C-h>"] = fb_actions.goto_parent_dir,
+          ["<C-BS>"] = fb_actions.goto_parent_dir,
           ["e"] = fb_actions.goto_home_dir,
           ["w"] = fb_actions.goto_cwd,
           ["t"] = fb_actions.change_cwd,
@@ -537,9 +540,6 @@ vim.lsp.config.rust_analyzer = {
                 disabled = {
                     "unresolved-proc-macro",
                 },
-            },
-            cargo = {
-                -- features = "all",
             },
             lru = {
                 capacity = 256
