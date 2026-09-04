@@ -4,6 +4,8 @@ local RPC_FRAME_LIMIT = 1024 * 1024
 local DEBUG_WIDTH = 52
 local EDIT_MODEL = "openrouter/~deepseek/deepseek-v4-flash-latest:nitro"
 local EDIT_MODEL_LABEL = "DeepSeek V4 Flash · Nitro"
+local MODULE_DIR = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h")
+local EDIT_CONFIG = MODULE_DIR .. "/omp-edit-config.yml"
 
 local state = {
     popup_buf = nil,
@@ -33,6 +35,7 @@ local state = {
     tool_calls = {},
     setup_done = false,
 }
+local terminate_session
 
 local function valid_buf(buf)
     return buf ~= nil and vim.api.nvim_buf_is_valid(buf)
@@ -674,6 +677,7 @@ local function handle_frame(generation, frame)
             end
         end
         finish_request(state.aborting and "stopped" or "done")
+        terminate_session(true)
     end
 end
 
@@ -730,7 +734,7 @@ local function process_exited(generation, result)
     end
 end
 
-local function terminate_session()
+terminate_session = function(graceful)
     local process = state.process
     state.process_generation = state.process_generation + 1
     state.process = nil
@@ -739,7 +743,11 @@ local function terminate_session()
     state.stdout = ""
     state.stderr = ""
     if process ~= nil then
-        pcall(process.kill, process, 15)
+        if graceful then
+            pcall(process.write, process, nil)
+        else
+            pcall(process.kill, process, 15)
+        end
     end
 end
 
@@ -770,9 +778,10 @@ local function spawn_session(root)
         "--no-session",
         "--no-title",
         "--no-prewalk",
+        "--config", EDIT_CONFIG,
         "--model", EDIT_MODEL,
         "--thinking", "off",
-        "--tools", "read,grep,glob,lsp,edit,write,bash",
+        "--tools", "edit",
     }
     local ok, process = pcall(vim.system, command, {
         cwd = root,
