@@ -2,8 +2,8 @@ local M = {}
 
 local RPC_FRAME_LIMIT = 1024 * 1024
 local DEBUG_WIDTH = 52
-local EDIT_MODEL = "openai-codex/gpt-5.6-luna"
-local EDIT_MODEL_LABEL = "5.6 Luna"
+local EDIT_MODEL = "openrouter/~deepseek/deepseek-v4-flash-latest:nitro"
+local EDIT_MODEL_LABEL = "DeepSeek V4 Flash · Nitro"
 
 local state = {
     popup_buf = nil,
