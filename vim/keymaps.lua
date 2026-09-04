@@ -97,5 +97,5 @@ maplua('gw', 'vim.diagnostic.open_float()')
 nmap('<leader>h', ':lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>')
 nmap('<leader>bt', ':BugReportTemplate list<CR>')
 
-vim.cmd('set mouse=')
+vim.opt.mouse = "a"
 
