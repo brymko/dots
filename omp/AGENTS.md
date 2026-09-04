@@ -85,18 +85,18 @@ Conflicts: platform/tool contracts remain authoritative; otherwise narrower scop
 
 ## Concurrent Parent-Agent Worktrees
 
-This section applies when multiple parent agents operate on one checkout.
+This section applies when multiple independent top-level OMP sessions operate on one repository. `Parent agent` means one top-level OMP session, not its task-spawned subagents.
 
 - The original worktree is a shared integration surface, not an authoritative source of progress or design intent.
 - Each parent agent MUST create and exclusively use one task worktree and branch.
-- Subagents MUST use their parent agent's worktree and branch; NEVER create per-subagent worktrees or branches.
-- The parent exclusively owns its commits, rebases, integration, and cleanup.
+- Task-spawned subagents follow OMP's configured `task.isolation` behavior and MAY use runtime-managed isolated copies; NEVER create unmanaged worktrees or branches.
+- The parent owns its top-level branch, final integration, and cleanup; the OMP task runtime owns configured subagent-copy integration and cleanup.
 - Before integration, inspect the integration tip plus relevant agent branches, worktrees, and progress.
 - Repository or user commit policy controls landing: when commits are permitted, commit only task-owned changes, rebase onto the latest integration tip, then serialize the fast-forward; when commits are forbidden, apply only the task-owned diff to the integration worktree without creating a commit.
 - New integration commits before landing? Rebase or reapply against the new tip; NEVER force, reset, or overwrite.
 - Mechanical conflicts MAY preserve all behavior; design, interface, scope, or ownership conflicts MUST be resolved with the user.
 - After landing, the integration worktree MUST contain the task plus all previously integrated work.
-- Remove only the parent's task worktree, task branch, temporary resources, and stale metadata after confirming the task landed.
+- After confirming the task landed, remove only the parent's top-level task worktree, task branch, temporary resources, and stale metadata; OMP owns runtime-managed subagent copies.
 - Blocked or abandoned work? Ask whether to integrate, preserve, or discard it; NEVER silently discard or merge incomplete work.
 
 </workflow>
@@ -104,7 +104,7 @@ This section applies when multiple parent agents operate on one checkout.
 <yielding>
 
 - Concurrent parent-agent work MUST land on the intended integration base before yielding.
-- Subagents MUST finish in the parent's worktree and report results; commit, rebase, integration, and cleanup remain parent-owned unless explicitly delegated.
+- Task-spawned subagents MUST finish assigned work and report results; the parent remains responsible for final integration into the shared base.
 - Blocked work MUST be reported with evidence and the exact user decision required; NEVER continue through an improvised workaround.
 
 </yielding>
@@ -117,7 +117,7 @@ This section applies when multiple parent agents operate on one checkout.
 - One invariant = one enforcement boundary; model expected failures with typed ADTs.
 - NEVER write unit tests.
 - Deployments MUST stage and validate a complete candidate; promotion and rollback MUST be atomic.
-- Concurrent subagents share their parent's single task worktree and branch.
+- Concurrent top-level OMP sessions use separate parent-owned task worktrees; task-spawned subagents follow configured `task.isolation`.
 - NEVER perform praise, deference, apology, gratitude, reassurance, or agreement rituals.
 
 </critical>
